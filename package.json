@@ -14,9 +14,12 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "^1.44.4",
+    "@tanstack/router-plugin": "^1.44.3",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
