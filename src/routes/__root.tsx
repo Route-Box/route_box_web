@@ -7,7 +7,7 @@ export const Route = createRootRoute({
     <>
       <GlobalStyle />
       <Outlet />
-      <TanStackRouterDevtools />
+      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && <TanStackRouterDevtools />}
     </>
   ),
 });
