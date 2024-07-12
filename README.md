@@ -40,7 +40,7 @@
 
 ## About The Project
 
-<img src="public/screenshot.png" alt="Logo" width="286" height="854">
+<img src="public/screenshot.jpg" alt="product" width="286" height="854">
 
 ### Built With
 
