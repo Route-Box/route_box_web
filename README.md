@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://www.alycehealth.com/">
-    <img src="public/character.png" alt="Logo" width="100" height="100">
+    <img src="public/character.png" alt="Logo" width="100" height="170">
   </a>
 
   <h3 align="center">Route Box 루트박스</h3>
@@ -40,7 +40,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="public/screenshot.png" alt="Logo" width="286" height="854">
 
 ### Built With
 
