@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
-import { sum } from './sum';
+import { sum } from '../src/sum';
 
-test('1 더하기 2는 3이다.', () => {
+test('add 1+ 2 is 3', () => {
   expect(sum(1, 2)).toBe(3);
 });
