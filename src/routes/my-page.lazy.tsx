@@ -1,3 +1,4 @@
+import SubComponent from '@/components/my-page/SubComponent';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
@@ -8,9 +9,7 @@ export const Route = createLazyFileRoute('/my-page')({
 function MyPage() {
   return (
     <DefaultLayout>
-      <div className="p-2">
-        <h3>Welcome MyPage!</h3>
-      </div>
+      <SubComponent title="마이페이지" />
     </DefaultLayout>
   );
 }
