@@ -34,6 +34,8 @@ const Frame = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-top: 2.13rem;
+  margin-bottom: 3.75rem;
 `;
 
 const Content = styled.div`

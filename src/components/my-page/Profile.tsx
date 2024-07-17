@@ -25,8 +25,6 @@ const Profile: React.FC = () => {
 
 const Frame = styled.div`
   width: 100%;
-  margin-top: 1.25rem;
-  margin-bottom: 2.13rem;
   color: var(--Gray1_, #333);
   border-bottom: 0.0625rem solid var(--Gray6_disable-btn-bg, #f2f2f2);
 `;
