@@ -1,6 +1,8 @@
+import Profile from '@/components/my-page/Profile';
 import SubComponent from '@/components/my-page/SubComponent';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
+import styled from 'styled-components';
 
 export const Route = createLazyFileRoute('/my-page')({
   component: MyPage,
@@ -9,7 +11,16 @@ export const Route = createLazyFileRoute('/my-page')({
 function MyPage() {
   return (
     <DefaultLayout>
-      <SubComponent title="마이페이지" />
+      <Frame>
+        {/* <SubComponent title="마이페이지" /> */}
+        <Profile />
+      </Frame>
     </DefaultLayout>
   );
 }
+
+const Frame = styled.div`
+  padding-left: 1.37rem;
+  padding-right: 1.37rem;
+  background: var(--White, #fff);
+`;
