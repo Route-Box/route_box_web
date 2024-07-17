@@ -1,5 +1,6 @@
 import Profile from '@/components/my-page/Profile';
 import SubComponent from '@/components/my-page/SubComponent';
+import Taste from '@/components/my-page/Taste';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ function MyPage() {
       <Frame>
         {/* <SubComponent title="마이페이지" /> */}
         <Profile />
+        <Taste />
       </Frame>
     </DefaultLayout>
   );
