@@ -26,7 +26,8 @@ html, body, div, span, applet, object, iframe,
   }
 
 html {
-    font-size: 62.5%;   // 1rem = 10px 로 변경 한 것
+    /* font-size: 62.5%;   // 1rem = 10px 로 변경 한 것 */
+    font-size: 100%;
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; 
 }
 `;
