@@ -46,7 +46,6 @@ export const RouteBoxItem: React.FC<RouteBoxItemProps> = ({
 const Frame = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -64,12 +63,14 @@ const RouteImg = styled.img`
 
 const Content = styled.div`
   display: flex;
+  flex: 1;
+  min-width: 0;
   flex-direction: column;
 `;
 
 const Title = styled.div`
   display: inline-block;
-  max-width: 19ch;
+  width: 100%; /* 부모 요소에 맞춰 유동적으로 조정 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -81,7 +82,6 @@ const Title = styled.div`
 
 const Preview = styled.div`
   display: inline-block;
-  max-width: 19ch;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,5 +125,5 @@ const Date = styled.div`
 const MoreImg = styled.img`
   width: 1.5rem;
   height: 1.5rem;
-  margin-left: auto;
+  margin-left: 1.88rem;
 `;

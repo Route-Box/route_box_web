@@ -23,6 +23,7 @@ function MyPage() {
 
 const Frame = styled.div`
   width: 100%;
+  // min-width: 375px;
   height: 100%;
   padding: 1.25rem 1.37rem;
   box-sizing: border-box;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubComponent from './SubComponent';
+import SubComponentTitle from './SubComponentTitle';
 
 const Taste: React.FC = () => {
   const userName = '고작가';
@@ -9,7 +9,7 @@ const Taste: React.FC = () => {
 
   return (
     <Frame>
-      <SubComponent title={`${userName}의 취향은`} />
+      <SubComponentTitle title={`${userName}의 취향은`} />
       <Content>
         <Detail>
           <HashTag>

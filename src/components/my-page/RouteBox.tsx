@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubComponent from './SubComponent';
+import SubComponentTitle from './SubComponentTitle';
 import { RouteBoxItem } from './RouteBoxItem';
 import { routeData } from './Dummy';
 
 const RouteBox: React.FC = () => {
   return (
     <Frame>
-      <SubComponent title="내 박스에 담긴 루트" />
+      <SubComponentTitle title="내 박스에 담긴 루트" />
       <RouteList>
         {routeData.map((route, index) => (
           <RouteBoxItem
