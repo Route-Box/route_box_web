@@ -22,7 +22,9 @@ function MyPage() {
 }
 
 const Frame = styled.div`
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding: 1.25rem 1.37rem;
+  box-sizing: border-box;
   background: var(--White, #fff);
 `;
