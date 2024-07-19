@@ -1,5 +1,3 @@
-// import AppHeader from "../components/Header/main";
-
 import { standardViewportWidth } from '@/components/styles';
 import styled from 'styled-components';
 
@@ -15,12 +13,12 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: ${standardViewportWidth}; */
   width: 100%;
+  /* width: ${standardViewportWidth}; */
+  margin: 0 auto;
   height: 100vh;
   font-family: 'Pretendard';
   overflow: auto;
-  background-color: aliceblue;
 `;
 
 export default DefaultLayout;

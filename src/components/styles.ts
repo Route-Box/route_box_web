@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import '../index.css';
 
-export const standardViewportWidth = `37.5rem`;
+export const standardViewportWidth = `23.5rem`; // 375px
 
 export const GlobalStyle = createGlobalStyle`
 /* CSS Reset */
