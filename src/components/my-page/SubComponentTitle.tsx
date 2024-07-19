@@ -5,7 +5,7 @@ interface SubComponentProps {
   title: string;
 }
 
-const SubComponent: React.FC<SubComponentProps> = ({ title }: SubComponentProps) => {
+const SubComponentTitle: React.FC<SubComponentProps> = ({ title }: SubComponentProps) => {
   return (
     <Frame>
       <Title>{title}</Title>
@@ -27,4 +27,4 @@ const Title = styled.div`
   line-height: 1.875rem; /* 150% */
 `;
 
-export default SubComponent;
+export default SubComponentTitle;
