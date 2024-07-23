@@ -6,7 +6,6 @@ const Header = () => {
   return (
     <Container>
       <LogoImage src={LogoImageBase} alt="logo" />
-
       <img src={AlarmBase} alt="alarm" />
     </Container>
   );
@@ -24,7 +23,7 @@ const Container = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 102px;
+  width: 6.357rem;
   height: auto;
 `;
 

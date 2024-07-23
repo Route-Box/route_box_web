@@ -1,4 +1,4 @@
-import { standardViewportWidth } from '@/components/styles';
+import { standardViewportWidth } from '@/styles';
 import styled from 'styled-components';
 
 interface DefaultLayoutProps {
