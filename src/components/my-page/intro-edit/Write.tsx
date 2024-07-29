@@ -1,15 +1,23 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const Write: React.FC = () => {
+interface WriteProps {
+  onInputChange: (value: string) => void;
+}
+
+const Write: React.FC<WriteProps> = ({ onInputChange }) => {
   const [inputValue, setInputValue] = useState('');
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+    onInputChange(e.target.value);
+  };
 
   return (
     <Frame>
       <IntroWrite
         placeholder="한 줄 소개를 작성해주세요"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={handleInputChange}
         maxLength={25}
       />
       <Char>
