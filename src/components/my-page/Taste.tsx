@@ -71,6 +71,7 @@ const HashTag = styled.div`
   font-weight: 700;
   line-height: 140%; /* 1.225rem */
   margin-right: 0.38rem;
+  white-space: nowrap;
 `;
 
 export default Taste;
