@@ -18,6 +18,7 @@ import { Route as rootRoute } from './routes/__root'
 
 const MyPageLazyImport = createFileRoute('/my-page')()
 const IndexLazyImport = createFileRoute('/')()
+const MyPageIntroEditLazyImport = createFileRoute('/my-page/intro-edit')()
 
 // Create/Update Routes
 
@@ -30,6 +31,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const MyPageIntroEditLazyRoute = MyPageIntroEditLazyImport.update({
+  path: '/intro-edit',
+  getParentRoute: () => MyPageLazyRoute,
+} as any).lazy(() =>
+  import('./routes/my-page/intro-edit.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -49,6 +57,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyPageLazyImport
       parentRoute: typeof rootRoute
     }
+    '/my-page/intro-edit': {
+      id: '/my-page/intro-edit'
+      path: '/intro-edit'
+      fullPath: '/my-page/intro-edit'
+      preLoaderRoute: typeof MyPageIntroEditLazyImport
+      parentRoute: typeof MyPageLazyImport
+    }
   }
 }
 
@@ -56,7 +71,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  MyPageLazyRoute,
+  MyPageLazyRoute: MyPageLazyRoute.addChildren({ MyPageIntroEditLazyRoute }),
 })
 
 /* prettier-ignore-end */
@@ -75,7 +90,14 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "index.lazy.tsx"
     },
     "/my-page": {
-      "filePath": "my-page.lazy.tsx"
+      "filePath": "my-page.lazy.tsx",
+      "children": [
+        "/my-page/intro-edit"
+      ]
+    },
+    "/my-page/intro-edit": {
+      "filePath": "my-page/intro-edit.lazy.tsx",
+      "parent": "/my-page"
     }
   }
 }
