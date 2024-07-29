@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import styled from 'styled-components';
 import profile from '../../assets/profile.svg';
 import introductionEdit from '../../assets/introduction_edit.svg';
 
 const Profile: React.FC = () => {
+  const navigate = useNavigate();
   const userName = '고작가';
   const rootNum = 5;
   const introduction = '안녕하세요. 고작가입니다. 책을 읽고 쓰는 것을 좋아합니다.';
@@ -17,7 +19,11 @@ const Profile: React.FC = () => {
       </Route>
       <Introduction>
         {introduction}
-        <IntroductionEdit src={introductionEdit} alt="edit" />
+        <IntroductionEdit
+          src={introductionEdit}
+          alt="edit"
+          onClick={() => navigate({ to: '/my-page/intro-edit' })}
+        />
       </Introduction>
     </Frame>
   );
