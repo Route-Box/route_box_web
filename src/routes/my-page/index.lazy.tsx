@@ -5,7 +5,7 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import styled from 'styled-components';
 
-export const Route = createLazyFileRoute('/my-page')({
+export const Route = createLazyFileRoute('/my-page/')({
   component: MyPage,
 });
 
