@@ -26,6 +26,9 @@ function IntroEdit() {
 }
 
 const Frame = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 1.25rem 1.37rem;

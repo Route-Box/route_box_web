@@ -15,7 +15,6 @@ const Btn = styled.div<{ isActive: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  flex-shrink: 0;
   border-radius: 2.5rem;
   background: ${({ isActive }) =>
     isActive ? 'var(--main-color, #21C8B6)' : 'var(--Gray6_disable-btn-bg, #f2f2f2)'};

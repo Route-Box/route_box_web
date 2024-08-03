@@ -38,7 +38,6 @@ const Frame = styled.div`
 const ProfileImg = styled.img`
   width: 4.25rem;
   height: 4.25rem;
-  flex-shrink: 0;
 `;
 
 const UserName = styled.div`
