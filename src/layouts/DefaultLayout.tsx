@@ -1,4 +1,4 @@
-import { standardViewportWidth } from '@/styles';
+import { standardViewportWidth } from '@/components/styles';
 import styled from 'styled-components';
 
 interface DefaultLayoutProps {
@@ -13,6 +13,7 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   /* width: ${standardViewportWidth}; */
   margin: 0 auto;
