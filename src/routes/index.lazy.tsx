@@ -1,4 +1,8 @@
-import SubHomeComponent from '@/components/home/SubHomeComponent';
+import Header from '@/components/home/Header';
+import InfoCard from '@/components/home/InfoCard';
+import PopularRoutesSection from '@/components/home/PopularRoutesSection';
+import RecommendedRoutesSection from '@/components/home/RecommendedRoutesSection';
+import TravelSection from '@/components/home/TravelSection';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
@@ -9,7 +13,11 @@ export const Route = createLazyFileRoute('/')({
 function Index() {
   return (
     <DefaultLayout>
-      <SubHomeComponent title="홈화면" />
+      <Header />
+      <InfoCard />
+      <TravelSection />
+      <RecommendedRoutesSection />
+      <PopularRoutesSection />
     </DefaultLayout>
   );
 }
