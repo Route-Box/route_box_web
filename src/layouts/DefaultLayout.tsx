@@ -15,9 +15,9 @@ const Root = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* width: ${standardViewportWidth}; */
+  width: ${standardViewportWidth};
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   font-family: 'Pretendard';
   overflow: auto;
 `;
