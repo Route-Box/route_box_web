@@ -16,11 +16,17 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const NotificationLazyImport = createFileRoute('/notification')()
 const IndexLazyImport = createFileRoute('/')()
 const MyPageIndexLazyImport = createFileRoute('/my-page/')()
 const MyPageIntroEditLazyImport = createFileRoute('/my-page/intro-edit')()
 
 // Create/Update Routes
+
+const NotificationLazyRoute = NotificationLazyImport.update({
+  path: '/notification',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/notification.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -50,6 +56,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/notification': {
+      id: '/notification'
+      path: '/notification'
+      fullPath: '/notification'
+      preLoaderRoute: typeof NotificationLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/my-page/intro-edit': {
       id: '/my-page/intro-edit'
       path: '/my-page/intro-edit'
@@ -71,6 +84,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  NotificationLazyRoute,
   MyPageIntroEditLazyRoute,
   MyPageIndexLazyRoute,
 })
@@ -84,12 +98,16 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/notification",
         "/my-page/intro-edit",
         "/my-page/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/notification": {
+      "filePath": "notification.lazy.tsx"
     },
     "/my-page/intro-edit": {
       "filePath": "my-page/intro-edit.lazy.tsx"

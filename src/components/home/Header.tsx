@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import styled from 'styled-components';
 import LogoImageBase from '@/assets/png/logo-route-box.png';
 import AlarmBase from '@/assets/svg/alarm.svg';
@@ -6,7 +7,9 @@ const Header = () => {
   return (
     <Container>
       <LogoImage src={LogoImageBase} alt="logo" />
-      <img src={AlarmBase} alt="alarm" />
+      <Link to="/notification">
+        <img src={AlarmBase} alt="alarm" />
+      </Link>
     </Container>
   );
 };
