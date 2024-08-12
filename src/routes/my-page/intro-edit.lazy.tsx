@@ -1,4 +1,4 @@
-import DoneBtn from '@/components/my-page/intro-edit/DoneBtn';
+import SaveBtn from '@/components/common/SaveBtn';
 import Write from '@/components/my-page/intro-edit/Write';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
@@ -19,7 +19,7 @@ function IntroEdit() {
     <DefaultLayout>
       <Frame>
         <Write onInputChange={handleInputChange} />
-        <DoneBtn isActive={inputValue.trim().length > 0} />
+        <SaveBtn isActive={inputValue.trim().length > 0} text="완료" />
       </Frame>
     </DefaultLayout>
   );
@@ -30,7 +30,7 @@ const Frame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 1.25rem 1.37rem;
   box-sizing: border-box;
   background: var(--White, #fff);

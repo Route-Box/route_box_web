@@ -37,8 +37,6 @@ const Container = styled.li<{ isLast: boolean }>`
   line-height: 1.5rem; /* 150% */
   border-bottom: ${({ isLast }) =>
     isLast ? 'none' : '1px solid var(--Gray6_disable-btn-bg, #f2f2f2)'};
-  margin-left: 1.37rem;
-  margin-right: 1.37rem;
 `;
 
 export default SettingListItem;

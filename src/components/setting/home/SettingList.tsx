@@ -27,7 +27,7 @@ const SettingList: React.FC = () => {
 
 const Section = styled.ul`
   width: 100%;
-  /* margin: 0.75rem 1.37rem; */
+  list-style: none;
 `;
 
 export default SettingList;

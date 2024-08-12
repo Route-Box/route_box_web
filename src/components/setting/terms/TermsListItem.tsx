@@ -30,8 +30,6 @@ const Container = styled.li`
   font-style: normal;
   font-weight: 700;
   line-height: 1.5rem; /* 150% */
-  margin-left: 1.38rem;
-  margin-right: 1.38rem;
 `;
 
 const Arrow = styled.img`

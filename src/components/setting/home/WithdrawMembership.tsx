@@ -17,8 +17,6 @@ const Withdraw = styled.section`
   line-height: 1.125rem; /* 150% */
   text-decoration-line: underline;
   text-align: left;
-  margin-left: 1.37rem;
-  margin-right: auto;
 `;
 
 export default WithdrawMembership;

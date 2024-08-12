@@ -21,7 +21,8 @@ const TermsList: React.FC = () => {
 const Container = styled.ul`
   width: 100%;
   margin-top: 0.25rem;
-  /* padding: 0.25rem 1.38rem; */
+  padding: 0.25rem 1.38rem;
+  box-sizing: border-box;
 `;
 
 export default TermsList;

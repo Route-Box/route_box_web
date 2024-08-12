@@ -11,16 +11,17 @@ export const Route = createLazyFileRoute('/setting/')({
 function Setting() {
   return (
     <DefaultLayout>
-      {/* <Frame> */}
-      <SettingList />
-      <WithdrawMembership />
-      {/* </Frame> */}
+      <Frame>
+        <SettingList />
+        <WithdrawMembership />
+      </Frame>
     </DefaultLayout>
   );
 }
 
 const Frame = styled.section`
-  width: 90%;
+  width: 100%;
   margin-top: 0.75rem;
-  /* padding: 0.75rem 1.37rem; */
+  padding: 0.75rem 1.37rem;
+  box-sizing: border-box;
 `;
