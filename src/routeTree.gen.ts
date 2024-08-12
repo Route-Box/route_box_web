@@ -18,7 +18,14 @@ import { Route as rootRoute } from './routes/__root'
 
 const NotificationLazyImport = createFileRoute('/notification')()
 const IndexLazyImport = createFileRoute('/')()
+const SettingIndexLazyImport = createFileRoute('/setting/')()
 const MyPageIndexLazyImport = createFileRoute('/my-page/')()
+const SettingTermsLazyImport = createFileRoute('/setting/terms')()
+const SettingSupportLazyImport = createFileRoute('/setting/support')()
+const SettingProfileLazyImport = createFileRoute('/setting/profile')()
+const SettingNotificationsLazyImport = createFileRoute(
+  '/setting/notifications',
+)()
 const MyPageIntroEditLazyImport = createFileRoute('/my-page/intro-edit')()
 
 // Create/Update Routes
@@ -33,10 +40,41 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
+const SettingIndexLazyRoute = SettingIndexLazyImport.update({
+  path: '/setting/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/setting/index.lazy').then((d) => d.Route))
+
 const MyPageIndexLazyRoute = MyPageIndexLazyImport.update({
   path: '/my-page/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/my-page/index.lazy').then((d) => d.Route))
+
+const SettingTermsLazyRoute = SettingTermsLazyImport.update({
+  path: '/setting/terms',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/setting/terms.lazy').then((d) => d.Route))
+
+const SettingSupportLazyRoute = SettingSupportLazyImport.update({
+  path: '/setting/support',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/setting/support.lazy').then((d) => d.Route),
+)
+
+const SettingProfileLazyRoute = SettingProfileLazyImport.update({
+  path: '/setting/profile',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/setting/profile.lazy').then((d) => d.Route),
+)
+
+const SettingNotificationsLazyRoute = SettingNotificationsLazyImport.update({
+  path: '/setting/notifications',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/setting/notifications.lazy').then((d) => d.Route),
+)
 
 const MyPageIntroEditLazyRoute = MyPageIntroEditLazyImport.update({
   path: '/my-page/intro-edit',
@@ -70,11 +108,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyPageIntroEditLazyImport
       parentRoute: typeof rootRoute
     }
+    '/setting/notifications': {
+      id: '/setting/notifications'
+      path: '/setting/notifications'
+      fullPath: '/setting/notifications'
+      preLoaderRoute: typeof SettingNotificationsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/setting/profile': {
+      id: '/setting/profile'
+      path: '/setting/profile'
+      fullPath: '/setting/profile'
+      preLoaderRoute: typeof SettingProfileLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/setting/support': {
+      id: '/setting/support'
+      path: '/setting/support'
+      fullPath: '/setting/support'
+      preLoaderRoute: typeof SettingSupportLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/setting/terms': {
+      id: '/setting/terms'
+      path: '/setting/terms'
+      fullPath: '/setting/terms'
+      preLoaderRoute: typeof SettingTermsLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/my-page/': {
       id: '/my-page/'
       path: '/my-page'
       fullPath: '/my-page'
       preLoaderRoute: typeof MyPageIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/setting/': {
+      id: '/setting/'
+      path: '/setting'
+      fullPath: '/setting'
+      preLoaderRoute: typeof SettingIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -86,7 +159,12 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   NotificationLazyRoute,
   MyPageIntroEditLazyRoute,
+  SettingNotificationsLazyRoute,
+  SettingProfileLazyRoute,
+  SettingSupportLazyRoute,
+  SettingTermsLazyRoute,
   MyPageIndexLazyRoute,
+  SettingIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -100,7 +178,12 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/notification",
         "/my-page/intro-edit",
-        "/my-page/"
+        "/setting/notifications",
+        "/setting/profile",
+        "/setting/support",
+        "/setting/terms",
+        "/my-page/",
+        "/setting/"
       ]
     },
     "/": {
@@ -112,8 +195,23 @@ export const routeTree = rootRoute.addChildren({
     "/my-page/intro-edit": {
       "filePath": "my-page/intro-edit.lazy.tsx"
     },
+    "/setting/notifications": {
+      "filePath": "setting/notifications.lazy.tsx"
+    },
+    "/setting/profile": {
+      "filePath": "setting/profile.lazy.tsx"
+    },
+    "/setting/support": {
+      "filePath": "setting/support.lazy.tsx"
+    },
+    "/setting/terms": {
+      "filePath": "setting/terms.lazy.tsx"
+    },
     "/my-page/": {
       "filePath": "my-page/index.lazy.tsx"
+    },
+    "/setting/": {
+      "filePath": "setting/index.lazy.tsx"
     }
   }
 }
