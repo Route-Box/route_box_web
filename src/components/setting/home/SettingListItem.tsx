@@ -25,7 +25,7 @@ const SettingListItem: React.FC<SettingListItemProps> = ({ setting, isLast, to }
   );
 };
 
-const Container = styled.div<{ isLast: boolean }>`
+const Container = styled.li<{ isLast: boolean }>`
   padding: 1.75rem 0;
   color: #000;
   font-feature-settings: 'case' on;

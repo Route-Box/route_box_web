@@ -2,7 +2,7 @@ import React from 'react';
 import SettingListItem from './SettingListItem';
 import styled from 'styled-components';
 
-const SettingList = () => {
+const SettingList: React.FC = () => {
   const settingList = [
     { name: '내 정보 수정', path: '/setting/profile' },
     { name: '알림 설정', path: '/setting/notifications' },
@@ -25,7 +25,7 @@ const SettingList = () => {
   );
 };
 
-const Section = styled.section`
+const Section = styled.ul`
   width: 100%;
   /* margin: 0.75rem 1.37rem; */
 `;
