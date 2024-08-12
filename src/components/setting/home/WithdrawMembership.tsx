@@ -6,7 +6,7 @@ const WithdrawMembership: React.FC = () => {
 };
 
 const Withdraw = styled.section`
-  width: 100%;
+  width: fit-content;
   color: var(--Gray4_disable-text, #96979b);
   font-feature-settings: 'case' on;
   -webkit-text-stroke-color: var(--Gray6_disable-btn-bg, #f2f2f2);
@@ -17,6 +17,8 @@ const Withdraw = styled.section`
   line-height: 1.125rem; /* 150% */
   text-decoration-line: underline;
   text-align: left;
+  margin-left: 1.37rem;
+  margin-right: auto;
 `;
 
 export default WithdrawMembership;
