@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface DoneBtnProps {
+interface SaveBtnProps {
   isActive: boolean;
+  text: string;
 }
 
-const DoneBtn: React.FC<DoneBtnProps> = ({ isActive }) => {
-  return <Btn isActive={isActive}>완료</Btn>;
+const SaveBtn: React.FC<SaveBtnProps> = ({ isActive, text }) => {
+  return <Btn isActive={isActive}>{text}</Btn>;
 };
 
 const Btn = styled.div<{ isActive: boolean }>`
   display: flex;
+  width: 100%;
   height: 3.75rem;
   justify-content: center;
   align-items: center;
@@ -30,4 +32,4 @@ const Btn = styled.div<{ isActive: boolean }>`
   cursor: ${({ isActive }) => (isActive ? 'pointer' : 'default')};
 `;
 
-export default DoneBtn;
+export default SaveBtn;
