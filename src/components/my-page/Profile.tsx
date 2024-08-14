@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import styled from 'styled-components';
-import profile from '../../assets/profile.svg';
-import introductionEdit from '../../assets/introduction_edit.svg';
+import profile from '../../assets/svg/profile.svg';
+import introductionEdit from '../../assets/svg/introduction_edit.svg';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
