@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header/index';
 import SaveBtn from '@/components/common/SaveBtn';
 import Write from '@/components/my-page/intro-edit/Write';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -21,6 +22,7 @@ function IntroEdit() {
 
   return (
     <DefaultLayout>
+      <Header back={true} current="/my-page/intro-edit" go="/my-page" title="한 줄 소개" />
       <Frame>
         <Write onInputChange={handleInputChange} />
         <SaveBtn isActive={inputValue.trim().length > 0} text="완료" onClick={handleClick} />

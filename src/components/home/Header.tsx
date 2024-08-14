@@ -22,6 +22,8 @@ const Container = styled.div`
   height: 64px;
   padding: 0 22px;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
   /* background-color: aquamarine; */
 `;
 
