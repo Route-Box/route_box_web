@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header/index';
 import Profile from '@/components/my-page/Profile';
 import RouteBox from '@/components/my-page/RouteBox';
 import Taste from '@/components/my-page/Taste';
@@ -12,6 +13,7 @@ export const Route = createLazyFileRoute('/my-page/')({
 function MyPage() {
   return (
     <DefaultLayout>
+      <Header back={true} current="/my-page" go="/" title="마이페이지" menu={true} />
       <Frame>
         <Profile />
         <Taste />

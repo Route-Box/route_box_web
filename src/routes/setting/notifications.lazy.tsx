@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header/index';
 import SaveBtn from '@/components/common/SaveBtn';
 import NotificationList from '@/components/setting/notificaiton/NotificationList';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -16,6 +17,7 @@ function Notifications() {
 
   return (
     <DefaultLayout>
+      <Header back={true} current="/setting/notifications" go="/setting" title="알림 설정" />
       <Section>
         <NotificationList />
         <SaveBtn isActive text="저장하기" onClick={handleClick} />

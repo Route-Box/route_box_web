@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header/index';
 import SaveBtn from '@/components/common/SaveBtn';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -21,6 +22,7 @@ function Profile() {
 
   return (
     <DefaultLayout>
+      <Header back={true} title="회원 정보 수정" />
       <Section>
         <ProfileComponents onActiveChange={handleActiveChange} />
         <SaveBtn isActive={isActive} text="저장하기" onClick={handleClick} />

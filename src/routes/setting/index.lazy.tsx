@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header/index';
 import SettingList from '@/components/setting/home/SettingList';
 import WithdrawMembership from '@/components/setting/home/WithdrawMembership';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -11,6 +12,7 @@ export const Route = createLazyFileRoute('/setting/')({
 function Setting() {
   return (
     <DefaultLayout>
+      <Header back={true} current="/setting" go="/" title="설정" />
       <Frame>
         <SettingList />
         <WithdrawMembership />
