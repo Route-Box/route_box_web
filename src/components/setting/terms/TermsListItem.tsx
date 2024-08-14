@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import ArrowRight from '@/assets/svg/arrow_right.svg';
-import { useNavigate } from '@tanstack/react-router';
 
 interface TermsListProps {
   term: string;
-  to: string;
 }
 
-const TermsListItem: React.FC<TermsListProps> = ({ term, to }) => {
-  const navigate = useNavigate();
+const TermsListItem: React.FC<TermsListProps> = ({ term }) => {
   return (
-    <Container onClick={() => navigate({ to })}>
+    <Container>
       {term}
       <Arrow src={ArrowRight} />
     </Container>

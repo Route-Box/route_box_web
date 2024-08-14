@@ -3,16 +3,12 @@ import TermsListItem from './TermsListItem';
 import styled from 'styled-components';
 
 const TermsList: React.FC = () => {
-  const terms = [
-    { name: '이용약관', path: '/setting/terms/service' },
-    { name: '개인정보처리방침', path: '/setting/terms/privacy' },
-    { name: '위치정보이용 약관', path: '/setting/terms/location' },
-  ];
+  const terms = ['이용약관', '개인정보처리방침', '위치정보이용 약관'];
 
   return (
     <Container>
       {terms.map((term, index) => (
-        <TermsListItem key={index} term={term.name} to={term.path} />
+        <TermsListItem key={index} term={term} />
       ))}
     </Container>
   );
