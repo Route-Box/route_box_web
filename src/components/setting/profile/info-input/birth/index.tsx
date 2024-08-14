@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputLabel, InputSection } from '../style';
 import { BirthContainer, BirthSelect } from './style';
 
-export const Birth = () => {
+interface BirthProps {
+  onInputChange: (value: string) => void;
+}
+
+export const Birth: React.FC<BirthProps> = ({ onInputChange }) => {
   const [year, setYear] = useState<string>('');
   const [month, setMonth] = useState<string>('');
   const [day, setDay] = useState<string>('');
@@ -10,6 +14,13 @@ export const Birth = () => {
   const years = Array.from({ length: 100 }, (_, i) => `${2024 - i}`);
   const months = Array.from({ length: 12 }, (_, i) => `${i + 1}`);
   const days = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
+
+  useEffect(() => {
+    if (year && month && day) {
+      onInputChange(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+    }
+  }, [year, month, day, onInputChange]);
+
   return (
     <InputSection>
       <InputLabel>생년월일</InputLabel>

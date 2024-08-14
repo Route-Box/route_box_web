@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { GenderContainer, GenderSelect, GenderType } from './style';
 import { InputLabel } from '../style';
+import { g } from 'vitest/dist/suite-BWgaIsVn';
 
-export const Gender: React.FC = () => {
+interface GenderProps {
+  onInputChange: (value: string) => void;
+}
+
+export const Gender: React.FC<GenderProps> = ({ onInputChange }) => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   const handleSelect = (gender: string) => {
     setSelectedGender(gender);
+    onInputChange(gender);
   };
 
   return (
