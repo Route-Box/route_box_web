@@ -54,6 +54,7 @@ const IntroWrite = styled.textarea`
     color: var(--gray-3-placeholder-text, #70747e);
   }
   outline: none;
+  resize: none;
 `;
 
 const Char = styled.div`

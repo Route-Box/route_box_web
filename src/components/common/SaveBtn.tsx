@@ -1,16 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface DoneBtnProps {
+interface SaveBtnProps {
   isActive: boolean;
+  text: string;
+  onClick: () => void;
 }
 
-const DoneBtn: React.FC<DoneBtnProps> = ({ isActive }) => {
-  return <Btn isActive={isActive}>완료</Btn>;
+const SaveBtn: React.FC<SaveBtnProps> = ({ isActive, text, onClick }) => {
+  return (
+    <Btn isActive={isActive} onClick={onClick} aria-disabled={!isActive}>
+      {text}
+    </Btn>
+  );
 };
 
 const Btn = styled.div<{ isActive: boolean }>`
   display: flex;
+  width: 100%;
   height: 3.75rem;
   justify-content: center;
   align-items: center;
@@ -22,7 +29,6 @@ const Btn = styled.div<{ isActive: boolean }>`
     isActive ? 'var(--White, #FFF)' : 'var(--Gray4_disable-text, #96979b)'};
   text-align: center;
   font-feature-settings: 'case' on;
-  font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
   font-weight: 700;
@@ -30,4 +36,4 @@ const Btn = styled.div<{ isActive: boolean }>`
   cursor: ${({ isActive }) => (isActive ? 'pointer' : 'default')};
 `;
 
-export default DoneBtn;
+export default SaveBtn;
