@@ -4,10 +4,15 @@ import styled from 'styled-components';
 interface SaveBtnProps {
   isActive: boolean;
   text: string;
+  onClick: () => void;
 }
 
-const SaveBtn: React.FC<SaveBtnProps> = ({ isActive, text }) => {
-  return <Btn isActive={isActive}>{text}</Btn>;
+const SaveBtn: React.FC<SaveBtnProps> = ({ isActive, text, onClick }) => {
+  return (
+    <Btn isActive={isActive} onClick={onClick} aria-disabled={!isActive}>
+      {text}
+    </Btn>
+  );
 };
 
 const Btn = styled.div<{ isActive: boolean }>`
@@ -24,7 +29,6 @@ const Btn = styled.div<{ isActive: boolean }>`
     isActive ? 'var(--White, #FFF)' : 'var(--Gray4_disable-text, #96979b)'};
   text-align: center;
   font-feature-settings: 'case' on;
-  font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
   font-weight: 700;

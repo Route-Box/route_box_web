@@ -1,7 +1,7 @@
 import SaveBtn from '@/components/common/SaveBtn';
 import Write from '@/components/my-page/intro-edit/Write';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -10,16 +10,20 @@ export const Route = createLazyFileRoute('/my-page/intro-edit')({
 });
 
 function IntroEdit() {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState('');
   const handleInputChange = (value: string) => {
     setInputValue(value);
+  };
+  const handleClick = () => {
+    navigate({ from: '/my-page/intro-edit', to: '/my-page' });
   };
 
   return (
     <DefaultLayout>
       <Frame>
         <Write onInputChange={handleInputChange} />
-        <SaveBtn isActive={inputValue.trim().length > 0} text="완료" />
+        <SaveBtn isActive={inputValue.trim().length > 0} text="완료" onClick={handleClick} />
       </Frame>
     </DefaultLayout>
   );
@@ -30,7 +34,7 @@ const Frame = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 100vh;
+  height: calc(100dvh - 4rem);
   padding: 1.25rem 1.37rem;
   box-sizing: border-box;
   background: var(--White, #fff);

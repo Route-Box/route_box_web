@@ -1,7 +1,7 @@
 import SaveBtn from '@/components/common/SaveBtn';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -10,16 +10,20 @@ export const Route = createLazyFileRoute('/setting/profile')({
 });
 
 function Profile() {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const handleActiveChange = (active: boolean) => {
     setIsActive(active);
+  };
+  const handleClick = () => {
+    navigate({ from: '/setting/profile', to: '/setting' });
   };
 
   return (
     <DefaultLayout>
       <Section>
         <ProfileComponents onActiveChange={handleActiveChange} />
-        <SaveBtn isActive={isActive} text="저장하기" />
+        <SaveBtn isActive={isActive} text="저장하기" onClick={handleClick} />
       </Section>
     </DefaultLayout>
   );

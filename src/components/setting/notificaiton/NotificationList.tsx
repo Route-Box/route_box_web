@@ -19,9 +19,8 @@ const NotificationList: React.FC = () => {
 
 const Container = styled.ul`
   width: 100%;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  /* align-items: flex-start; */
   gap: 2rem;
   margin-top: 1.25rem;
 `;
