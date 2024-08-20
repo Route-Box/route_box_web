@@ -1,4 +1,4 @@
-import Header from '@/components/common/Header';
+import { Header } from '@/components/common/header/index';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import NotificationList from '@/components/notification/NotificationList';
@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/notification')({
 function Notification() {
   return (
     <DefaultLayout>
-      <Header title="알림" closeButton />
+      <Header close={true} current="/notification" go="/" title="한 줄 소개" />
       <NotificationList />
     </DefaultLayout>
   );

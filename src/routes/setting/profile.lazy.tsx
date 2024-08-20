@@ -1,37 +1,37 @@
 import { Header } from '@/components/common/header/index';
 import SaveBtn from '@/components/common/SaveBtn';
-import Write from '@/components/my-page/intro-edit/Write';
+import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export const Route = createLazyFileRoute('/my-page/intro-edit')({
-  component: IntroEdit,
+export const Route = createLazyFileRoute('/setting/profile')({
+  component: Profile,
 });
 
-function IntroEdit() {
+function Profile() {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState('');
-  const handleInputChange = (value: string) => {
-    setInputValue(value);
+  const [isActive, setIsActive] = useState(false);
+  const handleActiveChange = (active: boolean) => {
+    setIsActive(active);
   };
   const handleClick = () => {
-    navigate({ from: '/my-page/intro-edit', to: '/my-page' });
+    navigate({ from: '/setting/profile', to: '/setting' });
   };
 
   return (
     <DefaultLayout>
-      <Header back={true} current="/my-page/intro-edit" go="/my-page" title="한 줄 소개" />
-      <Frame>
-        <Write onInputChange={handleInputChange} />
-        <SaveBtn isActive={inputValue.trim().length > 0} text="완료" onClick={handleClick} />
-      </Frame>
+      <Header back={true} title="회원 정보 수정" />
+      <Section>
+        <ProfileComponents onActiveChange={handleActiveChange} />
+        <SaveBtn isActive={isActive} text="저장하기" onClick={handleClick} />
+      </Section>
     </DefaultLayout>
   );
 }
 
-const Frame = styled.div`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

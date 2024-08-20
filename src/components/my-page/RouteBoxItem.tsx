@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import routeImg from '../../assets/route.svg';
-import likeIcon from '../../assets/like.svg';
-import commentIcon from '../../assets/comment.svg';
-import more from '../../assets/more_btn.svg';
+import routeImg from '../../assets/svg/route.svg';
+import likeIcon from '../../assets/svg/like.svg';
+import commentIcon from '../../assets/svg/comment.svg';
+import more from '../../assets/svg/more_btn.svg';
 
 interface RouteBoxItemProps {
   title: string;
