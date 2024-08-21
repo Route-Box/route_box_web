@@ -5,35 +5,33 @@ import ImageCard from './ImageCard';
 import SampleImageBase from '@/assets/png/sample-image.png';
 import { MarginDiv } from '@/styles';
 import HorizontalScroll from '../common/HorizontalScroll';
+import { useQuery } from '@tanstack/react-query';
+import { RecommendRoutesResponse } from '@/api/home/types';
+import { homeService } from '@/api/home/homeService';
+import Loader from '../common/Loader';
 
 const RecommendedRoutesSection = () => {
-  return (
+  const { data, isLoading } = useQuery<RecommendRoutesResponse>({
+    queryKey: ['recommendRoutes'],
+    queryFn: homeService.getRecommendRoutes,
+  });
+
+  return isLoading ? (
+    <Loader fullScreen />
+  ) : (
     <Container>
-      <SubSectionTitle content="따뜻한 6월엔 여기로 데이트 어때요?" />
+      <SubSectionTitle content={data?.comment ?? ''} />
       <SectionTitle content="오늘의 추천 루트" isArrow />
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <ImageCards>
-          <ImageCard
-            imageSrc={SampleImageBase}
-            title="경주 200% 즐기는 법"
-            description="루트 간략 설명이 들어가는"
-          />
-          <ImageCard
-            imageSrc={SampleImageBase}
-            title="경주 200% 즐기는 법"
-            description="루트 간략 설명이 들어가는"
-          />
-          <ImageCard
-            imageSrc={SampleImageBase}
-            title="경주 200% 즐기는 법"
-            description="루트 간략 설명이 들어가는"
-          />
-          <ImageCard
-            imageSrc={SampleImageBase}
-            title="경주 200% 즐기는 법"
-            description="루트 간략 설명이 들어가는"
-          />
+          {data?.routes.map((imgCard) => (
+            <ImageCard
+              imageSrc={imgCard.routeImageUrl}
+              title={imgCard.routeName}
+              description={imgCard.routeDescription}
+            />
+          ))}
         </ImageCards>
       </HorizontalScroll>
     </Container>
