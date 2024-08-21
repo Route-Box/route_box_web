@@ -1,8 +1,8 @@
 import React from 'react';
-import FlexBox from '@/components/common/flex-box';
 import profile from '@/assets/svg/profile.svg';
 import upload from '@/assets/svg/profile_image_upload.svg';
 import { UploadBtn } from './style';
+import FlexBox from '@/components/common/flex-box';
 
 export const ProfileImg: React.FC = () => {
   return (

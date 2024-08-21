@@ -1,8 +1,8 @@
-import FlexBox from '@/components/common/flex-box';
 import React, { useEffect, useState } from 'react';
 import { Nickname } from './nickname';
 import { Birth } from './birth';
 import { Gender } from './gender';
+import FlexBox from '@/components/common/flex-box';
 
 interface ProfileInfoProps {
   onActiveChange: (isActive: boolean) => void;

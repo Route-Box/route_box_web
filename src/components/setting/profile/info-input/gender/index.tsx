@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { GenderContainer, GenderSelect, GenderType } from './style';
 import { InputLabel } from '../style';
-import { g } from 'vitest/dist/suite-BWgaIsVn';
 
 interface GenderProps {
   onInputChange: (value: string) => void;
