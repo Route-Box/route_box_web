@@ -4,19 +4,29 @@ import SectionTitle from './SectionTitle';
 import { MarginDiv } from '@/styles';
 import HorizontalScroll from '../common/HorizontalScroll';
 import SimpleCard from './SimpleCard';
+import { PopularRoutesResponse } from '@/api/home/types';
+import { useQuery } from '@tanstack/react-query';
+import { homeService } from '@/api/home/homeService';
+import Loader from '../common/Loader';
 
 const PopularRoutesSection = () => {
-  return (
+  const { data, isLoading } = useQuery<PopularRoutesResponse>({
+    queryKey: ['popularRoutes'],
+    queryFn: homeService.getPopularRoutes,
+  });
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Container>
       <SubSectionTitle content="여행 일정, 루트 박스가 대신 짜드립니다" />
       <SectionTitle content="오늘의 인기 루트" isArrow />
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <SimpleCards>
-          <SimpleCard bgColor="#E2F1EC" content={`여자친구에게 칭찬 왕창\n받은 데이트 코스`} />
-          <SimpleCard bgColor="#FDF6EB" content={`6월에 여기 안가면\n후회해요`} />
-          <SimpleCard bgColor="#E2F1EC" content={`여자친구에게 칭찬 왕창\n받은 데이트 코스`} />
-          <SimpleCard bgColor="#FDF6EB" content={`6월에 여기 안가면\n후회해요`} />
+          {data?.routes.map((route) => (
+            <SimpleCard bgColor={route.id % 2 === 0 ? '#E2F1EC' : '#FDF6EB'} content={route.name} />
+          ))}
         </SimpleCards>
       </HorizontalScroll>
     </Container>

@@ -1,9 +1,12 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
+import QueryClientWrapper from './QueryClientWrapper';
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -21,7 +24,10 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <QueryClientWrapper>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </QueryClientWrapper>
     </StrictMode>
   );
 }

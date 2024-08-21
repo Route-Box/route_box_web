@@ -1,5 +1,4 @@
 import FlexBox from '@/components/common/flex-box';
-import React, { useState } from 'react';
 import { ProfileImg } from './profile-img';
 import { ProfileInfo } from './info-input';
 
