@@ -18,7 +18,7 @@ interface NativeMessage {
 
 interface NativeBridge {
   sendMessageToNative: (message: string) => void;
-  receiveMessageFromNative: (callback: (message: string) => void) => void;
+  sendMessageToWebView: (callback: (message: string) => void) => void;
 }
 
 declare global {
@@ -64,9 +64,9 @@ export function useNativeBridge() {
   useEffect(() => {
     const setupNativeCommunication = () => {
       if (window.Android) {
-        window.Android.receiveMessageFromNative(handleReceivedMessage);
+        window.Android.sendMessageToWebView(handleReceivedMessage);
       } else if (window.webkit && window.webkit.messageHandlers.iOS) {
-        window.webkit.messageHandlers.iOS.receiveMessageFromNative(handleReceivedMessage);
+        window.webkit.messageHandlers.iOS.sendMessageToWebView(handleReceivedMessage);
       }
     };
 
