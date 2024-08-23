@@ -59,6 +59,16 @@ export function useNativeBridge() {
   const handleReceivedMessage = useCallback((messageString: string) => {
     try {
       const message: NativeMessage = JSON.parse(messageString);
+
+      if (import.meta.env.VITE_APP_BUILD_ENV !== 'production') {
+        const type = message.type;
+        const payload = message.payload as TokenPayload;
+
+        const printMessage =
+          '네이티브에서 웹으로 값을 전달 받았습니다. :: ' + type + ' :: ' + payload;
+        alert(printMessage);
+      }
+
       switch (message.type) {
         case 'TOKEN':
           setToken((message.payload as TokenPayload).token);
