@@ -1,12 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
 interface SimpleCardProps {
   content: string;
   bgColor: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const SimpleCard = ({ content, bgColor }: SimpleCardProps) => {
+const SimpleCard = ({ content, bgColor, onClick }: SimpleCardProps) => {
   return (
-    <Frame bgColor={bgColor}>
+    <Frame bgColor={bgColor} onClick={onClick}>
       <Title>{content}</Title>
     </Frame>
   );

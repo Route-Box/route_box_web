@@ -1,12 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
 interface ImageButtonProps {
   imageSrc: string;
   content: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const ImageButton = ({ imageSrc, content }: ImageButtonProps) => {
+const ImageButton = ({ imageSrc, content, onClick }: ImageButtonProps) => {
   return (
-    <Frame imageSrc={imageSrc}>
+    <Frame imageSrc={imageSrc} onClick={onClick}>
       <Title>{content}</Title>
     </Frame>
   );
