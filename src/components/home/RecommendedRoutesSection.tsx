@@ -9,12 +9,29 @@ import { useQuery } from '@tanstack/react-query';
 import { RecommendRoutesResponse } from '@/api/home/types';
 import { homeService } from '@/api/home/homeService';
 import Loader from '../common/Loader';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { useCallback } from 'react';
 
 const RecommendedRoutesSection = () => {
   const { data, isLoading } = useQuery<RecommendRoutesResponse>({
     queryKey: ['recommendRoutes'],
     queryFn: homeService.getRecommendRoutes,
   });
+
+  const { sendMessageToNative } = useNativeBridge();
+
+  const handleMoveRoute = useCallback(
+    (_id: number) => {
+      sendMessageToNative({
+        type: 'PAGE_CHANGE',
+        payload: {
+          page: 'route',
+          id: String(_id),
+        },
+      });
+    },
+    [sendMessageToNative]
+  );
 
   return isLoading ? (
     <Loader fullScreen />
@@ -27,6 +44,9 @@ const RecommendedRoutesSection = () => {
         <ImageCards>
           {data?.routes.map((imgCard) => (
             <ImageCard
+              onClick={() => {
+                handleMoveRoute(imgCard.id);
+              }}
               imageSrc={imgCard.routeImageUrl}
               title={imgCard.routeName}
               description={imgCard.routeDescription}
