@@ -44,6 +44,16 @@ export function useNativeBridge() {
     } else {
       console.log('Native bridge not found');
     }
+
+    if (import.meta.env.VITE_APP_BUILD_ENV !== 'production') {
+      const payload = message.payload as PageChangePayload;
+      const page = payload.page;
+      const id = payload.id;
+
+      let printMessage = '브릿지 함수가 실행되었습니다 :: ' + message.type + ' :: ' + page;
+      if (id) printMessage = printMessage + ' :: ' + id;
+      alert(printMessage);
+    }
   }, []);
 
   const handleReceivedMessage = useCallback((messageString: string) => {
