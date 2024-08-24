@@ -1,1 +1,112 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root {
+  --Black_: #161616;
+  --Gray1_: #333333;
+  --Gray2_: #555555;
+  --gray-3-placeholder-text: #70747e;
+  --Gray4_disable-text: #96979b;
+  --Gray5_outline: #d3d3d3;
+  --Gray6_disable-btn-bg: #f2f2f2;
+  --Gray7_bg1: #f9f9f9;
+  --Gray8_bg2: #fcfcfe;
+
+  --White: #ffffff;
+
+  --Dim: #1616164d;
+
+  --Red_warning: #e71f2a;
+  --Red2_Error-bg: #fff9f9;
+
+  --main_gra: linear-gradient(219deg, #75d27e -17.35%, #47c4b6 77.22%);
+  --main-color: #21c8b6;
+  --sub-color: #ff9d9d;
+}
+
+.heading-l {
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+}
+.heading-m {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.heading-s {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+}
+
+.title-xl {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+.title-l {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+}
+.title-m {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.title-s {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.body-b-xl {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+.body-b-l {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+}
+.body-b-m {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.body-b-s {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.body-b-xs {
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+.body-r-xl {
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+}
+.body-r-l {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+}
+.body-r-m {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.body-r-s {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.body-r-xs {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
