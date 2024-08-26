@@ -1,5 +1,5 @@
+import CustomBtn from '@/components/common/custom-btn/index';
 import { Header } from '@/components/common/header/index';
-import SaveBtn from '@/components/common/SaveBtn';
 import Write from '@/components/my-page/intro-edit/Write';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
@@ -25,7 +25,7 @@ function IntroEdit() {
       <Header back={true} current="/my-page/intro-edit" go="/my-page" title="한 줄 소개" />
       <Frame>
         <Write onInputChange={handleInputChange} />
-        <SaveBtn isActive={inputValue.trim().length > 0} text="완료" onClick={handleClick} />
+        <CustomBtn disabled={inputValue.length === 0} text="저장" onClick={handleClick} />
       </Frame>
     </DefaultLayout>
   );
