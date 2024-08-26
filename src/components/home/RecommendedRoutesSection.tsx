@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import SubSectionTitle from './SubSectionTitle copy';
 import SectionTitle from './SectionTitle';
 import ImageCard from './ImageCard';
-import SampleImageBase from '@/assets/png/sample-image.png';
 import { MarginDiv } from '@/styles';
 import HorizontalScroll from '../common/HorizontalScroll';
 import { useQuery } from '@tanstack/react-query';

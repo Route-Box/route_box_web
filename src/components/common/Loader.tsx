@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import LoaderBase from '@/assets/gif/loader.gif';
 
 interface LoaderProps {
