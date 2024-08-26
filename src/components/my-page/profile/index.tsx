@@ -4,8 +4,16 @@ import { IntroEdit, ProfileImg } from './style';
 import profile from '../../../assets/svg/profile.svg';
 import introductionEdit from '../../../assets/svg/introduction_edit.svg';
 import { useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { UserProfileResponse } from '@/api/my-page/types';
+import { userInfo } from '@/api/my-page/userInfo';
 
 const Profile: React.FC = () => {
+  const { data, isLoading } = useQuery<UserProfileResponse>({
+    queryKey: ['userProfile'],
+    queryFn: userInfo.getUserProfile,
+  });
+  console.log('d', data);
   const navigate = useNavigate();
   const userName = '고작가';
   const rootNum = 5;
