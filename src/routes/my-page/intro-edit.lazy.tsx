@@ -1,6 +1,6 @@
 import CustomBtn from '@/components/common/custom-btn/index';
 import { Header } from '@/components/common/header/index';
-import Write from '@/components/my-page/intro-edit/Write';
+import Write from '@/components/my-page/intro-edit/index';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
