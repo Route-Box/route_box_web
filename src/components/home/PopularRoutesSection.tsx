@@ -41,8 +41,9 @@ const PopularRoutesSection = () => {
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <SimpleCards>
-          {data?.routes.map((route) => (
+          {data?.routes.map((route, idx) => (
             <SimpleCard
+              key={idx}
               bgColor={route.id % 2 === 0 ? '#E2F1EC' : '#FDF6EB'}
               content={route.name}
               onClick={() => {
