@@ -1,13 +1,16 @@
+import FlexBox from '@/components/common/flex-box';
 import React from 'react';
-import styled from 'styled-components';
-import SubComponentTitle from './SubComponentTitle';
+import { RouteList } from './style';
 import { RouteBoxItem } from './RouteBoxItem';
 import { routeData } from './Dummy';
 
 const RouteBox: React.FC = () => {
+  const isMine = true;
+  const userName = '아라';
+  const title = isMine ? '내가 담았어요' : `${userName}의 루트박스`;
   return (
-    <Frame>
-      <SubComponentTitle title="내 박스에 담긴 루트" />
+    <FlexBox col gap={1} py={1.62}>
+      <h1 className="title-xl">{title}</h1>
       <RouteList>
         {routeData.map((route, index) => (
           <RouteBoxItem
@@ -20,21 +23,8 @@ const RouteBox: React.FC = () => {
           />
         ))}
       </RouteList>
-    </Frame>
+    </FlexBox>
   );
 };
-
-const Frame = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const RouteList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`;
 
 export default RouteBox;

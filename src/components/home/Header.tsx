@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 import styled from 'styled-components';
 import LogoImageBase from '@/assets/png/logo-route-box.png';
 import AlarmBase from '@/assets/svg/alarm.svg';
+import { standardViewportWidth } from '@/styles';
 
 const Header = () => {
   return (
@@ -14,11 +15,12 @@ const Header = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: ${standardViewportWidth};
   height: 64px;
   padding: 0 22px;
   box-sizing: border-box;

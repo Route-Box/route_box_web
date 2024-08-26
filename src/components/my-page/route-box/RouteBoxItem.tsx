@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import routeImg from '../../assets/svg/route.svg';
-import likeIcon from '../../assets/svg/like.svg';
-import commentIcon from '../../assets/svg/comment.svg';
-import more from '../../assets/svg/more_btn.svg';
+import routeImg from '../../../assets/svg/route.svg';
+import likeIcon from '../../../assets/svg/like.svg';
+import commentIcon from '../../../assets/svg/comment.svg';
+import more from '../../../assets/svg/more_btn.svg';
+import FlexBox from '@/components/common/flex-box';
 
 interface RouteBoxItemProps {
   title: string;
@@ -21,37 +22,32 @@ export const RouteBoxItem: React.FC<RouteBoxItemProps> = ({
   date,
 }: RouteBoxItemProps) => {
   return (
-    <Frame>
+    <RouteItem>
       <RouteImg src={routeImg} alt="route" />
       <Content>
-        <Title>{title}</Title>
-        <Preview>{preview}</Preview>
+        <Title className="body-r-m">{title}</Title>
+        <Preview className="body-r-s">{preview}</Preview>
         <Detail>
-          <Item>
+          <Item className="body-b-xs">
             <ItemImg src={likeIcon} alt="like" />
             {like}
           </Item>
-          <Item>
+          <Item className="body-b-xs">
             <ItemImg src={commentIcon} alt="comment" />
             {comment}
           </Item>
-          <Date> {date}</Date>
+          <Date className="body-r-s"> {date}</Date>
         </Detail>
       </Content>
-      <MoreImg src={more} alt="more" />
-    </Frame>
+      <More>
+        <img src={more} alt="more" />
+      </More>
+    </RouteItem>
   );
 };
 
-const Frame = styled.div`
+const RouteItem = styled.li`
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  font-feature-settings: 'case' on;
-  font-family: Pretendard;
-  font-style: normal;
 `;
 
 const RouteImg = styled.img`
@@ -75,9 +71,6 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--Black_, #161616);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.375rem; /* 137.5% */
 `;
 
 const Preview = styled.div`
@@ -86,9 +79,6 @@ const Preview = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--gray-3-placeholder-text, #70747e);
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.25rem; /* 142.857% */
   margin-top: 0.25rem;
   margin-bottom: 0.5rem;
 `;
@@ -99,18 +89,12 @@ const Detail = styled.div`
   gap: 0.5rem;
   align-items: center;
   color: var(--gray-3-placeholder-text, #70747e);
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.25rem; /* 142.857% */
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.125rem; /* 150% */
 `;
 
 const ItemImg = styled.img`
@@ -122,8 +106,8 @@ const Date = styled.div`
   margin-left: 0.75rem;
 `;
 
-const MoreImg = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
+const More = styled.button`
+  background-color: transparent;
+  border: none;
   margin-left: 1.88rem;
 `;
