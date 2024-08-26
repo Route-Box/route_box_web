@@ -8,20 +8,20 @@ interface SimpleCardProps {
 
 const SimpleCard = ({ content, bgColor, onClick }: SimpleCardProps) => {
   return (
-    <Frame bgColor={bgColor} onClick={onClick}>
+    <Frame $bgColor={bgColor} onClick={onClick}>
       <Title>{content}</Title>
     </Frame>
   );
 };
 
-const Frame = styled.div<{ bgColor: string }>`
+const Frame = styled.div<{ $bgColor: string }>`
   width: 13.75rem;
   height: 9.125rem;
   flex-shrink: 0;
   fill: #e2f1ec;
   position: relative;
   cursor: pointer;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.$bgColor};
   border-radius: 0.625rem;
 `;
 

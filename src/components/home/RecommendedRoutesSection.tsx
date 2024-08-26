@@ -34,7 +34,7 @@ const RecommendedRoutesSection = () => {
   );
 
   return isLoading ? (
-    <Loader fullScreen />
+    <Loader $fullScreen />
   ) : (
     <Container>
       <SubSectionTitle content={data?.comment ?? ''} />
@@ -42,8 +42,9 @@ const RecommendedRoutesSection = () => {
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <ImageCards>
-          {data?.routes.map((imgCard) => (
+          {data?.routes.map((imgCard, idx) => (
             <ImageCard
+              key={idx}
               onClick={() => {
                 handleMoveRoute(imgCard.id);
               }}
