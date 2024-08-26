@@ -1,38 +1,40 @@
 import FlexBox from '@/components/common/flex-box';
 import React from 'react';
 import { IntroEdit, ProfileImg } from './style';
-import profile from '../../../assets/svg/profile.svg';
 import introductionEdit from '../../../assets/svg/introduction_edit.svg';
 import { useNavigate } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
-import { UserProfileResponse } from '@/api/my-page/types';
-import { userInfo } from '@/api/my-page/userInfo';
 
-const Profile: React.FC = () => {
-  const { data, isLoading } = useQuery<UserProfileResponse>({
-    queryKey: ['userProfile'],
-    queryFn: userInfo.getUserProfile,
-  });
-  console.log('d', data);
+interface ProfileProps {
+  introduction?: string;
+  nickname?: string;
+  numOfRoutes?: number;
+  profileImageUrl?: string;
+}
+
+const Profile: React.FC<ProfileProps> = ({
+  profileImageUrl,
+  nickname,
+  numOfRoutes,
+  introduction,
+}) => {
   const navigate = useNavigate();
-  const userName = '고작가';
-  const rootNum = 5;
-  const introduction = '안녕하세요. 고작가입니다. 책을 읽고 쓰는 것을 좋아합니다.';
 
   return (
     <FlexBox col>
       <FlexBox col gap={0.75}>
-        <ProfileImg src={profile} alt="profile img" />
+        <ProfileImg src={profileImageUrl} alt="profile img" />
         <FlexBox col gap={0.38}>
-          <div className="heading-m">{userName}</div>
+          <div className="heading-m">{nickname}</div>
           <FlexBox gap={0.25}>
             <span className="body-r-m">루트</span>
-            <span className="body-b-m">{rootNum}개</span>
+            <span className="body-b-m">{numOfRoutes}개</span>
           </FlexBox>
         </FlexBox>
       </FlexBox>
       <FlexBox gap={0.25} py={1} bb>
-        <span className="body-r-m"> {introduction}</span>
+        <span className="body-r-m" style={{ color: 'var(--Gray4_disable-text)' }}>
+          {introduction}
+        </span>
         <IntroEdit onClick={() => navigate({ to: '/my-page/intro-edit' })}>
           <img src={introductionEdit} alt="edit" />
         </IntroEdit>
