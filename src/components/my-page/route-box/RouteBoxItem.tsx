@@ -4,39 +4,31 @@ import routeImg from '../../../assets/svg/route.svg';
 import likeIcon from '../../../assets/svg/like.svg';
 import commentIcon from '../../../assets/svg/comment.svg';
 import more from '../../../assets/svg/more_btn.svg';
-import FlexBox from '@/components/common/flex-box';
+import { Route } from '@/api/my-page/types';
 
-interface RouteBoxItemProps {
-  title: string;
-  preview: string;
-  like: number;
-  comment: number;
-  date: string;
-}
-
-export const RouteBoxItem: React.FC<RouteBoxItemProps> = ({
-  title,
-  preview,
-  like,
-  comment,
-  date,
-}: RouteBoxItemProps) => {
+export const RouteBoxItem: React.FC<Route> = ({
+  routeId,
+  routeName,
+  routeDescription,
+  routeImageUrl,
+  createdAt,
+}: Route) => {
   return (
     <RouteItem>
-      <RouteImg src={routeImg} alt="route" />
+      <RouteImg src={routeImageUrl} alt="route" />
       <Content>
-        <Title className="body-r-m">{title}</Title>
-        <Preview className="body-r-s">{preview}</Preview>
+        <Title className="body-r-m">{routeName}</Title>
+        <Preview className="body-r-s">{routeDescription}</Preview>
         <Detail>
           <Item className="body-b-xs">
             <ItemImg src={likeIcon} alt="like" />
-            {like}
+            {10}
           </Item>
           <Item className="body-b-xs">
             <ItemImg src={commentIcon} alt="comment" />
-            {comment}
+            {3}
           </Item>
-          <Date className="body-r-s"> {date}</Date>
+          <Date className="body-r-s"> {createdAt}</Date>
         </Detail>
       </Content>
       <More>
