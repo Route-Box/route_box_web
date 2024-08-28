@@ -1,9 +1,7 @@
 import { authService } from '@/api/auth/authService';
 import { Header } from '@/components/common/header/index';
-import { Modal } from '@/components/modal';
 import SettingList from '@/components/setting/home/SettingList';
 import WithdrawMembership from '@/components/setting/home/WithdrawMembership';
-import { ConfirmationModal } from '@/components/common/modals/ConfirmationModal';
 import { useModal } from '@/hooks/useModal';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { useMutation } from '@tanstack/react-query';
@@ -11,6 +9,8 @@ import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 import Loader from '@/components/common/Loader';
+import { storageKey } from '@/constants/storageKey';
+import { ConfirmationModal } from '@/components/common/modals/ConfirmationModal';
 
 export const Route = createLazyFileRoute('/setting/')({
   component: Setting,
@@ -38,13 +38,6 @@ function Setting() {
     closeModal: closeWithdrawModal,
   } = useModal();
 
-  /**
-   * 사용자가 특정 섹션을 클릭했을 때 호출되는 함수.
-   * 클릭한 요소에 따라 로그아웃 또는 회원 탈퇴 모달을 열기 위해
-   * 해당 요소의 텍스트를 확인하고, 적절한 모달을 호출합니다.
-   *
-   * @param event - 클릭 이벤트 객체
-   */
   const handleSectionClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement; // 클릭한 요소
     if (target.closest('li') && target.textContent === '로그아웃') {
@@ -55,7 +48,8 @@ function Setting() {
   };
 
   const handleLogout = () => {
-    console.log('로그아웃되었습니다.');
+    localStorage.removeItem(storageKey.accessToken);
+    navigate({ to: '/' });
   };
 
   const handleWithdraw = useCallback(() => {
@@ -79,7 +73,6 @@ function Setting() {
         onConfirmAction={handleLogout}
         content={'로그아웃 하시겠습니까?'}
       />
-
       <ConfirmationModal
         isOpen={isWithdrawOpen}
         closeModal={closeWithdrawModal}

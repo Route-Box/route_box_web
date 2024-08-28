@@ -1,7 +1,15 @@
-import ky from 'ky';
+import ky, { BeforeRequestHook } from 'ky';
 import { ErrorResponse } from '@/types/api';
+import { storageKey } from '@/constants/storageKey';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const setAuthorizationHeader: BeforeRequestHook = (request) => {
+  const accessToken = localStorage.getItem(storageKey.accessToken);
+
+  if (!accessToken) return;
+  request.headers.set('Authorization', `Bearer ${accessToken}`);
+};
 
 export const baseApi = ky.create({
   prefixUrl: API_BASE_URL,
@@ -11,6 +19,7 @@ export const baseApi = ky.create({
   },
   hooks: {
     beforeRequest: [
+      setAuthorizationHeader,
       async (request) => {
         if (Math.random() < import.meta.env.VITE_ERROR_RATE) {
           throw new Response(JSON.stringify({ message: 'Simulated failure response' }), {
