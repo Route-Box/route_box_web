@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import SubSectionTitle from './SubSectionTitle copy';
 import SectionTitle from './SectionTitle';
 import ImageCard from './ImageCard';
-import SampleImageBase from '@/assets/png/sample-image.png';
 import { MarginDiv } from '@/styles';
 import HorizontalScroll from '../common/HorizontalScroll';
 import { useQuery } from '@tanstack/react-query';
 import { RecommendRoutesResponse } from '@/api/home/types';
 import { homeService } from '@/api/home/homeService';
 import Loader from '../common/Loader';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { useCallback } from 'react';
 
 const RecommendedRoutesSection = () => {
   const { data, isLoading } = useQuery<RecommendRoutesResponse>({
@@ -16,8 +17,23 @@ const RecommendedRoutesSection = () => {
     queryFn: homeService.getRecommendRoutes,
   });
 
+  const { sendMessageToNative } = useNativeBridge();
+
+  const handleMoveRoute = useCallback(
+    (_id: number) => {
+      sendMessageToNative({
+        type: 'PAGE_CHANGE',
+        payload: {
+          page: 'route',
+          id: String(_id),
+        },
+      });
+    },
+    [sendMessageToNative]
+  );
+
   return isLoading ? (
-    <Loader fullScreen />
+    <Loader $fullScreen />
   ) : (
     <Container>
       <SubSectionTitle content={data?.comment ?? ''} />
@@ -25,8 +41,12 @@ const RecommendedRoutesSection = () => {
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <ImageCards>
-          {data?.routes.map((imgCard) => (
+          {data?.routes.map((imgCard, idx) => (
             <ImageCard
+              key={idx}
+              onClick={() => {
+                handleMoveRoute(imgCard.id);
+              }}
               imageSrc={imgCard.routeImageUrl}
               title={imgCard.routeName}
               description={imgCard.routeDescription}

@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/header/index';
-import SaveBtn from '@/components/common/SaveBtn';
+import CustomBtn from '@/components/common/custom-btn/index';
 import NotificationList from '@/components/setting/notificaiton/NotificationList';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
@@ -20,7 +20,7 @@ function Notifications() {
       <Header back={true} current="/setting/notifications" go="/setting" title="알림 설정" />
       <Section>
         <NotificationList />
-        <SaveBtn isActive text="저장하기" onClick={handleClick} />
+        <CustomBtn disabled text="저장하기" onClick={handleClick} />
       </Section>
     </DefaultLayout>
   );

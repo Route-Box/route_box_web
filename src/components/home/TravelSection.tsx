@@ -3,14 +3,44 @@ import SectionTitle from './SectionTitle';
 import ImageButton from './ImageButton';
 import ImageBase1 from '@/assets/png/image-button-1.png';
 import ImageBase2 from '@/assets/png/image-button-2.png';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { useCallback } from 'react';
 
 const TravelSection = () => {
+  const { sendMessageToNative } = useNativeBridge();
+
+  const handleMoveMyRoute = useCallback(() => {
+    sendMessageToNative({
+      type: 'PAGE_CHANGE',
+      payload: {
+        page: 'myroute',
+      },
+    });
+  }, [sendMessageToNative]);
+
+  const handleMoveSearch = useCallback(() => {
+    sendMessageToNative({
+      type: 'PAGE_CHANGE',
+      payload: {
+        page: 'search',
+      },
+    });
+  }, [sendMessageToNative]);
+
   return (
     <Container>
       <SectionTitle content="당신의 모든 여행을 위해" />
       <ImageButtons>
-        <ImageButton imageSrc={ImageBase1} content={`내 여행 루트\n기록하러 가기`} />
-        <ImageButton imageSrc={ImageBase2} content={`다른 사람 루트\n구경하러 가기`} />
+        <ImageButton
+          imageSrc={ImageBase1}
+          content={`내 여행 루트\n기록하러 가기`}
+          onClick={handleMoveMyRoute}
+        />
+        <ImageButton
+          imageSrc={ImageBase2}
+          content={`다른 사람 루트\n구경하러 가기`}
+          onClick={handleMoveSearch}
+        />
       </ImageButtons>
     </Container>
   );

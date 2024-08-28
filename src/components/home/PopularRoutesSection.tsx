@@ -8,12 +8,29 @@ import { PopularRoutesResponse } from '@/api/home/types';
 import { useQuery } from '@tanstack/react-query';
 import { homeService } from '@/api/home/homeService';
 import Loader from '../common/Loader';
+import { useCallback } from 'react';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
 
 const PopularRoutesSection = () => {
   const { data, isLoading } = useQuery<PopularRoutesResponse>({
     queryKey: ['popularRoutes'],
     queryFn: homeService.getPopularRoutes,
   });
+
+  const { sendMessageToNative } = useNativeBridge();
+
+  const handleMoveRoute = useCallback(
+    (_id: number) => {
+      sendMessageToNative({
+        type: 'PAGE_CHANGE',
+        payload: {
+          page: 'route',
+          id: String(_id),
+        },
+      });
+    },
+    [sendMessageToNative]
+  );
 
   return isLoading ? (
     <Loader />
@@ -24,8 +41,15 @@ const PopularRoutesSection = () => {
       <MarginDiv mt={1} />
       <HorizontalScroll>
         <SimpleCards>
-          {data?.routes.map((route) => (
-            <SimpleCard bgColor={route.id % 2 === 0 ? '#E2F1EC' : '#FDF6EB'} content={route.name} />
+          {data?.routes.map((route, idx) => (
+            <SimpleCard
+              key={idx}
+              bgColor={route.id % 2 === 0 ? '#E2F1EC' : '#FDF6EB'}
+              content={route.name}
+              onClick={() => {
+                handleMoveRoute(route.id);
+              }}
+            />
           ))}
         </SimpleCards>
       </HorizontalScroll>

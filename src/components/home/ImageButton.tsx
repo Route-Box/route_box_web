@@ -1,22 +1,24 @@
+import React from 'react';
 import styled from 'styled-components';
 interface ImageButtonProps {
   imageSrc: string;
   content: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const ImageButton = ({ imageSrc, content }: ImageButtonProps) => {
+const ImageButton = ({ imageSrc, content, onClick }: ImageButtonProps) => {
   return (
-    <Frame imageSrc={imageSrc}>
+    <Frame $imageSrc={imageSrc} onClick={onClick}>
       <Title>{content}</Title>
     </Frame>
   );
 };
 
-const Frame = styled.div<{ imageSrc: string }>`
+const Frame = styled.div<{ $imageSrc: string }>`
   width: 9.9375rem;
   height: 9.9375rem;
   flex-shrink: 0;
-  background-image: url(${(props) => props.imageSrc});
+  background-image: url(${(props) => props.$imageSrc});
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;

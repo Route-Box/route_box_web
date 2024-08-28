@@ -5,11 +5,12 @@ interface ImageCardProps {
   imageSrc: string;
   title: string;
   description: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const ImageCard = ({ imageSrc, title, description }: ImageCardProps) => {
+const ImageCard = ({ imageSrc, title, description, onClick }: ImageCardProps) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <CardImage src={imageSrc} />
       <MarginDiv mt={0.94} />
       <Title>{title}</Title>

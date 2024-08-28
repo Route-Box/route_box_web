@@ -1,25 +1,27 @@
+import React from 'react';
 import styled from 'styled-components';
 interface SimpleCardProps {
   content: string;
   bgColor: string;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const SimpleCard = ({ content, bgColor }: SimpleCardProps) => {
+const SimpleCard = ({ content, bgColor, onClick }: SimpleCardProps) => {
   return (
-    <Frame bgColor={bgColor}>
+    <Frame $bgColor={bgColor} onClick={onClick}>
       <Title>{content}</Title>
     </Frame>
   );
 };
 
-const Frame = styled.div<{ bgColor: string }>`
+const Frame = styled.div<{ $bgColor: string }>`
   width: 13.75rem;
   height: 9.125rem;
   flex-shrink: 0;
   fill: #e2f1ec;
   position: relative;
   cursor: pointer;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.$bgColor};
   border-radius: 0.625rem;
 `;
 

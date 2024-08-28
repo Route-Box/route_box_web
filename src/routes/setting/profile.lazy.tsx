@@ -1,10 +1,12 @@
 import { Header } from '@/components/common/header/index';
-import SaveBtn from '@/components/common/SaveBtn';
+import CustomBtn from '@/components/common/custom-btn/index';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { queryKey, userInfo } from '@/api/my-page/userInfo';
 
 export const Route = createLazyFileRoute('/setting/profile')({
   component: Profile,
@@ -12,12 +14,44 @@ export const Route = createLazyFileRoute('/setting/profile')({
 
 function Profile() {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
-  const handleActiveChange = (active: boolean) => {
-    setIsActive(active);
+  const queryClient = useQueryClient();
+  const [disabled, setDisabled] = useState(false);
+
+  const [file, setFile] = useState<File | null>(null); // 파일 상태 추가
+
+  const { data } = useQuery({
+    queryKey: [queryKey.userProfile],
+    queryFn: userInfo.getMyProfile,
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: userInfo.patchMyInfo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey.userProfile] });
+    },
+  });
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+    }
   };
+
+  const handleActiveChange = (active: boolean) => {
+    setDisabled(active);
+  };
+
   const handleClick = () => {
-    navigate({ from: '/setting/profile', to: '/setting' });
+    // 데이터 전송
+    mutateAsync({
+      nickname: '후후',
+      gender: 'FEMALE',
+      birthDay: '2020-02-02',
+      profileImage: file,
+    }).then(() => {
+      navigate({ from: '/setting/profile', to: '/my-page' });
+    });
   };
 
   return (
@@ -25,7 +59,9 @@ function Profile() {
       <Header back={true} title="회원 정보 수정" />
       <Section>
         <ProfileComponents onActiveChange={handleActiveChange} />
-        <SaveBtn isActive={isActive} text="저장하기" onClick={handleClick} />
+        {/* 임시 파일 업로드 버튼 추가 */}
+        <input type="file" name="file" accept="image/*" onChange={handleFileChange} />
+        <CustomBtn disabled={disabled} text="저장하기" onClick={handleClick} />
       </Section>
     </DefaultLayout>
   );
