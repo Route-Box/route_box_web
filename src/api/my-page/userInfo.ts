@@ -1,5 +1,5 @@
 import { baseApi } from '../baseApi';
-import { RootObject, UserProfileResponse } from './types';
+import { MyInfoResponse, RootObject, UserProfileResponse } from './types';
 
 export const userInfo = {
   getUserProfile: async (): Promise<UserProfileResponse> => {
@@ -9,6 +9,11 @@ export const userInfo = {
 
   getUserPurchasedRoutes: async (): Promise<RootObject> => {
     const response = await baseApi.get('users/me/purchased-routes');
+    return response.json();
+  },
+
+  patchUserInfo: async (data: MyInfoResponse): Promise<MyInfoResponse> => {
+    const response = await baseApi.patch('users/me', { json: data });
     return response.json();
   },
 };

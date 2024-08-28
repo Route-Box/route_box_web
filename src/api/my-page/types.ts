@@ -20,3 +20,13 @@ export interface Route {
   routeImageUrl: string;
   createdAt: string;
 }
+
+export interface MyInfoResponse {
+  id: number;
+  profileImageUrl: string;
+  nickname: string;
+  point: number;
+  gender: string;
+  birthDay: string;
+  introduction: string;
+}
