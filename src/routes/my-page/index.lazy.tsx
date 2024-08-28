@@ -22,7 +22,7 @@ function MyPage() {
 
   const { data: routes } = useQuery<RootObject>({
     queryKey: ['routes'],
-    queryFn: userInfo.getUserPurchasedRoutes,
+    queryFn: userInfo.getMyPurchasedRoutes,
   });
 
   return (
