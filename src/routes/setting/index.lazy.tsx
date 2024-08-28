@@ -21,9 +21,9 @@ function Setting() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: authService.postWithdraw,
-    onSuccess: () => {
-      navigate({ to: '/' });
-    },
+    // onSuccess: () => {
+    //   navigate({ to: '/' });
+    // },
   });
 
   const {
@@ -54,8 +54,9 @@ function Setting() {
 
   const handleWithdraw = useCallback(() => {
     mutateAsync();
-    console.log('탈퇴 되었습니다.');
-  }, [mutateAsync]);
+    navigate({ to: '/' });
+    alert('탈퇴 되었습니다.');
+  }, [mutateAsync, navigate]);
 
   return isPending ? (
     <Loader />
