@@ -36,13 +36,13 @@ export const IntroWrite = styled.textarea`
 export const Char = styled.div`
   display: flex;
   margin-left: auto;
-`;
 
-export const CharCount = styled.span`
-  color: var(--main-color);
-  text-align: right;
-`;
+  .count {
+    color: var(--main-color);
+    text-align: right;
+  }
 
-export const CharMax = styled.span`
-  color: var(--Gray4_disable-text);
+  .max {
+    color: var(--Gray4_disable-text);
+  }
 `;
