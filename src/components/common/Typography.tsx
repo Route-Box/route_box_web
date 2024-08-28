@@ -23,10 +23,12 @@ interface TypographyProps {
     | 'Body_R_XS';
   children: React.ReactNode;
   className?: string;
+  color?: string;
 }
 
 // Typography 스타일 정의
 const StyledTypography = styled.div<TypographyProps>`
+  color: ${(props) => props.color || 'inherit'};
   font-family: 'Pretendard', sans-serif;
   font-weight: ${(props) => (props.variant.startsWith('Body_R') ? 'normal' : 'bold')};
   font-size: ${(props) => {
@@ -101,9 +103,9 @@ const StyledTypography = styled.div<TypographyProps>`
   }};
 `;
 
-const Typography: React.FC<TypographyProps> = ({ variant, children, className }) => {
+const Typography: React.FC<TypographyProps> = ({ variant, children, className, color }) => {
   return (
-    <StyledTypography variant={variant} className={className}>
+    <StyledTypography variant={variant} className={className} color={color}>
       {children}
     </StyledTypography>
   );
