@@ -21,11 +21,11 @@ function Profile() {
 
   const { data } = useQuery({
     queryKey: [queryKey.userProfile],
-    queryFn: userInfo.getUserProfile,
+    queryFn: userInfo.getMyProfile,
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: userInfo.patchUserInfo,
+    mutationFn: userInfo.patchMyInfo,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey.userProfile] });
     },

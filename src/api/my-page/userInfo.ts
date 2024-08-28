@@ -16,7 +16,7 @@ export const userInfo = {
     return response.json();
   },
 
-  patchUserInfo: async (data: MyInfoRequest): Promise<MyInfoResponse> => {
+  patchMyInfo: async (data: MyInfoRequest): Promise<MyInfoResponse> => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined) {
