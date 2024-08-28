@@ -21,6 +21,14 @@ export interface Route {
   createdAt: string;
 }
 
+export interface MyInfoRequest {
+  nickname?: string;
+  gender?: 'MALE' | 'FEMALE' | 'PRIVATE';
+  birthDay?: string;
+  introduction?: string;
+  profileImage?: File | null;
+}
+
 export interface MyInfoResponse {
   id: number;
   profileImageUrl: string;
