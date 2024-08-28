@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Char, CharCount, CharMax, Frame, IntroWrite } from './style';
+import { Char, Frame, IntroWrite } from './style';
 
 interface WriteProps {
   onInputChange: (value: string) => void;
@@ -22,8 +22,8 @@ const Write: React.FC<WriteProps> = ({ onInputChange }) => {
         maxLength={25}
       />
       <Char className="body-r-xs">
-        <CharCount>{inputValue.length}</CharCount>
-        <CharMax>/25</CharMax>
+        <span className="count">{inputValue.length}</span>
+        <span className="max">/25</span>
       </Char>
     </Frame>
   );

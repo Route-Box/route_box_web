@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/header/index';
-import SaveBtn from '@/components/common/SaveBtn';
+import CustomBtn from '@/components/common/custom-btn/index';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
@@ -12,9 +12,9 @@ export const Route = createLazyFileRoute('/setting/profile')({
 
 function Profile() {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const handleActiveChange = (active: boolean) => {
-    setIsActive(active);
+    setDisabled(active);
   };
   const handleClick = () => {
     navigate({ from: '/setting/profile', to: '/setting' });
@@ -25,7 +25,7 @@ function Profile() {
       <Header back={true} title="회원 정보 수정" />
       <Section>
         <ProfileComponents onActiveChange={handleActiveChange} />
-        <SaveBtn isActive={isActive} text="저장하기" onClick={handleClick} />
+        <CustomBtn disabled={disabled} text="저장하기" onClick={handleClick} />
       </Section>
     </DefaultLayout>
   );

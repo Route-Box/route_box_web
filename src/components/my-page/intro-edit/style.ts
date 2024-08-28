@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const Frame = styled.section`
+export const Frame = styled.div`
   display: flex;
+  align-self: stretch;
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.25rem 1rem;
@@ -36,13 +37,13 @@ export const IntroWrite = styled.textarea`
 export const Char = styled.div`
   display: flex;
   margin-left: auto;
-`;
 
-export const CharCount = styled.span`
-  color: var(--main-color);
-  text-align: right;
-`;
+  .count {
+    color: var(--main-color);
+    text-align: right;
+  }
 
-export const CharMax = styled.span`
-  color: var(--Gray4_disable-text);
+  .max {
+    color: var(--Gray4_disable-text);
+  }
 `;
