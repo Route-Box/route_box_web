@@ -53,9 +53,10 @@ function Setting() {
   };
 
   const handleWithdraw = useCallback(() => {
-    mutateAsync();
-    console.log('탈퇴 되었습니다.');
-  }, [mutateAsync]);
+    // mutateAsync();
+    navigate({ to: '/' });
+    alert('탈퇴 되었습니다.');
+  }, [navigate]);
 
   return isPending ? (
     <Loader />
