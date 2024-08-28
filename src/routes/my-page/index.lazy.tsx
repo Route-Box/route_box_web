@@ -16,7 +16,7 @@ export const Route = createLazyFileRoute('/my-page/')({
 function MyPage() {
   const { data: userProfile } = useQuery<UserProfileResponse>({
     queryKey: ['userProfile'],
-    queryFn: userInfo.getUserProfile,
+    queryFn: userInfo.getMyProfile,
   });
   const intro = userProfile?.introduction ? userProfile.introduction : '한 줄 소개를 작성해주세요';
 
@@ -24,7 +24,6 @@ function MyPage() {
     queryKey: ['routes'],
     queryFn: userInfo.getUserPurchasedRoutes,
   });
-  console.log('r', routes);
 
   return (
     <DefaultLayout>
