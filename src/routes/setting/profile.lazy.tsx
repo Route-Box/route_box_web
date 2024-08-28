@@ -48,7 +48,6 @@ function Profile() {
       nickname: '후후',
       gender: 'FEMALE',
       birthDay: '2020-02-02',
-      introduction: '저는 자유인입니다.',
       profileImage: file,
     }).then(() => {
       navigate({ from: '/setting/profile', to: '/my-page' });
