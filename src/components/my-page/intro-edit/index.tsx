@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Char, Frame, IntroWrite } from './style';
 
 interface WriteProps {
+  value: string;
   onInputChange: (value: string) => void;
 }
 
-const Write: React.FC<WriteProps> = ({ onInputChange }) => {
-  const [inputValue, setInputValue] = useState('');
+const Write: React.FC<WriteProps> = ({ value, onInputChange }) => {
+  const [inputValue, setInputValue] = useState(value);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
     onInputChange(e.target.value);
   };
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   return (
     <Frame>
