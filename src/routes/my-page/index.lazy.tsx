@@ -17,16 +17,17 @@ export const Route = createLazyFileRoute('/my-page/')({
 function MyPage() {
   const { data: userProfile, isLoading } = useQuery<UserProfileResponse>({
     queryKey: [queryKey.userProfile],
-    queryFn: userInfo.getUserProfile,
+    queryFn: userInfo.getMyProfile,
   });
   const intro = userProfile?.introduction ? userProfile.introduction : '한 줄 소개를 작성해주세요';
 
   const { data: routes } = useQuery<RootObject>({
     queryKey: ['routes'],
-    queryFn: userInfo.getUserPurchasedRoutes,
+    queryFn: userInfo.getMyPurchasedRoutes,
   });
 
   if (isLoading) return <Loader />;
+
   return (
     <DefaultLayout>
       <Header back={true} current="/my-page" go="/" title="마이페이지" menu={true} />
