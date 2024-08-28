@@ -13,8 +13,6 @@ const SettingListItem: React.FC<SettingListItemProps> = ({ setting, isLast, to }
   const handleClick = () => {
     if (to) {
       navigate({ to });
-    } else {
-      console.log('로그아웃');
     }
   };
 
