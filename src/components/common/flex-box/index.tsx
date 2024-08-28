@@ -9,6 +9,7 @@ interface FlexBoxProps {
   px?: number;
   py?: number;
   calc?: number;
+  h?: string;
   bb?: boolean;
 }
 
@@ -21,6 +22,7 @@ const FlexBox: React.FC<FlexBoxProps> = ({
   px,
   py,
   calc,
+  h,
   bb,
 }) => {
   return (
@@ -33,6 +35,7 @@ const FlexBox: React.FC<FlexBoxProps> = ({
         alignItems: items || 'flex-start',
         flexDirection: col ? 'column' : 'row',
         width: `calc(100% - ${calc || 0}rem)`,
+        height: h ? `${h}` : 'auto',
         boxSizing: 'border-box',
         borderBottom: bb ? '1px solid #F2F2F2' : 'none',
       }}

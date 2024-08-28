@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const Frame = styled.section`
+export const Frame = styled.div`
   display: flex;
+  align-self: stretch;
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.25rem 1rem;
