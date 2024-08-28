@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/notification')({
 function Notification() {
   return (
     <DefaultLayout>
-      <Header close={true} current="/notification" go="/" title="한 줄 소개" />
+      <Header close={true} current="/notification" go="/" title="알림" />
       <NotificationList />
     </DefaultLayout>
   );

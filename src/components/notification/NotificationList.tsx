@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import Typography from '@/components/common/Typography';
-
-interface Notification {
-  id: number;
-  message: string;
-  date: string;
-}
+import { useQuery } from '@tanstack/react-query';
+import { notificationService } from '@/api/notification/notificationService';
+import { Notification, NotificationsResponse } from '@/api/notification/types';
+import Loader from '../common/Loader';
 
 const Container = styled.div`
   width: 100%;
@@ -45,27 +42,31 @@ const NotificationItemGroup = styled.div`
 const NotificationItem = styled.p``;
 
 const NotificationList: React.FC = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const { data, isLoading } = useQuery<NotificationsResponse>({
+    queryKey: ['notifications'],
+    queryFn: notificationService.getNotifications,
+  });
 
-  React.useEffect(() => {
-    // 더미 데이터
-    const dummyNotifications: Notification[] = [
-      { id: 1, message: '나의 새로운 루트가 완성되었어요.', date: '오늘' },
-      { id: 2, message: "보라님이 나의 '경주 여행' 루트를 구매했어요.", date: '01-14(목)' },
-      { id: 3, message: "'퍼플'님의 루트를 정상적으로 구매했어요.", date: '01-14(목)' },
-      { id: 4, message: "보라님이 나의 '경주 여행' 루트를 구매했어요.", date: '01-13(수)' },
-    ];
-    setNotifications(dummyNotifications);
-  }, []);
+  if (isLoading) return <Loader />;
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const weekday = date.toLocaleString('ko-KR', { weekday: 'short' });
+    return `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}(${weekday})`; // 형식 변경
+  };
 
   const groupNotificationsByDate = () => {
     const grouped: { [key: string]: Notification[] } = {};
-    notifications.forEach((notification) => {
+
+    data?.notifications.forEach((notification) => {
       if (!grouped[notification.date]) {
         grouped[notification.date] = [];
       }
       grouped[notification.date].push(notification);
     });
+
     return grouped;
   };
 
@@ -78,7 +79,7 @@ const NotificationList: React.FC = () => {
           <Typography variant="Title_XL">오늘</Typography>
           {groupedNotifications['오늘'].map((notification) => (
             <Typography variant="Body_R_M" key={notification.id}>
-              {notification.message}
+              {notification.content}
             </Typography>
           ))}
         </TodaySection>
@@ -88,10 +89,10 @@ const NotificationList: React.FC = () => {
         ([date, notifications]) =>
           date !== '오늘' && (
             <NotificationGroup key={date}>
-              <Typography variant="Title_XL">{date}</Typography>
+              <Typography variant="Title_XL">{formatDate(date)}</Typography> {/* 날짜 형식 적용 */}
               <NotificationItemGroup>
                 {notifications.map((notification) => (
-                  <NotificationItem key={notification.id}>{notification.message}</NotificationItem>
+                  <NotificationItem key={notification.id}>{notification.content}</NotificationItem>
                 ))}
               </NotificationItemGroup>
             </NotificationGroup>

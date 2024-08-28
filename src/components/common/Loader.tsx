@@ -1,10 +1,10 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import LoaderBase from '@/assets/gif/loader.gif';
 
 interface LoaderProps {
   size?: number;
-  fullScreen?: boolean;
+  $fullScreen?: boolean;
 }
 
 const LoaderWrapper = styled.div<LoaderProps>`
@@ -12,7 +12,7 @@ const LoaderWrapper = styled.div<LoaderProps>`
   justify-content: center;
   align-items: center;
   ${(props) =>
-    props.fullScreen &&
+    props.$fullScreen &&
     `
     position: fixed;
     top: 0;
@@ -29,9 +29,9 @@ const LoaderImage = styled.img<LoaderProps>`
   height: ${(props) => props.size || 50}px;
 `;
 
-const Loader: React.FC<LoaderProps> = ({ size, fullScreen = false }) => {
+const Loader: React.FC<LoaderProps> = ({ size, $fullScreen = false }) => {
   return (
-    <LoaderWrapper fullScreen={fullScreen}>
+    <LoaderWrapper $fullScreen={$fullScreen}>
       <LoaderImage src={LoaderBase} alt="Loading..." size={size} />
     </LoaderWrapper>
   );
