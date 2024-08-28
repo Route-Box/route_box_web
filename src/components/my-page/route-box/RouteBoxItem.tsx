@@ -1,8 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import routeImg from '../../../assets/svg/route.svg';
-import likeIcon from '../../../assets/svg/like.svg';
-import commentIcon from '../../../assets/svg/comment.svg';
 import more from '../../../assets/svg/more_btn.svg';
 import { Route } from '@/api/my-page/types';
 
@@ -15,11 +12,14 @@ export const RouteBoxItem: React.FC<Route> = ({
 }: Route) => {
   return (
     <RouteItem>
-      <RouteImg src={routeImageUrl} alt="route" />
       <Content>
-        <Title className="body-r-m">{routeName}</Title>
-        <Preview className="body-r-s">{routeDescription}</Preview>
-        <Detail>
+        <img className="route_img" src={routeImageUrl} alt="route" />
+        <ContentText>
+          <div className="route_content">
+            <Title className="body-r-m">{routeName}</Title>
+            <Preview className="body-r-s">{routeDescription}</Preview>
+          </div>
+          {/* <Detail>
           <Item className="body-b-xs">
             <ItemImg src={likeIcon} alt="like" />
             {10}
@@ -27,9 +27,12 @@ export const RouteBoxItem: React.FC<Route> = ({
           <Item className="body-b-xs">
             <ItemImg src={commentIcon} alt="comment" />
             {3}
-          </Item>
-          <Date className="body-r-s"> {createdAt}</Date>
-        </Detail>
+          </Item> */}
+          <div className="body-r-s" style={{ color: 'var(--gray-3-placeholder-text)' }}>
+            {createdAt}
+          </div>
+          {/* </Detail> */}
+        </ContentText>
       </Content>
       <More>
         <img src={more} alt="more" />
@@ -40,25 +43,41 @@ export const RouteBoxItem: React.FC<Route> = ({
 
 const RouteItem = styled.li`
   display: flex;
-`;
-
-const RouteImg = styled.img`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 0.5rem;
-  margin-right: 1.25rem;
+  align-items: flex-start;
+  gap: 1.875rem;
 `;
 
 const Content = styled.div`
-  display: flex;
   flex: 1;
   min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  .route_img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.5rem;
+  }
+`;
+
+const ContentText = styled.span`
+  display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  /* gap: 0.5rem; */
+  height: 5rem;
+  justify-content: space-between;
+
+  .route_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
 `;
 
 const Title = styled.div`
-  display: inline-block;
-  width: 100%; /* 부모 요소에 맞춰 유동적으로 조정 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -66,13 +85,10 @@ const Title = styled.div`
 `;
 
 const Preview = styled.div`
-  display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--gray-3-placeholder-text, #70747e);
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
+  color: var(--gray-3-placeholder-text);
 `;
 
 const Detail = styled.div`
@@ -80,7 +96,7 @@ const Detail = styled.div`
   flex-direction: row;
   gap: 0.5rem;
   align-items: center;
-  color: var(--gray-3-placeholder-text, #70747e);
+  color: var(--gray-3-placeholder-text);
 `;
 
 const Item = styled.div`
@@ -94,12 +110,9 @@ const ItemImg = styled.img`
   height: 1.5rem;
 `;
 
-const Date = styled.div`
-  margin-left: 0.75rem;
-`;
+const Date = styled.div``;
 
 const More = styled.button`
   background-color: transparent;
   border: none;
-  margin-left: 1.88rem;
 `;
