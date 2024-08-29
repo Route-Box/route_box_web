@@ -1,7 +1,8 @@
 # 웹-네이티브 통신 프로토콜
 
-`sendMessageToWebView` : 네이티브 앱에서 웹뷰로 메시지를 보내는 함수
-`sendMessageToNative` : 웹뷰에서 네이티브 앱으로 메시지를 보내는 함수
+1. `sendMessageToWebView` : 네이티브 앱에서 웹뷰로 메시지를 보내는 함수
+
+2. `sendMessageToNative` : 웹뷰에서 네이티브 앱으로 메시지를 보내는 함수
 
 ## 1. 메시지 구조
 
@@ -19,9 +20,29 @@
 
 ## 2. 메시지 타입
 
+```tsx
+type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
+
+interface TokenPayload {
+  token: string;
+}
+
+interface PageChangePayload {
+  page: 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
+  id?: string;
+}
+
+interface NativeMessage {
+  type: MessageType;
+  payload: TokenPayload | PageChangePayload;
+}
+```
+
 ### 2.1 TOKEN
 
-네이티브 앱에서 웹 애플리케이션으로 인증 토큰을 전송할 때 사용합니다.
+> 네이티브 앱 ➡️ 웹뷰
+
+앱에서 웹으로 토큰을 전달할 때 사용합니다.
 
 구조:
 
@@ -36,7 +57,9 @@
 
 ### 2.2 PAGE_CHANGE
 
-애플리케이션 내 페이지 변경을 요청할 때 사용합니다.
+> 웹뷰 ➡️ 네이티브 앱
+
+네이티브 앱 내 페이지 변경을 요청할 때 사용합니다.
 
 구조:
 
@@ -52,29 +75,26 @@
 
 유효한 `page` 값:
 
-- `"myroute"`: 내 루트 페이지
-- `"search"`: 탐색 페이지
-- `"route"`: 루트 상세 페이지 (`id` 필요)
+- `MY_ROUTE`: 내 루트 페이지
+- `SEARCH`: 탐색 페이지
+- `ROUTE`: 루트 상세 페이지 (`id` 필요)
+- `COUPON` : 쿠폰 페이지
 
-`page`가 `"route"`일 경우 `id` 필드가 필요합니다.
+### 2.3 TOKEN_EXPIRED
 
-## 3. 통신 흐름
+> 웹뷰 ➡️ 네이티브 앱
 
-### 3.1 네이티브에서 웹으로
+토큰이 만료되어 401 에러가 발생 시 사용합니다.
 
-1. 토큰 전송:
+```json
+{
+  "type": "TOKEN_EXPIRED"
+}
+```
 
-   - 인증 성공 시 네이티브 앱에서 웹 애플리케이션으로 TOKEN 메시지를 전송합니다.
-   - 로그아웃 시 TOKEN payload에 빈 값 ('') 을 넣어 전송합니다.
+## 3. 메시지 예시
 
-### 3.2 웹에서 네이티브로
-
-1. 페이지 변경 요청:
-   - 웹 애플리케이션에서 앱 내 네비게이션을 요청하기 위해 PAGE_CHANGE 메시지를 전송합니다.
-
-## 4. 메시지 예시
-
-### 4.1 네이티브에서 웹으로 토큰 전달
+### 3.1 네이티브 앱에서 웹뷰로 토큰 전달
 
 ```json
 {
@@ -83,47 +103,35 @@
 }
 ```
 
-### 4.2 홈 화면 - 내 여행 루트 기록 클릭
+### 3.2 홈 화면 - 내 여행 루트 기록 클릭
 
 ```json
 {
   "type": "PAGE_CHANGE",
   "payload": {
-    "page": "myroute"
+    "page": "MY_ROUTE"
   }
 }
 ```
 
-### 4.3 홈 화면 - 다른 사람 루트 구경 클릭
+### 3.3 홈 화면 - 다른 사람 루트 구경 클릭
 
 ```json
 {
   "type": "PAGE_CHANGE",
   "payload": {
-    "page": "search"
+    "page": "SEARCH"
   }
 }
 ```
 
-### 4.4 홈 화면 - 추천 루트, 인기 루트
+### 3.4 홈 화면 - 추천 루트, 인기 루트
 
 ```json
 {
   "type": "PAGE_CHANGE",
   "payload": {
-    "page": "route",
-    "id": "해당 루트 아이디"
-  }
-}
-```
-
-### 4.5 마이메이지 - 내 루트 항목 클릭
-
-```json
-{
-  "type": "PAGE_CHANGE",
-  "payload": {
-    "page": "route",
+    "page": "ROUTE",
     "id": "해당 루트 아이디"
   }
 }

@@ -8,6 +8,8 @@ import { standardViewportWidth } from '@/styles';
 import { useQuery } from '@tanstack/react-query';
 import { notificationService } from '@/api/notification/notificationService';
 import { UnreadNotificationResponse } from '@/api/notification/types';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { useCallback } from 'react';
 
 const Header = () => {
   const { data, isLoading } = useQuery<UnreadNotificationResponse>({
@@ -15,12 +17,18 @@ const Header = () => {
     queryFn: notificationService.hasUnreadNotification,
   });
 
+  const { changePage } = useNativeBridge();
+
+  const handleMoveRoute = useCallback(() => {
+    changePage('COUPON');
+  }, [changePage]);
+
   return (
     <Container>
       <LogoImage src={LogoImageBase} alt="logo" />
       <Icons>
-        <Icon src={CouponBase} alt="coupon" />
-        <Icon src={WalletBase} alt="wallet" />
+        <Icon src={CouponBase} alt="coupon" onClick={handleMoveRoute} />
+        {/* <Icon src={WalletBase} alt="wallet" /> */}
         <Link to="/notification">
           <AlarmContainer>
             <img src={AlarmBase} alt="alarm" />

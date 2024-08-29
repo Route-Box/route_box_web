@@ -7,25 +7,15 @@ import { useNativeBridge } from '@/hooks/useNativeBridge';
 import { useCallback } from 'react';
 
 const TravelSection = () => {
-  const { sendMessageToNative } = useNativeBridge();
+  const { changePage } = useNativeBridge();
 
   const handleMoveMyRoute = useCallback(() => {
-    sendMessageToNative({
-      type: 'PAGE_CHANGE',
-      payload: {
-        page: 'myroute',
-      },
-    });
-  }, [sendMessageToNative]);
+    changePage('MY_ROUTE');
+  }, [changePage]);
 
   const handleMoveSearch = useCallback(() => {
-    sendMessageToNative({
-      type: 'PAGE_CHANGE',
-      payload: {
-        page: 'search',
-      },
-    });
-  }, [sendMessageToNative]);
+    changePage('SEARCH');
+  }, [changePage]);
 
   return (
     <Container>

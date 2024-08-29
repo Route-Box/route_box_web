@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 
-type MessageType = 'TOKEN' | 'PAGE_CHANGE';
+type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
 
 interface TokenPayload {
   token: string;
 }
 
 interface PageChangePayload {
-  page: 'myroute' | 'search' | 'route';
+  page: 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
   id?: string;
 }
 
@@ -50,7 +50,7 @@ export function useNativeBridge() {
       const page = payload.page;
       const id = payload.id;
 
-      let printMessage = '브릿지 함수가 실행되었습니다 :: ' + message.type + ' :: ' + page;
+      let printMessage = '웹뷰에서 앱으로 메시지를 전달합니다 :: ' + message.type + ' :: ' + page;
       if (id) printMessage = printMessage + ' :: ' + id;
       alert(printMessage);
     }
@@ -64,8 +64,7 @@ export function useNativeBridge() {
         const type = message.type;
         const payload = message.payload as TokenPayload;
 
-        const printMessage =
-          '네이티브에서 웹으로 값을 전달 받았습니다. :: ' + type + ' :: ' + payload;
+        const printMessage = '앱에서 웹뷰로 값을 전달 받았습니다 :: ' + type + ' :: ' + payload;
         alert(printMessage);
       }
 
@@ -94,7 +93,7 @@ export function useNativeBridge() {
   }, [handleReceivedMessage]);
 
   const changePage = useCallback(
-    (page: 'myroute' | 'search' | 'route', id?: string) => {
+    (page: 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON', id?: string) => {
       const message: NativeMessage = {
         type: 'PAGE_CHANGE',
         payload: { page, id },
