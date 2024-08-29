@@ -66,6 +66,7 @@ const Container = styled.header`
   position: fixed;
   top: 0;
   background-color: white;
+  z-index: 99;
 `;
 const Icons = styled.div`
   display: flex;
