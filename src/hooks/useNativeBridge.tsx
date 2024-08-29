@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 
 type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
-
+type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
 interface TokenPayload {
   token: string;
 }
 
 interface PageChangePayload {
-  page: 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
+  page: PageType;
   id?: string;
 }
 
@@ -106,7 +106,7 @@ export function useNativeBridge() {
   }, [handleReceivedMessage]);
 
   const changePage = useCallback(
-    (page: 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON', id?: string) => {
+    (page: PageType, id?: string) => {
       const message: NativeMessage = {
         type: 'PAGE_CHANGE',
         payload: { page, id },
