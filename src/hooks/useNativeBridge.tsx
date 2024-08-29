@@ -28,6 +28,7 @@ declare global {
       messageHandlers: {
         sendMessageToNative: {
           postMessage: (message: string) => void;
+          sendMessageToNative: (message: string) => void;
         };
         iOS: NativeBridge;
         BridgeRouter: NativeBridge;
@@ -43,11 +44,13 @@ export function useNativeBridge() {
     const messageString = JSON.stringify(message);
 
     console.log('1. BridgeRouter');
-    window?.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
+    window.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
     console.log('2. iOS');
-    window?.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
+    window.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
     console.log('3. sendMessageToNative.postMessage');
-    window?.webkit?.messageHandlers.sendMessageToNative.postMessage(messageString);
+    window.webkit?.messageHandlers.sendMessageToNative.postMessage(messageString);
+    console.log('3. sendMessageToNative.sendMessageToNative');
+    window.webkit?.messageHandlers.sendMessageToNative.sendMessageToNative(messageString);
 
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
