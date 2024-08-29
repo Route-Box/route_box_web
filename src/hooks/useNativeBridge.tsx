@@ -27,6 +27,7 @@ declare global {
     webkit?: {
       messageHandlers: {
         iOS: NativeBridge;
+        BridgeRouter: NativeBridge;
       };
     };
   }
@@ -40,7 +41,11 @@ export function useNativeBridge() {
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
     } else if (window.webkit && window.webkit.messageHandlers.iOS) {
+      alert('iOS');
       window.webkit.messageHandlers.iOS.sendMessageToNative(messageString);
+    } else if (window.webkit && window.webkit.messageHandlers.BridgeRouter) {
+      alert('BridgeRouter');
+      window.webkit.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
     } else {
       console.log('Native bridge not found');
     }
