@@ -38,14 +38,17 @@ export function useNativeBridge() {
 
   const sendMessageToNative = useCallback((message: NativeMessage) => {
     const messageString = JSON.stringify(message);
+
+    window?.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
+    window?.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
+
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
-    } else if (window.webkit && window.webkit.messageHandlers.iOS) {
+    } else if (window.webkit) {
       alert('iOS');
-      window.webkit.messageHandlers.iOS.sendMessageToNative(messageString);
-    } else if (window.webkit && window.webkit.messageHandlers.BridgeRouter) {
+      window?.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
       alert('BridgeRouter');
-      window.webkit.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
+      window?.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
     } else {
       console.log('Native bridge not found');
     }
