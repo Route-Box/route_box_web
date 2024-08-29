@@ -62,7 +62,7 @@ function Setting() {
     <Loader />
   ) : (
     <DefaultLayout>
-      <Header back={true} current="/setting" go="/" title="설정" />
+      <Header back current="/setting" go="/my-page" title="설정" />
       <Frame onClick={handleSectionClick}>
         <SettingList />
         <WithdrawMembership />

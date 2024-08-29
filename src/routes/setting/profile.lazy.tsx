@@ -56,7 +56,7 @@ function Profile() {
 
   return (
     <DefaultLayout>
-      <Header back={true} title="회원 정보 수정" />
+      <Header back go={'/setting'} title="회원 정보 수정" />
       <Section>
         <ProfileComponents onActiveChange={handleActiveChange} />
         {/* 임시 파일 업로드 버튼 추가 */}

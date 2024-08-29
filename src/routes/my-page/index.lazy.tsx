@@ -30,7 +30,7 @@ function MyPage() {
 
   return (
     <DefaultLayout>
-      <Header back={true} current="/my-page" go="/" title="마이페이지" menu={true} />
+      <Header menu current="/my-page" go="/setting" title="마이페이지" />
       <FlexBox col gap={2.13} px={1.38}>
         <Profile
           profileImageUrl={userProfile?.profileImageUrl}
