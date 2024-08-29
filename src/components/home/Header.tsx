@@ -65,6 +65,7 @@ const Container = styled.header`
   box-sizing: border-box;
   position: fixed;
   top: 0;
+  background-color: white;
 `;
 const Icons = styled.div`
   display: flex;
