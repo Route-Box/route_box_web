@@ -48,7 +48,7 @@ function Setting() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem(storageKey.accessToken);
+    window.localStorage.removeItem(storageKey.accessToken);
     navigate({ to: '/' });
   };
 
