@@ -62,10 +62,11 @@ export function useNativeBridge() {
     }
   }, []);
 
-  const handleReceivedMessage = useCallback((messageString: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleReceivedMessage = useCallback((event: any) => {
     try {
-      const message: NativeMessage = JSON.parse(messageString);
-
+      const message = event.detail as NativeMessage;
+      console.log(message);
       if (import.meta.env.VITE_APP_BUILD_ENV !== 'production') {
         const type = message.type;
         const payload = message.payload as TokenPayload;
