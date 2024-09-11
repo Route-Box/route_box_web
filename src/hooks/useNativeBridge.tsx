@@ -87,15 +87,36 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
+    if (window.webkit) {
+      window.webkit?.messageHandlers?.sendMessageToNative.postMessage('React Component loaded');
+    } else {
+      console.log('Native bridge not found');
+    }
+  }, []);
+
+  useEffect(() => {
     const setupNativeCommunication = () => {
       if (window.Android) {
         window.Android.sendMessageToWebView(handleReceivedMessage);
       } else if (window.webkit && window.webkit.messageHandlers) {
-        window.webkit.messageHandlers.sendMessageToWebView(handleReceivedMessage);
+        window.webkit.messageHandlers?.sendMessageToWebView(handleReceivedMessage);
       }
     };
 
     setupNativeCommunication();
+  }, [handleReceivedMessage]);
+
+  useEffect(() => {
+    window.addEventListener(
+      'sendMessageToWebView',
+      handleReceivedMessage as unknown as EventListener
+    );
+    return () => {
+      window.removeEventListener(
+        'sendMessageToWebView',
+        handleReceivedMessage as unknown as EventListener
+      );
+    };
   }, [handleReceivedMessage]);
 
   const changePage = useCallback(
