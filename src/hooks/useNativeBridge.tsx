@@ -21,11 +21,18 @@ interface NativeBridge {
   sendMessageToWebView: (callback: (message: string) => void) => void;
 }
 
+interface IosNativeBridge {
+  sendMessageToNative: {
+    postMessage: (message: string) => void;
+  };
+  sendMessageToWebView: (callback: (message: string) => void) => void;
+}
+
 declare global {
   interface Window {
     Android?: NativeBridge;
     webkit?: {
-      messageHandlers: NativeBridge;
+      messageHandlers: IosNativeBridge;
     };
   }
 }
@@ -39,7 +46,7 @@ export function useNativeBridge() {
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
     } else if (window.webkit) {
-      window?.webkit?.messageHandlers.sendMessageToNative(messageString);
+      window.webkit?.messageHandlers?.sendMessageToNative?.postMessage(messageString);
     } else {
       console.log('Native bridge not found');
     }
