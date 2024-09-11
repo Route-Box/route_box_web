@@ -25,14 +25,7 @@ declare global {
   interface Window {
     Android?: NativeBridge;
     webkit?: {
-      messageHandlers: {
-        sendMessageToNative: {
-          postMessage: (message: string) => void;
-          sendMessageToNative: (message: string) => void;
-        };
-        iOS: NativeBridge;
-        BridgeRouter: NativeBridge;
-      };
+      messageHandlers: NativeBridge;
     };
   }
 }
@@ -43,22 +36,10 @@ export function useNativeBridge() {
   const sendMessageToNative = useCallback((message: NativeMessage) => {
     const messageString = JSON.stringify(message);
 
-    console.log('1. BridgeRouter');
-    window.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
-    console.log('2. iOS');
-    window.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
-    console.log('3. sendMessageToNative.postMessage');
-    window.webkit?.messageHandlers.sendMessageToNative.postMessage(messageString);
-    console.log('3. sendMessageToNative.sendMessageToNative');
-    window.webkit?.messageHandlers.sendMessageToNative.sendMessageToNative(messageString);
-
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
     } else if (window.webkit) {
-      alert('iOS');
-      window?.webkit?.messageHandlers.iOS.sendMessageToNative(messageString);
-      alert('BridgeRouter');
-      window?.webkit?.messageHandlers.BridgeRouter.sendMessageToNative(messageString);
+      window?.webkit?.messageHandlers.sendMessageToNative(messageString);
     } else {
       console.log('Native bridge not found');
     }
@@ -102,8 +83,8 @@ export function useNativeBridge() {
     const setupNativeCommunication = () => {
       if (window.Android) {
         window.Android.sendMessageToWebView(handleReceivedMessage);
-      } else if (window.webkit && window.webkit.messageHandlers.iOS) {
-        window.webkit.messageHandlers.iOS.sendMessageToWebView(handleReceivedMessage);
+      } else if (window.webkit && window.webkit.messageHandlers) {
+        window.webkit.messageHandlers.sendMessageToWebView(handleReceivedMessage);
       }
     };
 
