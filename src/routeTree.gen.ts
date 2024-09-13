@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const WithdrawExplanationLazyImport = createFileRoute('/withdraw-explanation')()
 const NotificationLazyImport = createFileRoute('/notification')()
 const IndexLazyImport = createFileRoute('/')()
 const SettingIndexLazyImport = createFileRoute('/setting/')()
@@ -29,6 +30,13 @@ const SettingNotificationsLazyImport = createFileRoute(
 const MyPageIntroEditLazyImport = createFileRoute('/my-page/intro-edit')()
 
 // Create/Update Routes
+
+const WithdrawExplanationLazyRoute = WithdrawExplanationLazyImport.update({
+  path: '/withdraw-explanation',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/withdraw-explanation.lazy').then((d) => d.Route),
+)
 
 const NotificationLazyRoute = NotificationLazyImport.update({
   path: '/notification',
@@ -101,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationLazyImport
       parentRoute: typeof rootRoute
     }
+    '/withdraw-explanation': {
+      id: '/withdraw-explanation'
+      path: '/withdraw-explanation'
+      fullPath: '/withdraw-explanation'
+      preLoaderRoute: typeof WithdrawExplanationLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/my-page/intro-edit': {
       id: '/my-page/intro-edit'
       path: '/my-page/intro-edit'
@@ -158,6 +173,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   NotificationLazyRoute,
+  WithdrawExplanationLazyRoute,
   MyPageIntroEditLazyRoute,
   SettingNotificationsLazyRoute,
   SettingProfileLazyRoute,
@@ -177,6 +193,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/notification",
+        "/withdraw-explanation",
         "/my-page/intro-edit",
         "/setting/notifications",
         "/setting/profile",
@@ -191,6 +208,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/notification": {
       "filePath": "notification.lazy.tsx"
+    },
+    "/withdraw-explanation": {
+      "filePath": "withdraw-explanation.lazy.tsx"
     },
     "/my-page/intro-edit": {
       "filePath": "my-page/intro-edit.lazy.tsx"
