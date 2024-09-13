@@ -40,7 +40,8 @@ declare global {
 export function useNativeBridge() {
   const [token, setToken] = useState<string | null>(null);
 
-  const sendMessageToNative = useCallback((message: NativeMessage) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sendMessageToNative = (message: NativeMessage) => {
     const messageString = JSON.stringify(message);
 
     if (window.Android) {
@@ -50,30 +51,13 @@ export function useNativeBridge() {
     } else {
       console.log('Native bridge not found');
     }
-
-    if (import.meta.env.VITE_APP_BUILD_ENV !== 'production') {
-      const payload = message.payload as PageChangePayload;
-      const page = payload.page;
-      const id = payload.id;
-
-      let printMessage = '웹뷰에서 앱으로 메시지를 전달합니다 :: ' + message.type + ' :: ' + page;
-      if (id) printMessage = printMessage + ' :: ' + id;
-      alert(printMessage);
-    }
-  }, []);
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleReceivedMessage = useCallback((event: any) => {
     try {
       const message = event.detail as NativeMessage;
       console.log(message);
-      if (import.meta.env.VITE_APP_BUILD_ENV !== 'production') {
-        const type = message.type;
-        const payload = message.payload as TokenPayload;
-
-        const printMessage = '앱에서 웹뷰로 값을 전달 받았습니다 :: ' + type + ' :: ' + payload;
-        alert(printMessage);
-      }
 
       switch (message.type) {
         case 'TOKEN':
@@ -95,17 +79,17 @@ export function useNativeBridge() {
     }
   }, []);
 
-  useEffect(() => {
-    const setupNativeCommunication = () => {
-      if (window.Android) {
-        window.Android.sendMessageToWebView(handleReceivedMessage);
-      } else if (window.webkit && window.webkit.messageHandlers) {
-        window.webkit.messageHandlers?.sendMessageToWebView(handleReceivedMessage);
-      }
-    };
+  // useEffect(() => {
+  //   const setupNativeCommunication = () => {
+  //     if (window.Android) {
+  //       window.Android.sendMessageToWebView(handleReceivedMessage);
+  //     } else if (window.webkit && window.webkit.messageHandlers) {
+  //       window.webkit.messageHandlers?.sendMessageToWebView(handleReceivedMessage);
+  //     }
+  //   };
 
-    setupNativeCommunication();
-  }, [handleReceivedMessage]);
+  //   setupNativeCommunication();
+  // }, [handleReceivedMessage]);
 
   useEffect(() => {
     window.addEventListener(
