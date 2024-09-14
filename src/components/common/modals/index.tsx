@@ -18,9 +18,7 @@ export const ConfirmationModal = ({
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
       <Container>
-        <Content>
-          <Typography variant="Body_R_M">{content}</Typography>
-        </Content>
+        <Content className="body-r-m">{content}</Content>
         <ButtonContainer>
           <button className="body-r-m" onClick={closeModal}>
             아니요
