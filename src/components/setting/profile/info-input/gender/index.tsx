@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GenderContainer, GenderSelect, GenderType } from './style';
 import { InputLabel } from '../style';
 
 interface GenderProps {
-  onInputChange: (value: string) => void;
+  gender: string;
+  handleInputChange: (name: string, value: string) => void;
 }
 
-export const Gender: React.FC<GenderProps> = ({ onInputChange }) => {
+export const Gender: React.FC<GenderProps> = ({ gender, handleInputChange }) => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   const handleSelect = (gender: string) => {
     setSelectedGender(gender);
-    onInputChange(gender);
+    handleInputChange('gender', gender);
   };
+
+  useEffect(() => {
+    if (gender === 'MALE') {
+      setSelectedGender('남성');
+    } else if (gender === 'FEMALE') {
+      setSelectedGender('여성');
+    } else {
+      setSelectedGender('비공개');
+    }
+  }, [gender]);
 
   return (
     <GenderContainer>

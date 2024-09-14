@@ -23,7 +23,7 @@ export interface Route {
 
 export interface MyInfoRequest {
   nickname?: string;
-  gender?: 'MALE' | 'FEMALE' | 'PRIVATE';
+  gender?: string;
   birthDay?: string;
   introduction?: string;
   profileImage?: File | null;
