@@ -1,6 +1,6 @@
 import React from 'react';
 import TermsListItem from './TermsListItem';
-import styled from 'styled-components';
+import { Container } from './style';
 
 const TermsList: React.FC = () => {
   const terms = ['이용약관', '개인정보처리방침', '위치정보이용 약관'];
@@ -13,12 +13,5 @@ const TermsList: React.FC = () => {
     </Container>
   );
 };
-
-const Container = styled.ul`
-  width: 100%;
-  margin-top: 0.25rem;
-  padding: 0.25rem 1.38rem;
-  box-sizing: border-box;
-`;
 
 export default TermsList;

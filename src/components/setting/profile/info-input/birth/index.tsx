@@ -8,25 +8,23 @@ interface BirthProps {
 }
 
 export const Birth: React.FC<BirthProps> = ({ birthDay, handleInputChange }) => {
-  const parts = birthDay.split('-');
-
-  const [year, setYear] = useState<string>(parts[0] || '');
-  const [month, setMonth] = useState<string>(parts[1] || '');
-  const [day, setDay] = useState<string>(parts[2] || '');
+  const [year, setYear] = useState<string>('');
+  const [month, setMonth] = useState<string>('');
+  const [day, setDay] = useState<string>('');
 
   const years = Array.from({ length: 100 }, (_, i) => `${2024 - i}`);
-  const months = Array.from({ length: 12 }, (_, i) => `${i + 1}`);
-  const days = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
+  const months = Array.from({ length: 12 }, (_, i) => `0${i + 1}`.slice(-2));
+  const days = Array.from({ length: 31 }, (_, i) => `0${i + 1}`.slice(-2));
 
   useEffect(() => {
     const [newYear, newMonth, newDay] = birthDay.split('-');
     setYear(newYear || '');
     setMonth(newMonth || '');
     setDay(newDay || '');
+    console.log(newYear, newMonth, newDay, birthDay);
   }, [birthDay]);
 
   useEffect(() => {
-    // 조건을 추가하여 불필요한 업데이트 방지
     if (year && month && day && `${year}-${month}-${day}` !== birthDay) {
       handleInputChange('birthDay', `${year}-${month}-${day}`);
     }
@@ -35,14 +33,6 @@ export const Birth: React.FC<BirthProps> = ({ birthDay, handleInputChange }) => 
   return (
     <InputSection>
       <InputLabel>생년월일</InputLabel>
-      {/* <BirthSelect>
-        <option value="" disabled selected>
-          생년월일
-        </option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-      </BirthSelect> */}
       <BirthContainer>
         <BirthSelect hasValue={!!year} value={year} onChange={(e) => setYear(e.target.value)}>
           <option value="" disabled selected>

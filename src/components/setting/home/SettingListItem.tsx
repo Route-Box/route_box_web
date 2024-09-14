@@ -1,40 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useNavigate } from '@tanstack/react-router';
+import { Item } from './style';
 
 interface SettingListItemProps {
   setting: string;
   isLast: boolean;
   to?: string;
+  onClick?: () => void;
 }
 
-const SettingListItem: React.FC<SettingListItemProps> = ({ setting, isLast, to }) => {
+const SettingListItem: React.FC<SettingListItemProps> = ({ setting, isLast, to, onClick }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     if (to) {
       navigate({ to });
+    } else if (onClick) {
+      onClick(); // onClick이 있으면 실행
     }
   };
 
   return (
-    <Container isLast={isLast} onClick={handleClick}>
+    <Item className="body-b-m" isLast={isLast} onClick={handleClick}>
       {setting}
-    </Container>
+    </Item>
   );
 };
-
-const Container = styled.li<{ isLast: boolean }>`
-  padding: 1.75rem 0;
-  color: #000;
-  font-feature-settings: 'case' on;
-  -webkit-text-stroke-color: var(--Gray6_disable-btn-bg, #f2f2f2);
-  font-family: 'Pretendard';
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.5rem; /* 150% */
-  border-bottom: ${({ isLast }) =>
-    isLast ? 'none' : '1px solid var(--Gray6_disable-btn-bg, #f2f2f2)'};
-`;
 
 export default SettingListItem;

@@ -10,4 +10,5 @@ export const Btn = styled.button<{ disabled: boolean }>`
   color: ${({ disabled }) => (disabled ? 'var(--Gray4_disable-text)' : 'var(--White)')};
   border: none;
   border-radius: 2.5rem;
+  cursor: pointer;
 `;

@@ -4,9 +4,9 @@ import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { queryKey, userInfo } from '@/api/my-page/userInfo';
+import FlexBox from '@/components/common/flex-box';
 
 export const Route = createLazyFileRoute('/setting/profile')({
   component: Profile,
@@ -22,6 +22,7 @@ function Profile() {
     birthDay: '',
     gender: '',
   });
+  // console.log(profileValue);
 
   const [file, setFile] = useState<File | null>(null); // 파일 상태 추가
 
@@ -38,6 +39,7 @@ function Profile() {
   });
 
   const handleInputChange = (name: string, value: string) => {
+    console.log('Updating state with:', { name, value });
     setProfileValue((prevState) => ({
       ...prevState,
       [name]: value,
@@ -72,27 +74,15 @@ function Profile() {
   return (
     <DefaultLayout>
       <Header back go={'/setting'} title="회원 정보 수정" />
-      <Section>
+      <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
         <ProfileComponents
           onActiveChange={handleActiveChange}
           setFile={setFile}
           handleInputChange={handleInputChange}
           profileValue={profileValue}
         />
-        {/* 임시 파일 업로드 버튼 추가 */}
         <CustomBtn disabled={disabled} text="저장하기" onClick={handleClick} />
-      </Section>
+      </FlexBox>
     </DefaultLayout>
   );
 }
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: calc(100dvh - 4rem);
-  padding: 1.25rem 1.37rem;
-  box-sizing: border-box;
-  background: var(--White, #fff);
-`;

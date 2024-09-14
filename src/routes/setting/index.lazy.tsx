@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
-import styled from 'styled-components';
 import { Header } from '@/components/common/header/index';
-import SettingList from '@/components/setting/home/SettingList';
-import WithdrawMembership from '@/components/setting/home/WithdrawMembership';
+import SettingList from '@/components/setting/home/index';
 import { useModal } from '@/hooks/useModal';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { storageKey } from '@/constants/storageKey';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
-import { ConfirmationModal } from '@/components/common/modals/ConfirmationModal';
+import { ConfirmationModal } from '@/components/common/modals/index';
+import FlexBox from '@/components/common/flex-box';
 
 export const Route = createLazyFileRoute('/setting/')({
   component: Setting,
@@ -26,8 +25,6 @@ function Setting() {
     const target = event.target as HTMLElement; // 클릭한 요소
     if (target.closest('li') && target.textContent === '로그아웃') {
       openLogoutModal();
-    } else if (target.textContent === '회원 탈퇴') {
-      handleWithdraw();
     }
   };
 
@@ -44,10 +41,23 @@ function Setting() {
   return (
     <DefaultLayout>
       <Header back current="/setting" go="/my-page" title="설정" />
-      <Frame onClick={handleSectionClick}>
-        <SettingList />
-        <WithdrawMembership />
-      </Frame>
+      <FlexBox col px={1.37} py={0.75}>
+        <SettingList openLogoutModal={openLogoutModal} />
+        <button
+          className="body-r-xs"
+          onClick={handleWithdraw}
+          style={{
+            padding: 0,
+            background: 'none',
+            border: 'none',
+            textDecoration: 'underline',
+            color: 'var(--Gray4_disable-text)',
+            cursor: 'pointer',
+          }}
+        >
+          회원 탈퇴
+        </button>
+      </FlexBox>
 
       <ConfirmationModal
         isOpen={isLogoutOpen}
@@ -58,10 +68,3 @@ function Setting() {
     </DefaultLayout>
   );
 }
-
-const Frame = styled.section`
-  width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.75rem 1.37rem;
-  box-sizing: border-box;
-`;

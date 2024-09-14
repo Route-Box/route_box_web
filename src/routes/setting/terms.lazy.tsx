@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/header/index';
-import TermsList from '@/components/setting/terms/TermsList';
+import TermsList from '@/components/setting/terms/index';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/setting/terms')({
 function Terms() {
   return (
     <DefaultLayout>
-      <Header back={true} />
+      <Header back go={'/setting'} />
       <TermsList />
     </DefaultLayout>
   );

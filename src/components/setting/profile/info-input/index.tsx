@@ -19,22 +19,19 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
   birthDay,
   gender,
 }) => {
-  // const [nickname, setNickname] = useState('');
-  // const [birth, setBirth] = useState('');
-  // const [sex, setSex] = useState('');
-  // const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
-  // useEffect(() => {
-  //   if (nickname && birth && sex) {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }, [nickname, birth, sex]);
+  useEffect(() => {
+    if (nickname && birthDay && gender) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [nickname, birthDay, gender]);
 
-  // useEffect(() => {
-  //   onActiveChange(isActive);
-  // }, [isActive, onActiveChange]);
+  useEffect(() => {
+    onActiveChange(isActive);
+  }, [isActive, onActiveChange]);
 
   return (
     <FlexBox col gap={2}>

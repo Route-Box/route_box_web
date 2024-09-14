@@ -8,7 +8,7 @@ interface NicknameProps {
 }
 
 export const Nickname: React.FC<NicknameProps> = ({ nickname, handleInputChange }) => {
-  const [value, setValue] = useState(nickname);
+  const [value, setValue] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
@@ -16,8 +16,10 @@ export const Nickname: React.FC<NicknameProps> = ({ nickname, handleInputChange 
   };
 
   useEffect(() => {
-    setValue(nickname);
-  }, [nickname]);
+    if (value !== nickname) {
+      setValue(nickname);
+    }
+  }, [nickname, value]);
 
   return (
     <InputSection>
