@@ -23,6 +23,7 @@ export const Route = createLazyFileRoute('/withdraw-explanation')({
 function WithdrawExplanation() {
   const navigate = useNavigate();
   const { items, toggleCheck } = useCheckList(initialWithdrawValues);
+  const [textAreaValue, setTextAreaValue] = React.useState('');
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: authService.postWithdraw,
@@ -32,7 +33,12 @@ function WithdrawExplanation() {
   });
 
   const handleWithdraw = () => {
-    mutateAsync().then(() => handleLogout);
+    const reasonType = items.filter((item) => item.checked)[0].id;
+
+    mutateAsync({
+      reasonType,
+      reasonDetail: textAreaValue,
+    }).then(() => handleLogout);
   };
 
   const handleLogout = () => {
@@ -66,7 +72,10 @@ function WithdrawExplanation() {
               />
               <MarginDiv mb={1} />
               {item.id === 'etc' && item.checked && (
-                <TextAreaWithCounter placeholder="내용을 작성해주세요" />
+                <TextAreaWithCounter
+                  placeholder="내용을 작성해주세요"
+                  onChange={(e) => setTextAreaValue(e.target.value)}
+                />
               )}
             </div>
           );

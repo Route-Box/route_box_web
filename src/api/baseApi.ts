@@ -17,6 +17,7 @@ export const baseApi = ky.create({
   timeout: 10000,
   headers: {
     Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+    'Content-Type': 'application/json',
   },
   hooks: {
     beforeRequest: [

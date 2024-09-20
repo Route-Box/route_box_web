@@ -5,17 +5,20 @@ interface TextAreaWithCounterProps {
   placeholder?: string;
   maxLength?: number;
   height?: number;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
   placeholder,
   maxLength = 200,
   height = 15,
+  onChange,
 }) => {
   const [text, setText] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
+    if (onChange) onChange(e);
   };
 
   return (
