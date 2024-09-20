@@ -22,7 +22,6 @@ function Profile() {
     birthDay: '',
     gender: '',
   });
-  // console.log(profileValue);
 
   const [file, setFile] = useState<File | null>(null); // 파일 상태 추가
 

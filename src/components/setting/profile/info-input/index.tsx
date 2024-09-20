@@ -37,13 +37,16 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({
     <FlexBox col gap={2}>
       <Nickname
         nickname={nickname}
-        handleInputChange={(value) => handleInputChange('nickname', value)}
+        handleInputChange={(_, value) => handleInputChange('nickname', value)}
       />
       <Birth
         birthDay={birthDay}
-        handleInputChange={(value) => handleInputChange('birthDay', value)}
+        handleInputChange={(_, value) => handleInputChange('birthDay', value)}
       />
-      <Gender gender={gender} handleInputChange={(value) => handleInputChange('gender', value)} />
+      <Gender
+        gender={gender}
+        handleInputChange={(_, value) => handleInputChange('gender', value)}
+      />
     </FlexBox>
   );
 };

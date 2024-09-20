@@ -15,16 +15,6 @@ export const Gender: React.FC<GenderProps> = ({ gender, handleInputChange }) => 
     handleInputChange('gender', gender);
   };
 
-  useEffect(() => {
-    if (gender === 'MALE') {
-      setSelectedGender('남성');
-    } else if (gender === 'FEMALE') {
-      setSelectedGender('여성');
-    } else {
-      setSelectedGender('비공개');
-    }
-  }, [gender]);
-
   return (
     <GenderContainer>
       <InputLabel>성별</InputLabel>

@@ -21,7 +21,6 @@ export const Birth: React.FC<BirthProps> = ({ birthDay, handleInputChange }) => 
     setYear(newYear || '');
     setMonth(newMonth || '');
     setDay(newDay || '');
-    console.log(newYear, newMonth, newDay, birthDay);
   }, [birthDay]);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export const Birth: React.FC<BirthProps> = ({ birthDay, handleInputChange }) => 
             </option>
           ))}
         </BirthSelect>
-        <BirthSelect hasValue={!!year} value={year} onChange={(e) => setMonth(e.target.value)}>
+        <BirthSelect hasValue={!!year} value={month} onChange={(e) => setMonth(e.target.value)}>
           <option value="" disabled selected>
             월
           </option>
@@ -54,7 +53,7 @@ export const Birth: React.FC<BirthProps> = ({ birthDay, handleInputChange }) => 
             </option>
           ))}
         </BirthSelect>
-        <BirthSelect hasValue={!!year} value={year} onChange={(e) => setDay(e.target.value)}>
+        <BirthSelect hasValue={!!year} value={day} onChange={(e) => setDay(e.target.value)}>
           <option value="" disabled selected>
             일
           </option>
