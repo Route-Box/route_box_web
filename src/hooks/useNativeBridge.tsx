@@ -39,6 +39,11 @@ declare global {
 
 export function useNativeBridge() {
   const [token, setToken] = useState<string | null>(null);
+  const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
+
+  const toggleMessageVisibility = () => {
+    setIsMessageVisible((prev) => !prev);
+  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const sendMessageToNative = (message: NativeMessage) => {
@@ -115,9 +120,34 @@ export function useNativeBridge() {
     [sendMessageToNative]
   );
 
+  const renderMessage = () => {
+    if (!isMessageVisible) return null;
+
+    return (
+      <div
+        style={{
+          backgroundColor: '#21c8b6',
+          padding: '20px',
+          boxSizing: 'border-box',
+          position: 'fixed',
+          width: '100%',
+          zIndex: 999,
+          top: 0,
+          left: 0,
+        }}
+      >
+        [dev] native message received :
+        <br />
+        {token}
+      </div>
+    );
+  };
+
   return {
     token,
     sendMessageToNative,
     changePage,
+    renderMessage,
+    toggleMessageVisibility,
   };
 }
