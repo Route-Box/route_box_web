@@ -34,6 +34,7 @@ declare global {
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
+    sayHello?: CustomEvent; // 추가된 부분
   }
 }
 
@@ -85,17 +86,32 @@ export function useNativeBridge() {
       console.log('Native bridge not found');
     }
   }, []);
+
+  useEffect(() => {
+    window.sayHello = new CustomEvent('NativeEvent');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nativeEventCallback = (event: any) => {
+      setToken('event received ');
+      alert(`event receive from Native`);
+    };
+
+    window.addEventListener('NativeEvent', nativeEventCallback);
+
+    // event listener clean up
+    return () => {
+      window.removeEventListener('NativeEvent', nativeEventCallback);
+    };
+  }, []);
+
   useEffect(() => {
     const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
     window.dispatchEvent(sendMessageToWebView);
 
-    window.addEventListener('message', handleReceivedMessage as unknown as EventListener);
     window.addEventListener(
       'sendMessageToWebView',
       handleReceivedMessage as unknown as EventListener
     );
     return () => {
-      window.removeEventListener('message', handleReceivedMessage as unknown as EventListener);
       window.removeEventListener(
         'sendMessageToWebView',
         handleReceivedMessage as unknown as EventListener
