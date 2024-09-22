@@ -34,7 +34,12 @@ declare global {
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
-    sayHello?: CustomEvent; // 추가된 부분
+    sayHello?: CustomEvent;
+    helloWorld?: () => void;
+    NativeInterface: {
+      helloWorld?: () => void;
+      sendMessageToWebView?: (event: any) => void;
+    };
   }
 }
 
@@ -100,6 +105,18 @@ export function useNativeBridge() {
     // event listener clean up
     return () => {
       window.removeEventListener('NativeEvent', nativeEventCallback);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.NativeInterface = {
+      helloWorld: () => {
+        setToken('Message received');
+      },
+      sendMessageToWebView: (event) => {
+        setToken(event);
+        console.log(event);
+      },
     };
   }, []);
 
