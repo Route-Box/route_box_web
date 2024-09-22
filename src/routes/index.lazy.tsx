@@ -20,7 +20,8 @@ function Index() {
       <TravelSection />
       <RecommendedRoutesSection />
       <PopularRoutesSection />
-      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage() && <div>{token}</div>}
+      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
+      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && <div>{token}</div>}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (
         <button
           onClick={toggleMessageVisibility}

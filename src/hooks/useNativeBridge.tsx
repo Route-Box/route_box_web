@@ -104,7 +104,7 @@ export function useNativeBridge() {
     [sendMessageToNative]
   );
 
-  const renderMessage = () => {
+  const renderMessage = useCallback(() => {
     if (!isMessageVisible) return null;
 
     return (
@@ -125,7 +125,7 @@ export function useNativeBridge() {
         {token}
       </div>
     );
-  };
+  }, [isMessageVisible, token]);
 
   return {
     token,
