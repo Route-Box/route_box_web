@@ -61,7 +61,9 @@ export function useNativeBridge() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sendMessageToWebView = useCallback((event: any) => {
     try {
-      const message = event as NativeMessage;
+      const message = event.data as NativeMessage;
+
+      setToken(event);
       console.log(message);
 
       switch (message.type) {
