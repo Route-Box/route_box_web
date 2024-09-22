@@ -61,7 +61,7 @@ export function useNativeBridge() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sendMessageToWebView = useCallback((event: any) => {
     try {
-      const message = event.detail as NativeMessage;
+      const message = event as NativeMessage;
       console.log(message);
 
       switch (message.type) {
@@ -83,18 +83,6 @@ export function useNativeBridge() {
       console.log('Native bridge not found');
     }
   }, []);
-
-  // useEffect(() => {
-  //   const setupNativeCommunication = () => {
-  //     if (window.Android) {
-  //       window.Android.sendMessageToWebView(handleReceivedMessage);
-  //     } else if (window.webkit && window.webkit.messageHandlers) {
-  //       window.webkit.messageHandlers?.sendMessageToWebView(handleReceivedMessage);
-  //     }
-  //   };
-
-  //   setupNativeCommunication();
-  // }, [handleReceivedMessage]);
 
   useEffect(() => {
     window.addEventListener('message', sendMessageToWebView as unknown as EventListener);
