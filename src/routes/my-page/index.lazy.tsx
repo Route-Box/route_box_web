@@ -23,7 +23,7 @@ function MyPage() {
 
   const { data: routes } = useQuery<RootObject>({
     queryKey: ['routes'],
-    queryFn: userInfo.getMyPurchasedRoutes,
+    queryFn: () => userInfo.getMyPurchasedRoutes(0, 10),
   });
 
   if (isLoading) return <Loader />;

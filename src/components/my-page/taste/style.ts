@@ -14,7 +14,7 @@ export const HashTag = styled.div`
   border-radius: 2.5rem;
   background: rgba(68, 195, 185, 0.2);
   color: var(--Sub_black, #242b37);
-  font-family: 'Spoqa Han Sans Neo';
+  /* font-family: 'Spoqa Han Sans Neo'; */
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 700;

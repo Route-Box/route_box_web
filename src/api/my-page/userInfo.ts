@@ -11,8 +11,8 @@ export const userInfo = {
     return response.json();
   },
 
-  getMyPurchasedRoutes: async (): Promise<RootObject> => {
-    const response = await baseApi.get('users/me/purchased-routes');
+  getMyPurchasedRoutes: async (page: number, pageSize: number): Promise<RootObject> => {
+    const response = await baseApi.get(`purchased-routes?page=${page}&pageSize=${pageSize}`);
     return response.json();
   },
 
