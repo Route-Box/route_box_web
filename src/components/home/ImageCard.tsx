@@ -42,6 +42,7 @@ const Title = styled.h3`
 `;
 
 const Description = styled.p`
+  width: 9.375rem;
   color: #999;
   font-family: Pretendard;
   font-size: 0.75rem;

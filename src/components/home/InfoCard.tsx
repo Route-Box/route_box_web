@@ -4,7 +4,12 @@ import ArrowIconBase from '@/assets/svg/arrow_right.svg';
 
 const InfoCard = () => {
   return (
-    <Container>
+    <Container
+      as="a"
+      href="https://www.notion.so/aaarajo/200-7846dffc9cff44fd81d291395f261e93?pvs=4"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Frame>
         <LeftSplit>
           <Title>
@@ -25,6 +30,7 @@ const Container = styled.div`
   width: 100%;
   padding: 0 1.38rem;
   box-sizing: border-box;
+  text-decoration: none;
 `;
 
 const Frame = styled.div`
