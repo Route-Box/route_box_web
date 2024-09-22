@@ -59,7 +59,7 @@ export function useNativeBridge() {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sendMessageToWebView = useCallback((event: any) => {
+  const handleReceivedMessage = useCallback((event: any) => {
     try {
       const message = event.data as NativeMessage;
 
@@ -85,13 +85,23 @@ export function useNativeBridge() {
       console.log('Native bridge not found');
     }
   }, []);
-
   useEffect(() => {
-    window.addEventListener('message', sendMessageToWebView as unknown as EventListener);
+    const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
+    window.dispatchEvent(sendMessageToWebView);
+
+    window.addEventListener('message', handleReceivedMessage as unknown as EventListener);
+    window.addEventListener(
+      'sendMessageToWebView',
+      handleReceivedMessage as unknown as EventListener
+    );
     return () => {
-      window.removeEventListener('message', sendMessageToWebView as unknown as EventListener);
+      window.removeEventListener('message', handleReceivedMessage as unknown as EventListener);
+      window.removeEventListener(
+        'sendMessageToWebView',
+        handleReceivedMessage as unknown as EventListener
+      );
     };
-  }, [sendMessageToWebView]);
+  }, [handleReceivedMessage]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
