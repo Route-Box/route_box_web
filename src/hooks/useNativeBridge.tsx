@@ -38,6 +38,7 @@ declare global {
     helloWorld?: () => void;
     NativeInterface: {
       helloWorld?: () => void;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sendMessageToWebView?: (event: any) => void;
     };
   }
@@ -67,9 +68,9 @@ export function useNativeBridge() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleReceivedMessage = useCallback((event: any) => {
     try {
+      setToken(JSON.stringify(event));
       const message = event.data as NativeMessage;
 
-      setToken(event);
       console.log(message);
 
       switch (message.type) {
@@ -96,7 +97,7 @@ export function useNativeBridge() {
     window.sayHello = new CustomEvent('NativeEvent');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nativeEventCallback = (event: any) => {
-      setToken('event received ');
+      setToken('event received');
       alert(`event receive from Native`);
     };
 
@@ -114,7 +115,7 @@ export function useNativeBridge() {
         setToken('Message received');
       },
       sendMessageToWebView: (event) => {
-        setToken(event);
+        setToken(JSON.stringify(event));
         console.log(event);
       },
     };
