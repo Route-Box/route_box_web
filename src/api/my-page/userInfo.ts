@@ -35,7 +35,12 @@ export const userInfo = {
         }
       }
     });
-    const response = await baseApi.patch('users/me', { body: formData });
+    const response = await baseApi.patch('users/me', {
+      headers: {
+        'Content-Type': undefined,
+      },
+      body: formData,
+    });
 
     return response.json();
   },
