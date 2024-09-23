@@ -1,3 +1,4 @@
+import { storageKey } from '@/constants/storageKey';
 import { useState, useCallback, useEffect } from 'react';
 
 type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
@@ -107,6 +108,10 @@ export function useNativeBridge() {
     }
   }, [handleReceivedMessage]);
 
+  useEffect(() => {
+    if (token) window.localStorage.setItem(storageKey.accessToken, token);
+  }, [token]);
+
   // useEffect(() => {
   //   const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
   //   window.dispatchEvent(sendMessageToWebView);
@@ -159,6 +164,7 @@ export function useNativeBridge() {
 
   return {
     token,
+    setToken,
     sendMessageToNative,
     changePage,
     renderMessage,

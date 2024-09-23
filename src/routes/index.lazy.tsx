@@ -13,6 +13,7 @@ export const Route = createLazyFileRoute('/')({
 
 function Index() {
   const { token, renderMessage, toggleMessageVisibility } = useNativeBridge();
+
   return (
     <DefaultLayout>
       <Header />
@@ -21,7 +22,6 @@ function Index() {
       <RecommendedRoutesSection />
       <PopularRoutesSection />
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
-      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && <div>{token}</div>}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (
         <button
           onClick={toggleMessageVisibility}
