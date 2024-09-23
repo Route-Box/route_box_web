@@ -69,23 +69,27 @@ export function useNativeBridge() {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleReceivedMessage = useCallback((event: any) => {
-    try {
-      const message = event as NativeMessage;
+  const handleReceivedMessage = useCallback(
+    (event: NativeMessage) => {
+      try {
+        const message = event;
+        alert(message);
 
-      switch (message.type) {
-        case 'TOKEN':
-          setTokenHeader((message.payload as TokenPayload).token);
-          setToken((message.payload as TokenPayload).token);
-          queryClient.refetchQueries();
-          break;
-        default:
-          console.log('Unknown message type:', message.type);
+        switch (message.type) {
+          case 'TOKEN':
+            setTokenHeader((message.payload as TokenPayload).token);
+            setToken((message.payload as TokenPayload).token);
+            queryClient.refetchQueries();
+            break;
+          default:
+            console.log('Unknown message type:', message.type);
+        }
+      } catch (error) {
+        console.error('Error parsing message:', error);
       }
-    } catch (error) {
-      console.error('Error parsing message:', error);
-    }
-  }, []);
+    },
+    [queryClient]
+  );
 
   useEffect(() => {
     // Web to Native 브릿지 함수 실행
