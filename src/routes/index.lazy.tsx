@@ -19,8 +19,8 @@ function Index() {
       <Header />
       <InfoCard />
       <TravelSection />
-      {token && <RecommendedRoutesSection />}
-      {token && <PopularRoutesSection />}
+      {<RecommendedRoutesSection />}
+      {<PopularRoutesSection />}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (
         <button

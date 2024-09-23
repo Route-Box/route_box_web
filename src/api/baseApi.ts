@@ -5,16 +5,12 @@ import { storageKey } from '@/constants/storageKey';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const setAuthorizationHeader: BeforeRequestHook = (request) => {
-  if (request.headers.has('Authorization')) {
-    return;
-  } else {
-    const accessToken = window.localStorage.getItem(storageKey.accessToken);
-    if (!accessToken) return;
-    request.headers.set('Authorization', `Bearer ${accessToken}`);
-  }
+  const accessToken = window.localStorage.getItem(storageKey.accessToken);
+  if (!accessToken) return;
+  request.headers.set('Authorization', `Bearer ${accessToken}`);
 };
 
-export let baseApi = ky.create({
+let baseApi = ky.create({
   prefixUrl: API_BASE_URL,
   timeout: 10000,
   headers: {
@@ -49,10 +45,12 @@ export let baseApi = ky.create({
   },
 });
 
-export const setTokenHeader = (token: string) => {
+const setTokenHeader = (token: string) => {
   baseApi = baseApi.extend({
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
+
+export { baseApi, setTokenHeader };
