@@ -74,6 +74,7 @@ export function useNativeBridge() {
 
       switch (message.type) {
         case 'TOKEN':
+          setTokenHeader((message.payload as TokenPayload).token);
           setToken((message.payload as TokenPayload).token);
           break;
         default:
@@ -114,13 +115,13 @@ export function useNativeBridge() {
     };
   }, [handleReceivedMessage]);
 
-  useEffect(() => {
-    if (token) {
-      window.localStorage.setItem(storageKey.accessToken, token);
-      setTokenHeader(token);
-      setToken(token);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     window.localStorage.setItem(storageKey.accessToken, token);
+  //     setTokenHeader(token);
+  //     setToken(token);
+  //   }
+  // }, [token]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
