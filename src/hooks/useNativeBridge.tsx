@@ -34,6 +34,7 @@ interface IosNativeBridge {
 declare global {
   interface Window {
     Android?: NativeBridge;
+    sendMessageToWebView: (event: string) => void;
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
@@ -83,6 +84,11 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
+    if (window) {
+      window.sendMessageToWebView = (message) => {
+        handleReceivedMessage(message);
+      };
+    }
     if (window.Android) {
       window.Android.sendMessageToNative('React Component loaded');
     } else if (window.webkit) {
