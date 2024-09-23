@@ -24,16 +24,11 @@ function Setting() {
     closeModal: closeLogoutModal,
   } = useModal();
 
-  const { setToken } = useNativeBridge();
-
-  const handleSectionClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLElement; // 클릭한 요소
-    if (target.closest('li') && target.textContent === '로그아웃') {
-      openLogoutModal();
-    }
-  };
+  const { setToken, handleLogout: handleNativeLogout } = useNativeBridge();
 
   const handleLogout = () => {
+    handleNativeLogout();
+    // TODO :: 로그아웃 리펙토링
     window.localStorage.removeItem(storageKey.accessToken);
     setToken(null);
     setTokenHeader(null);

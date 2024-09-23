@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { storageKey } from '@/constants/storageKey';
 
-type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
+type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED' | 'LOGOUT';
 type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
 interface TokenPayload {
   token: string;
@@ -16,7 +16,7 @@ interface PageChangePayload {
 
 interface NativeMessage {
   type: MessageType;
-  payload: TokenPayload | PageChangePayload;
+  payload?: TokenPayload | PageChangePayload;
 }
 
 interface NativeBridge {
@@ -135,6 +135,13 @@ export function useNativeBridge() {
     [sendMessageToNative]
   );
 
+  const handleLogout = useCallback(() => {
+    const message: NativeMessage = {
+      type: 'LOGOUT',
+    };
+    sendMessageToNative(message);
+  }, [sendMessageToNative]);
+
   const renderMessage = useCallback(() => {
     if (!isMessageVisible) return null;
 
@@ -163,6 +170,7 @@ export function useNativeBridge() {
     setToken,
     sendMessageToNative,
     changePage,
+    handleLogout,
     renderMessage,
     toggleMessageVisibility,
   };
