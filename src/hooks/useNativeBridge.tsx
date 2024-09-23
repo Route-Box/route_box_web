@@ -118,6 +118,7 @@ export function useNativeBridge() {
     if (token) {
       window.localStorage.setItem(storageKey.accessToken, token);
       setTokenHeader(token);
+      setToken(token);
     }
   }, [token]);
 
