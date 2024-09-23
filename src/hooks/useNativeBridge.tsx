@@ -30,7 +30,7 @@ interface IosNativeBridge {
 
 declare global {
   interface Window {
-    AndroidBridge?: NativeBridge;
+    Android?: NativeBridge;
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
@@ -53,8 +53,8 @@ export function useNativeBridge() {
   const sendMessageToNative = (message: NativeMessage) => {
     const messageString = JSON.stringify(message);
 
-    if (window.AndroidBridge) {
-      window.AndroidBridge.sendMessageToNative(messageString);
+    if (window.Android) {
+      window.Android.sendMessageToNative(messageString);
     } else if (window.webkit) {
       window.webkit?.messageHandlers?.sendMessageToNative?.postMessage(messageString);
     } else {
@@ -80,8 +80,8 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    if (window.AndroidBridge) {
-      window.AndroidBridge.sendMessageToNative('React Component loaded');
+    if (window.Android) {
+      window.Android.sendMessageToNative('React Component loaded');
     } else if (window.webkit) {
       window.webkit?.messageHandlers?.sendMessageToNative.postMessage('React Component loaded');
     } else {
