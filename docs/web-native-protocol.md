@@ -1,7 +1,6 @@
 # 웹-네이티브 통신 프로토콜
 
 1. `sendMessageToWebView` : 네이티브 앱에서 웹뷰로 메시지를 보내는 함수
-
 2. `sendMessageToNative` : 웹뷰에서 네이티브 앱으로 메시지를 보내는 함수
 
 ## 1. 메시지 구조
@@ -21,7 +20,7 @@
 ## 2. 메시지 타입
 
 ```tsx
-type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
+type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED' | 'LOGOUT';
 
 interface TokenPayload {
   token: string;
@@ -99,7 +98,9 @@ interface NativeMessage {
 ```json
 {
   "type": "TOKEN",
-  "payload": "토큰 값"
+  "payload": {
+     "token" : "토큰 값" 
+   }
 }
 ```
 

@@ -1,8 +1,9 @@
 import { setTokenHeader } from '@/api/baseApi';
 import { useState, useCallback, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { storageKey } from '@/constants/storageKey';
 
-type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
+type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED' | 'LOGOUT';
 type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
 interface TokenPayload {
   token: string;
@@ -15,7 +16,7 @@ interface PageChangePayload {
 
 interface NativeMessage {
   type: MessageType;
-  payload: TokenPayload | PageChangePayload;
+  payload?: TokenPayload | PageChangePayload;
 }
 
 interface NativeBridge {
@@ -48,7 +49,9 @@ declare global {
 
 export function useNativeBridge() {
   const queryClient = useQueryClient();
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(() =>
+    window.localStorage.getItem(storageKey.accessToken)
+  );
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
 
   const toggleMessageVisibility = () => {
@@ -132,6 +135,13 @@ export function useNativeBridge() {
     [sendMessageToNative]
   );
 
+  const handleLogout = useCallback(() => {
+    const message: NativeMessage = {
+      type: 'LOGOUT',
+    };
+    sendMessageToNative(message);
+  }, [sendMessageToNative]);
+
   const renderMessage = useCallback(() => {
     if (!isMessageVisible) return null;
 
@@ -160,6 +170,7 @@ export function useNativeBridge() {
     setToken,
     sendMessageToNative,
     changePage,
+    handleLogout,
     renderMessage,
     toggleMessageVisibility,
   };

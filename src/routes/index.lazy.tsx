@@ -1,3 +1,4 @@
+import Typography from '@/components/common/Typography';
 import Header from '@/components/home/Header';
 import InfoCard from '@/components/home/InfoCard';
 import PopularRoutesSection from '@/components/home/PopularRoutesSection';
@@ -20,7 +21,15 @@ function Index() {
       <InfoCard />
       <TravelSection />
       {token && <RecommendedRoutesSection />}
-      {<PopularRoutesSection />}
+      {token && <PopularRoutesSection />}
+      {!token && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '5rem' }}>
+          <Typography variant="Body_B_M" color="#70747E">
+            로그인이 필요합니다.
+          </Typography>
+        </div>
+      )}
+
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (
         <button

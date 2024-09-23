@@ -45,7 +45,7 @@ let baseApi = ky.create({
   },
 });
 
-const setTokenHeader = (token: string) => {
+const setTokenHeader = (token: string | null) => {
   baseApi = baseApi.extend({
     headers: {
       Authorization: `Bearer ${token}`,
