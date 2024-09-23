@@ -35,7 +35,7 @@ interface IosNativeBridge {
 declare global {
   interface Window {
     Android?: NativeBridge;
-    sendMessageToWebView?: (event: string) => void;
+    sendMessageToWebView?: (event: NativeMessage) => void;
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
@@ -105,7 +105,7 @@ export function useNativeBridge() {
   useEffect(() => {
     // 브릿지 함수 선언
     if (window) {
-      window.sendMessageToWebView = (message) => {
+      window.sendMessageToWebView = (message: NativeMessage) => {
         handleReceivedMessage(message);
       };
     }
