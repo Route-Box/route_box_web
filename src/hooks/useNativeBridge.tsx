@@ -19,7 +19,8 @@ interface NativeMessage {
 interface NativeBridge {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendMessageToNative: (event: any) => void;
-  sendMessageToWebView: (callback: (message: string) => void) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sendMessageToWebView: (event: any) => void;
 }
 
 interface IosNativeBridge {
@@ -94,6 +95,7 @@ export function useNativeBridge() {
     /** Android bridge */
     if (window.Android) {
       window.Android.sendMessageToWebView = (event) => {
+        setToken(event);
         handleReceivedMessage(event);
       };
     }
