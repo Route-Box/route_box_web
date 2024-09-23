@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { notificationService } from '@/api/notification/notificationService';
 import { Notification, NotificationsResponse } from '@/api/notification/types';
 import Loader from '../common/Loader';
+import NotificationBase from '@/assets/png/notification.png';
 
 const Container = styled.div`
   width: 100%;
@@ -40,6 +41,16 @@ const NotificationItemGroup = styled.div`
 `;
 
 const NotificationItem = styled.p``;
+
+const NoData = styled.div`
+  margin-top: 9rem;
+  align-self: center;
+  text-align: center;
+  img {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+`;
 
 const NotificationList: React.FC = () => {
   const { data, isLoading } = useQuery<NotificationsResponse>({
@@ -97,6 +108,15 @@ const NotificationList: React.FC = () => {
               </NotificationItemGroup>
             </NotificationGroup>
           )
+      )}
+
+      {data?.notifications.length === 0 && (
+        <NoData>
+          <img src={NotificationBase} />
+          <Typography variant="Body_B_M" color="#70747E">
+            받은 알림이 없습니다.
+          </Typography>
+        </NoData>
       )}
     </Container>
   );

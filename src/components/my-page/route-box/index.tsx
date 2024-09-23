@@ -3,6 +3,7 @@ import React from 'react';
 import { RouteList } from './style';
 import { RouteBoxItem } from './RouteBoxItem';
 import { RootObject } from '@/api/my-page/types';
+import Typography from '@/components/common/Typography';
 
 const RouteBox: React.FC<RootObject> = ({ routes }) => {
   const isMine = true;
@@ -28,6 +29,14 @@ const RouteBox: React.FC<RootObject> = ({ routes }) => {
             createdAt={formatDate(route.createdAt)}
           />
         ))}
+
+        {routes.length === 0 && (
+          <div>
+            <Typography variant="Body_B_M" color="#70747E">
+              아직 담은 루트가 없어요!
+            </Typography>
+          </div>
+        )}
       </RouteList>
     </FlexBox>
   );
