@@ -1,3 +1,4 @@
+import { setTokenHeader } from '@/api/baseApi';
 import { storageKey } from '@/constants/storageKey';
 import { useState, useCallback, useEffect } from 'react';
 
@@ -114,24 +115,11 @@ export function useNativeBridge() {
   }, [handleReceivedMessage]);
 
   useEffect(() => {
-    if (token) window.localStorage.setItem(storageKey.accessToken, token);
+    if (token) {
+      window.localStorage.setItem(storageKey.accessToken, token);
+      setTokenHeader(token);
+    }
   }, [token]);
-
-  // useEffect(() => {
-  //   const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
-  //   window.dispatchEvent(sendMessageToWebView);
-
-  //   window.addEventListener(
-  //     'sendMessageToWebView',
-  //     handleReceivedMessage as unknown as EventListener
-  //   );
-  //   return () => {
-  //     window.removeEventListener(
-  //       'sendMessageToWebView',
-  //       handleReceivedMessage as unknown as EventListener
-  //     );
-  //   };
-  // }, [handleReceivedMessage]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
