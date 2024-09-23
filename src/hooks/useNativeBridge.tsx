@@ -17,7 +17,8 @@ interface NativeMessage {
 }
 
 interface NativeBridge {
-  sendMessageToNative: (message: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sendMessageToNative: (event: any) => void;
   sendMessageToWebView: (callback: (message: string) => void) => void;
 }
 
@@ -34,7 +35,7 @@ declare global {
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
-    NativeInterface: {
+    NativeInterface?: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sendMessageToWebView?: (event: any) => void;
     };
@@ -90,12 +91,18 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    /** IOS bridge */
-    window.NativeInterface = {
-      sendMessageToWebView: (event) => {
+    /** Android bridge */
+    if (window.Android) {
+      window.Android.sendMessageToWebView = (event) => {
         handleReceivedMessage(event);
-      },
-    };
+      };
+    }
+    /** IOS bridge */
+    if (window.NativeInterface) {
+      window.NativeInterface.sendMessageToWebView = (event) => {
+        handleReceivedMessage(event);
+      };
+    }
   }, [handleReceivedMessage]);
 
   // useEffect(() => {
