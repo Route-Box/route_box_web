@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NicknameCharCount, NicknameContainer, NicknameInput } from './style';
 import { InputLabel, InputSection } from '../style';
 
 interface NicknameProps {
-  onInputChange: (value: string) => void;
+  nickname: string;
+  handleInputChange: (name: string, value: string) => void;
 }
 
-export const Nickname: React.FC<NicknameProps> = ({ onInputChange }) => {
+export const Nickname: React.FC<NicknameProps> = ({ nickname, handleInputChange }) => {
   const [value, setValue] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
-    onInputChange(newValue);
+    handleInputChange('nickname', newValue);
   };
+
+  useEffect(() => {
+    if (value !== nickname) {
+      setValue(nickname);
+    }
+  }, [nickname, value]);
 
   return (
     <InputSection>

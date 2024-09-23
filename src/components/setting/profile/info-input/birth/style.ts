@@ -5,9 +5,10 @@ export const BirthContainer = styled.div`
   align-items: center;
   gap: 1.25rem;
   align-self: stretch;
+  justify-content: space-evenly;
 `;
 
-export const BirthSelect = styled.select`
+export const BirthSelect = styled.select<{ hasValue: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,7 +16,7 @@ export const BirthSelect = styled.select`
   border: none;
   outline: none;
 
-  color: var(--Gray5_outline, #d3d3d3);
+  color: ${(props) => (props.hasValue ? 'var(--black)' : 'var(--Gray5_outline, #d3d3d3)')};
   font-feature-settings: 'case' on;
   font-size: 1.125rem;
   font-style: normal;

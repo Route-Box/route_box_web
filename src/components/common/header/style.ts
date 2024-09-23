@@ -14,6 +14,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   box-sizing: border-box;
   background: #fff;
+  z-index: 99;
 
   color: #161616;
   text-align: center;

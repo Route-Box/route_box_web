@@ -17,19 +17,13 @@ const PopularRoutesSection = () => {
     queryFn: homeService.getPopularRoutes,
   });
 
-  const { sendMessageToNative } = useNativeBridge();
+  const { changePage } = useNativeBridge();
 
   const handleMoveRoute = useCallback(
     (_id: number) => {
-      sendMessageToNative({
-        type: 'PAGE_CHANGE',
-        payload: {
-          page: 'route',
-          id: String(_id),
-        },
-      });
+      changePage('ROUTE', String(_id));
     },
-    [sendMessageToNative]
+    [changePage]
   );
 
   return isLoading ? (

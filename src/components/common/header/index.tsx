@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ back, current, go, title, close,
           <img src={closeBtn} alt="닫기" />
         </button>
       ) : menu ? (
-        <button className="right">
+        <button className="right" onClick={handleNavigate}>
           <img src={menuBtn} alt="메뉴" />
         </button>
       ) : done ? (

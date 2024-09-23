@@ -3,10 +3,10 @@ import CustomBtn from '@/components/common/custom-btn/index';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { queryKey, userInfo } from '@/api/my-page/userInfo';
+import FlexBox from '@/components/common/flex-box';
 
 export const Route = createLazyFileRoute('/setting/profile')({
   component: Profile,
@@ -16,6 +16,12 @@ function Profile() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [disabled, setDisabled] = useState(false);
+  const [profileValue, setProfileValue] = useState({
+    profileImageUrl: '',
+    nickname: '',
+    birthDay: '',
+    gender: '',
+  });
 
   const [file, setFile] = useState<File | null>(null); // 파일 상태 추가
 
@@ -31,11 +37,12 @@ function Profile() {
     },
   });
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    }
+  const handleInputChange = (name: string, value: string) => {
+    console.log('Updating state with:', { name, value });
+    setProfileValue((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleActiveChange = (active: boolean) => {
@@ -45,35 +52,36 @@ function Profile() {
   const handleClick = () => {
     // 데이터 전송
     mutateAsync({
-      nickname: '후후',
-      gender: 'FEMALE',
-      birthDay: '2020-02-02',
+      nickname: profileValue.nickname,
+      gender: profileValue.gender,
+      birthDay: profileValue.birthDay,
       profileImage: file,
     }).then(() => {
       navigate({ from: '/setting/profile', to: '/my-page' });
     });
   };
 
+  useEffect(() => {
+    setProfileValue({
+      profileImageUrl: data?.profileImageUrl || '',
+      nickname: data?.nickname || '',
+      birthDay: data?.birthDay || '',
+      gender: data?.gender || '',
+    });
+  }, [data]);
+
   return (
     <DefaultLayout>
-      <Header back={true} title="회원 정보 수정" />
-      <Section>
-        <ProfileComponents onActiveChange={handleActiveChange} />
-        {/* 임시 파일 업로드 버튼 추가 */}
-        <input type="file" name="file" accept="image/*" onChange={handleFileChange} />
+      <Header back go={'/setting'} title="회원 정보 수정" />
+      <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
+        <ProfileComponents
+          onActiveChange={handleActiveChange}
+          setFile={setFile}
+          handleInputChange={handleInputChange}
+          profileValue={profileValue}
+        />
         <CustomBtn disabled={disabled} text="저장하기" onClick={handleClick} />
-      </Section>
+      </FlexBox>
     </DefaultLayout>
   );
 }
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: calc(100dvh - 4rem);
-  padding: 1.25rem 1.37rem;
-  box-sizing: border-box;
-  background: var(--White, #fff);
-`;

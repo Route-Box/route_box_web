@@ -1,16 +1,12 @@
-import { authService } from '@/api/auth/authService';
+import { useCallback } from 'react';
 import { Header } from '@/components/common/header/index';
-import SettingList from '@/components/setting/home/SettingList';
-import WithdrawMembership from '@/components/setting/home/WithdrawMembership';
+import SettingList from '@/components/setting/home/index';
 import { useModal } from '@/hooks/useModal';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import { useMutation } from '@tanstack/react-query';
-import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
-import { useCallback } from 'react';
-import styled from 'styled-components';
-import Loader from '@/components/common/Loader';
 import { storageKey } from '@/constants/storageKey';
-import { ConfirmationModal } from '@/components/common/modals/ConfirmationModal';
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
+import { ConfirmationModal } from '@/components/common/modals/index';
+import FlexBox from '@/components/common/flex-box';
 
 export const Route = createLazyFileRoute('/setting/')({
   component: Setting,
@@ -19,54 +15,49 @@ export const Route = createLazyFileRoute('/setting/')({
 function Setting() {
   const navigate = useNavigate();
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: authService.postWithdraw,
-    onSuccess: () => {
-      navigate({ to: '/' });
-    },
-  });
-
   const {
     isOpen: isLogoutOpen,
     openModal: openLogoutModal,
     closeModal: closeLogoutModal,
   } = useModal();
 
-  const {
-    isOpen: isWithdrawOpen,
-    openModal: openWithdrawModal,
-    closeModal: closeWithdrawModal,
-  } = useModal();
-
   const handleSectionClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement; // 클릭한 요소
     if (target.closest('li') && target.textContent === '로그아웃') {
       openLogoutModal();
-    } else if (target.textContent === '회원 탈퇴') {
-      openWithdrawModal();
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem(storageKey.accessToken);
+    window.localStorage.removeItem(storageKey.accessToken);
+    alert('로그아웃 되었습니다.');
     navigate({ to: '/' });
   };
 
   const handleWithdraw = useCallback(() => {
-    // mutateAsync();
-    navigate({ to: '/' });
-    alert('탈퇴 되었습니다.');
+    navigate({ to: '/withdraw-explanation' });
   }, [navigate]);
 
-  return isPending ? (
-    <Loader />
-  ) : (
+  return (
     <DefaultLayout>
-      <Header back={true} current="/setting" go="/" title="설정" />
-      <Frame onClick={handleSectionClick}>
-        <SettingList />
-        <WithdrawMembership />
-      </Frame>
+      <Header back current="/setting" go="/my-page" title="설정" />
+      <FlexBox col px={1.37} py={0.75}>
+        <SettingList openLogoutModal={openLogoutModal} />
+        <button
+          className="body-r-xs"
+          onClick={handleWithdraw}
+          style={{
+            padding: 0,
+            background: 'none',
+            border: 'none',
+            textDecoration: 'underline',
+            color: 'var(--Gray4_disable-text)',
+            cursor: 'pointer',
+          }}
+        >
+          회원 탈퇴
+        </button>
+      </FlexBox>
 
       <ConfirmationModal
         isOpen={isLogoutOpen}
@@ -74,19 +65,6 @@ function Setting() {
         onConfirmAction={handleLogout}
         content={'로그아웃 하시겠습니까?'}
       />
-      <ConfirmationModal
-        isOpen={isWithdrawOpen}
-        closeModal={closeWithdrawModal}
-        onConfirmAction={handleWithdraw}
-        content={'회원 탈퇴 하시겠습니까?'}
-      />
     </DefaultLayout>
   );
 }
-
-const Frame = styled.section`
-  width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.75rem 1.37rem;
-  box-sizing: border-box;
-`;
