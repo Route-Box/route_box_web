@@ -11,6 +11,7 @@ export const RouteItem = styled.li`
   display: flex;
   align-items: flex-start;
   gap: 1.875rem;
+  cursor: pointer;
 `;
 
 export const Content = styled.div`

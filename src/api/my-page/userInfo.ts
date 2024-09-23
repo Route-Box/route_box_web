@@ -1,5 +1,10 @@
 import { baseApi } from '../baseApi';
-import { MyInfoRequest, MyInfoResponse, RootObject, UserProfileResponse } from './types';
+import {
+  MyInfoRequest,
+  MyInfoResponse,
+  MyPurchaseRoutesResponse,
+  UserProfileResponse,
+} from './types';
 
 export const queryKey = {
   userProfile: 'userProfile',
@@ -11,7 +16,10 @@ export const userInfo = {
     return response.json();
   },
 
-  getMyPurchasedRoutes: async (page: number, pageSize: number): Promise<RootObject> => {
+  getMyPurchasedRoutes: async (
+    page: number,
+    pageSize: number
+  ): Promise<MyPurchaseRoutesResponse> => {
     const response = await baseApi.get(`purchased-routes?page=${page}&pageSize=${pageSize}`);
     return response.json();
   },

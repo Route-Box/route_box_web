@@ -3,15 +3,19 @@ import more from '../../../assets/svg/more_btn.svg';
 import { Route } from '@/api/my-page/types';
 import { Content, ContentText, More, Preview, RouteItem, Title } from './style';
 
-export const RouteBoxItem: React.FC<Route> = ({
-  routeId,
+interface RouteBoxItemProps extends Route {
+  onClick: () => void;
+}
+
+export const RouteBoxItem: React.FC<RouteBoxItemProps> = ({
   routeName,
   routeDescription,
   routeImageUrl,
   createdAt,
-}: Route) => {
+  onClick,
+}: RouteBoxItemProps) => {
   return (
-    <RouteItem>
+    <RouteItem onClick={onClick}>
       <Content>
         <img src={routeImageUrl} alt="route" />
         <ContentText>

@@ -1,4 +1,4 @@
-import { RootObject, UserProfileResponse } from '@/api/my-page/types';
+import { MyPurchaseRoutesResponse, UserProfileResponse } from '@/api/my-page/types';
 import { queryKey, userInfo } from '@/api/my-page/userInfo';
 import FlexBox from '@/components/common/flex-box';
 import { Header } from '@/components/common/header/index';
@@ -21,7 +21,8 @@ function MyPage() {
   });
   const intro = userProfile?.introduction ? userProfile.introduction : '한 줄 소개를 작성해주세요';
 
-  const { data: routes } = useQuery<RootObject>({
+  // TODO :: 페이지네이션 적용
+  const { data: routes } = useQuery<MyPurchaseRoutesResponse>({
     queryKey: ['routes'],
     queryFn: () => userInfo.getMyPurchasedRoutes(0, 10),
   });
@@ -43,7 +44,7 @@ function MyPage() {
           mostVisitedLocation={userProfile?.mostVisitedLocation}
           mostTaggedRouteStyles={userProfile?.mostTaggedRouteStyles}
         />
-        <RouteBox routes={routes?.routes ?? []} />
+        <RouteBox routes={routes?.content ?? []} />
       </FlexBox>
     </DefaultLayout>
   );
