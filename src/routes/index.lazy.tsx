@@ -19,7 +19,7 @@ function Index() {
       <Header />
       <InfoCard />
       <TravelSection />
-      {<RecommendedRoutesSection />}
+      {token && <RecommendedRoutesSection />}
       {<PopularRoutesSection />}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
       {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (

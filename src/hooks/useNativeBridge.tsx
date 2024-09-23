@@ -1,6 +1,6 @@
 import { setTokenHeader } from '@/api/baseApi';
-import { storageKey } from '@/constants/storageKey';
 import { useState, useCallback, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
 type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
@@ -47,6 +47,7 @@ declare global {
 }
 
 export function useNativeBridge() {
+  const queryClient = useQueryClient();
   const [token, setToken] = useState<string | null>(null);
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
 
@@ -76,6 +77,7 @@ export function useNativeBridge() {
         case 'TOKEN':
           setTokenHeader((message.payload as TokenPayload).token);
           setToken((message.payload as TokenPayload).token);
+          queryClient.refetchQueries();
           break;
         default:
           console.log('Unknown message type:', message.type);
@@ -114,14 +116,6 @@ export function useNativeBridge() {
       delete window.NativeInterface?.sendMessageToWebView;
     };
   }, [handleReceivedMessage]);
-
-  // useEffect(() => {
-  //   if (token) {
-  //     window.localStorage.setItem(storageKey.accessToken, token);
-  //     setTokenHeader(token);
-  //     setToken(token);
-  //   }
-  // }, [token]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
