@@ -80,7 +80,9 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    if (window.webkit) {
+    if (window.AndroidBridge) {
+      window.AndroidBridge.sendMessageToNative('React Component loaded');
+    } else if (window.webkit) {
       window.webkit?.messageHandlers?.sendMessageToNative.postMessage('React Component loaded');
     } else {
       console.log('Native bridge not found');
