@@ -34,7 +34,7 @@ interface IosNativeBridge {
 declare global {
   interface Window {
     Android?: NativeBridge;
-    sendMessageToWebView: (event: string) => void;
+    sendMessageToWebView?: (event: string) => void;
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
@@ -84,11 +84,7 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    if (window) {
-      window.sendMessageToWebView = (message) => {
-        handleReceivedMessage(message);
-      };
-    }
+    // Web to Native 브릿지 함수 실행
     if (window.Android) {
       window.Android.sendMessageToNative('React Component loaded');
     } else if (window.webkit) {
@@ -99,19 +95,22 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    /** Android bridge */
-    if (window.Android) {
-      window.Android.sendMessageToWebView = (event) => {
-        setToken(event);
-        handleReceivedMessage(event);
+    // 브릿지 함수 선언
+    if (window) {
+      window.sendMessageToWebView = (message) => {
+        handleReceivedMessage(message);
       };
     }
-    /** IOS bridge */
     if (window.NativeInterface) {
       window.NativeInterface.sendMessageToWebView = (event) => {
         handleReceivedMessage(event);
       };
     }
+
+    return () => {
+      delete window?.sendMessageToWebView;
+      delete window.NativeInterface?.sendMessageToWebView;
+    };
   }, [handleReceivedMessage]);
 
   useEffect(() => {
