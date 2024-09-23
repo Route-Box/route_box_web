@@ -30,14 +30,11 @@ interface IosNativeBridge {
 
 declare global {
   interface Window {
-    Android?: NativeBridge;
+    AndroidBridge?: NativeBridge;
     webkit?: {
       messageHandlers: IosNativeBridge;
     };
-    sayHello?: CustomEvent;
-    helloWorld?: () => void;
     NativeInterface: {
-      helloWorld?: () => void;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sendMessageToWebView?: (event: any) => void;
     };
@@ -56,8 +53,8 @@ export function useNativeBridge() {
   const sendMessageToNative = (message: NativeMessage) => {
     const messageString = JSON.stringify(message);
 
-    if (window.Android) {
-      window.Android.sendMessageToNative(messageString);
+    if (window.AndroidBridge) {
+      window.AndroidBridge.sendMessageToNative(messageString);
     } else if (window.webkit) {
       window.webkit?.messageHandlers?.sendMessageToNative?.postMessage(messageString);
     } else {
@@ -68,10 +65,7 @@ export function useNativeBridge() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleReceivedMessage = useCallback((event: any) => {
     try {
-      setToken(JSON.stringify(event));
-      const message = event.data as NativeMessage;
-
-      console.log(message);
+      const message = event as NativeMessage;
 
       switch (message.type) {
         case 'TOKEN':
@@ -94,48 +88,29 @@ export function useNativeBridge() {
   }, []);
 
   useEffect(() => {
-    window.sayHello = new CustomEvent('NativeEvent');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const nativeEventCallback = (event: any) => {
-      setToken('event received');
-      alert(`event receive from Native`);
-    };
-
-    window.addEventListener('NativeEvent', nativeEventCallback);
-
-    // event listener clean up
-    return () => {
-      window.removeEventListener('NativeEvent', nativeEventCallback);
-    };
-  }, []);
-
-  useEffect(() => {
+    /** IOS bridge */
     window.NativeInterface = {
-      helloWorld: () => {
-        setToken('Message received');
-      },
       sendMessageToWebView: (event) => {
-        setToken(JSON.stringify(event));
-        console.log(event);
+        handleReceivedMessage(event);
       },
-    };
-  }, []);
-
-  useEffect(() => {
-    const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
-    window.dispatchEvent(sendMessageToWebView);
-
-    window.addEventListener(
-      'sendMessageToWebView',
-      handleReceivedMessage as unknown as EventListener
-    );
-    return () => {
-      window.removeEventListener(
-        'sendMessageToWebView',
-        handleReceivedMessage as unknown as EventListener
-      );
     };
   }, [handleReceivedMessage]);
+
+  // useEffect(() => {
+  //   const sendMessageToWebView = new CustomEvent('sendMessageToWebView');
+  //   window.dispatchEvent(sendMessageToWebView);
+
+  //   window.addEventListener(
+  //     'sendMessageToWebView',
+  //     handleReceivedMessage as unknown as EventListener
+  //   );
+  //   return () => {
+  //     window.removeEventListener(
+  //       'sendMessageToWebView',
+  //       handleReceivedMessage as unknown as EventListener
+  //     );
+  //   };
+  // }, [handleReceivedMessage]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
