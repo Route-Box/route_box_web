@@ -7,6 +7,9 @@ import { storageKey } from '@/constants/storageKey';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { ConfirmationModal } from '@/components/common/modals/index';
 import FlexBox from '@/components/common/flex-box';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { setTokenHeader } from '@/api/baseApi';
+import { toast } from 'react-toastify';
 
 export const Route = createLazyFileRoute('/setting/')({
   component: Setting,
@@ -21,6 +24,8 @@ function Setting() {
     closeModal: closeLogoutModal,
   } = useModal();
 
+  const { setToken } = useNativeBridge();
+
   const handleSectionClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement; // 클릭한 요소
     if (target.closest('li') && target.textContent === '로그아웃') {
@@ -30,7 +35,9 @@ function Setting() {
 
   const handleLogout = () => {
     window.localStorage.removeItem(storageKey.accessToken);
-    alert('로그아웃 되었습니다.');
+    setToken(null);
+    setTokenHeader(null);
+    toast.success('로그아웃 되었습니다.');
     navigate({ to: '/' });
   };
 

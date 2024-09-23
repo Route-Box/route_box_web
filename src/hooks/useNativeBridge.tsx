@@ -1,6 +1,7 @@
 import { setTokenHeader } from '@/api/baseApi';
 import { useState, useCallback, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { storageKey } from '@/constants/storageKey';
 
 type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED';
 type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
@@ -48,7 +49,9 @@ declare global {
 
 export function useNativeBridge() {
   const queryClient = useQueryClient();
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(() =>
+    window.localStorage.getItem(storageKey.accessToken)
+  );
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
 
   const toggleMessageVisibility = () => {
