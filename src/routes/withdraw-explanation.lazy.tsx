@@ -13,8 +13,9 @@ import { MarginDiv } from '@/styles';
 import CustomBtn from '@/components/common/custom-btn';
 import CheckRadio from '@/components/common/CheckRadio';
 import TextAreaWithCounter from '@/components/common/TextAreaWithCounter';
-import CheckChecked from '@/assets/svg/check-checked.svg';
-import FlexBox from '@/components/common/flex-box';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
+import { setTokenHeader } from '@/api/baseApi';
+import { toast } from 'react-toastify';
 
 export const Route = createLazyFileRoute('/withdraw-explanation')({
   component: WithdrawExplanation,
@@ -24,6 +25,7 @@ function WithdrawExplanation() {
   const navigate = useNavigate();
   const { items, toggleCheck } = useCheckList(initialWithdrawValues);
   const [textAreaValue, setTextAreaValue] = React.useState('');
+  const { handleWithdraw: handleNativeWithdraw, setToken } = useNativeBridge();
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: authService.postWithdraw,
@@ -38,12 +40,14 @@ function WithdrawExplanation() {
     mutateAsync({
       reasonType,
       reasonDetail: textAreaValue,
-    }).then(() => handleLogout);
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem(storageKey.accessToken);
-    navigate({ to: '/' });
+    }).then(() => {
+      window.localStorage.removeItem(storageKey.accessToken);
+      setToken(null);
+      setTokenHeader(null);
+      handleNativeWithdraw();
+      toast.success('회원 탈퇴 되었습니다.');
+      navigate({ to: '/' });
+    });
   };
 
   return (
