@@ -6,6 +6,7 @@ import Loader from '@/components/common/Loader';
 import Profile from '@/components/my-page/profile/index';
 import RouteBox from '@/components/my-page/route-box/index';
 import Taste from '@/components/my-page/taste/index';
+import { useNativeBridge } from '@/hooks/useNativeBridge';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { useQuery } from '@tanstack/react-query';
 import { createLazyFileRoute } from '@tanstack/react-router';
@@ -27,6 +28,8 @@ function MyPage() {
     queryFn: () => userInfo.getMyPurchasedRoutes(0, 10),
   });
 
+  const { renderMessage, toggleMessageVisibility } = useNativeBridge();
+
   if (isLoading) return <Loader />;
 
   return (
@@ -46,6 +49,25 @@ function MyPage() {
         />
         <RouteBox routes={routes?.content ?? []} />
       </FlexBox>
+      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && renderMessage()}
+      {import.meta.env.VITE_APP_BUILD_ENV !== 'production' && (
+        <button
+          onClick={toggleMessageVisibility}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#47c4b6',
+            outline: 0,
+            border: 0,
+            color: 'white',
+            padding: '10px 20px',
+            borderRadius: '5px',
+          }}
+        >
+          Toggle Message
+        </button>
+      )}
     </DefaultLayout>
   );
 }
