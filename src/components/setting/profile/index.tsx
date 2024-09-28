@@ -3,7 +3,6 @@ import { ProfileImg } from './profile-img';
 import { ProfileInfo } from './info-input';
 
 interface ProfileComponentsProps {
-  onActiveChange: (active: boolean) => void;
   setFile: (file: File | null) => void;
   handleInputChange: (name: string, value: string) => void;
   profileValue: {
@@ -15,7 +14,6 @@ interface ProfileComponentsProps {
 }
 
 export const ProfileComponents: React.FC<ProfileComponentsProps> = ({
-  onActiveChange,
   setFile,
   handleInputChange,
   profileValue,
@@ -24,7 +22,6 @@ export const ProfileComponents: React.FC<ProfileComponentsProps> = ({
     <FlexBox col gap={2.75}>
       <ProfileImg setFile={setFile} profileImg={profileValue.profileImageUrl} />
       <ProfileInfo
-        onActiveChange={onActiveChange}
         handleInputChange={handleInputChange}
         nickname={profileValue.nickname}
         birthDay={profileValue.birthDay}

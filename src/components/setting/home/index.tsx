@@ -7,7 +7,7 @@ interface SettingListProps {
 
 const SettingList: React.FC<SettingListProps> = ({ openLogoutModal }) => {
   const settingList = [
-    // { name: '내 정보 수정', path: '/setting/profile' },
+    { name: '내 정보 수정', path: '/setting/profile' },
     // { name: '알림 설정', path: '/setting/notifications' },
     { name: '서비스 약관', path: '/setting/terms' },
     // { name: '1:1 문의', path: '/setting/support' },

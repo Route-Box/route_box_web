@@ -15,14 +15,21 @@ export const Gender: React.FC<GenderProps> = ({ gender, handleInputChange }) => 
     handleInputChange('gender', gender);
   };
 
+  useEffect(() => {
+    setSelectedGender(gender);
+  }, [gender]);
+
   return (
     <GenderContainer>
       <InputLabel>성별</InputLabel>
       <GenderType>
-        <GenderSelect isSelected={selectedGender === '남성'} onClick={() => handleSelect('남성')}>
+        <GenderSelect isSelected={selectedGender === 'MALE'} onClick={() => handleSelect('MALE')}>
           남성
         </GenderSelect>
-        <GenderSelect isSelected={selectedGender === '여성'} onClick={() => handleSelect('여성')}>
+        <GenderSelect
+          isSelected={selectedGender === 'FEMALE'}
+          onClick={() => handleSelect('FEMALE')}
+        >
           여성
         </GenderSelect>
         <GenderSelect

@@ -45,10 +45,6 @@ function Profile() {
     }));
   };
 
-  const handleActiveChange = (active: boolean) => {
-    setDisabled(active);
-  };
-
   const handleClick = () => {
     // 데이터 전송
     mutateAsync({
@@ -70,12 +66,18 @@ function Profile() {
     });
   }, [data]);
 
+  useEffect(() => {
+    if (profileValue) {
+      setDisabled(false);
+    }
+  }, [profileValue]);
+  console.log('profileValue:', profileValue);
+
   return (
     <DefaultLayout>
       <Header back go={'/setting'} title="회원 정보 수정" />
       <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
         <ProfileComponents
-          onActiveChange={handleActiveChange}
           setFile={setFile}
           handleInputChange={handleInputChange}
           profileValue={profileValue}
