@@ -16,6 +16,14 @@ function Profile() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [disabled, setDisabled] = useState(false);
+
+  const [originalProfileValue, setOriginalProfileValue] = useState({
+    profileImageUrl: '',
+    nickname: '',
+    birthDay: '',
+    gender: '',
+  });
+
   const [profileValue, setProfileValue] = useState({
     profileImageUrl: '',
     nickname: '',
@@ -45,25 +53,91 @@ function Profile() {
     }));
   };
 
-  const handleClick = () => {
-    // 데이터 전송
-    mutateAsync({
-      nickname: profileValue.nickname,
-      gender: profileValue.gender,
-      birthDay: profileValue.birthDay,
-      profileImage: file,
-    }).then(() => {
-      navigate({ from: '/setting/profile', to: '/my-page' });
-    });
+  const isProfileChanged = () => {
+    const changedFields: Partial<typeof profileValue> = {};
+
+    if (profileValue.nickname !== originalProfileValue.nickname) {
+      changedFields.nickname = profileValue.nickname;
+    }
+
+    if (profileValue.gender !== originalProfileValue.gender) {
+      changedFields.gender = profileValue.gender;
+    }
+
+    if (profileValue.birthDay !== originalProfileValue.birthDay) {
+      changedFields.birthDay = profileValue.birthDay;
+    }
+
+    // 파일이 새로 업로드된 경우
+    if (file !== null) {
+      changedFields.profileImageUrl = file.name; // or file.path, depending on your use case
+    }
+
+    // 변경된 필드가 있다면 그 필드들을 반환
+    return Object.keys(changedFields).length > 0 ? changedFields : null;
   };
 
+  const handleClick = () => {
+    const changedFields = isProfileChanged();
+
+    // 변경된 필드가 있을 경우에만 전송
+    if (changedFields) {
+      // 변경된 값만 서버로 전송
+      mutateAsync(changedFields).then(() => {
+        navigate({ from: '/setting/profile', to: '/my-page' });
+      });
+    } else {
+      navigate({ from: '/setting/profile', to: '/my-page' });
+    }
+  };
+
+  // const getChangedFields = () => {
+  //   const changedFields: Partial<typeof profileValue> = {};
+
+  //   if (profileValue.nickname !== originalProfileValue.nickname) {
+  //     changedFields.nickname = profileValue.nickname;
+  //   }
+  //   if (profileValue.gender !== originalProfileValue.gender) {
+  //     changedFields.gender = profileValue.gender;
+  //   }
+  //   if (profileValue.birthDay !== originalProfileValue.birthDay) {
+  //     changedFields.birthDay = profileValue.birthDay;
+  //   }
+  //   if (file) {
+  //     changedFields.profileImageUrl = profileValue.profileImageUrl;
+  //   }
+
+  //   return changedFields;
+  // };
+
+  // const handleClick = () => {
+  //   const changedFields = getChangedFields();
+
+  //   if (Object.keys(changedFields).length > 0) {
+  //     mutateAsync(changedFields).then(() => {
+  //       navigate({ from: '/setting/profile', to: '/my-page' });
+  //     });
+  //   } else {
+  //     navigate({ from: '/setting/profile', to: '/my-page' });
+  //   }
+  // };
+
   useEffect(() => {
-    setProfileValue({
-      profileImageUrl: data?.profileImageUrl || '',
-      nickname: data?.nickname || '',
-      birthDay: data?.birthDay || '',
-      gender: data?.gender || '',
-    });
+    if (data) {
+      setOriginalProfileValue({
+        profileImageUrl: data.profileImageUrl || '',
+        nickname: data.nickname || '',
+        birthDay: data.birthDay || '',
+        gender: data.gender || '',
+      });
+
+      setProfileValue({
+        profileImageUrl: data?.profileImageUrl || '',
+        nickname: data?.nickname || '',
+        birthDay: data?.birthDay || '',
+        gender: data?.gender || '',
+      });
+    }
   }, [data]);
 
   useEffect(() => {

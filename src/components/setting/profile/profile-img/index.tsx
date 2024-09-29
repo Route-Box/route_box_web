@@ -22,7 +22,10 @@ export const ProfileImg: React.FC<ProfileImgComponentsProps> = ({ setFile, profi
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
       setFile(selectedFile);
+      setImgUrl(URL.createObjectURL(selectedFile));
     }
   };
 
