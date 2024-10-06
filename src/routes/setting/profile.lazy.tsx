@@ -5,8 +5,8 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { queryKey, userInfo } from '@/api/my-page/userInfo';
 import FlexBox from '@/components/common/flex-box';
+import { queryKey, userInfo } from '@/api/my-page/userInfo';
 
 export const Route = createLazyFileRoute('/setting/profile')({
   component: Profile,
@@ -15,9 +15,8 @@ export const Route = createLazyFileRoute('/setting/profile')({
 function Profile() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [disabled, setDisabled] = useState(false);
 
-  const [originalProfileValue, setOriginalProfileValue] = useState({
+  const [initialProfileValue, setInitialProfileValue] = useState({
     profileImageUrl: '',
     nickname: '',
     birthDay: '',
@@ -30,8 +29,6 @@ function Profile() {
     birthDay: '',
     gender: '',
   });
-
-  const [file, setFile] = useState<File | null>(null); // 파일 상태 추가
 
   const { data } = useQuery({
     queryKey: [queryKey.userProfile],
@@ -53,84 +50,8 @@ function Profile() {
     }));
   };
 
-  const isProfileChanged = () => {
-    const changedFields: Partial<typeof profileValue> = {};
-
-    if (profileValue.nickname !== originalProfileValue.nickname) {
-      changedFields.nickname = profileValue.nickname;
-    }
-
-    if (profileValue.gender !== originalProfileValue.gender) {
-      changedFields.gender = profileValue.gender;
-    }
-
-    if (profileValue.birthDay !== originalProfileValue.birthDay) {
-      changedFields.birthDay = profileValue.birthDay;
-    }
-
-    // 파일이 새로 업로드된 경우
-    if (file !== null) {
-      changedFields.profileImageUrl = file.name; // or file.path, depending on your use case
-    }
-
-    // 변경된 필드가 있다면 그 필드들을 반환
-    return Object.keys(changedFields).length > 0 ? changedFields : null;
-  };
-
-  const handleClick = () => {
-    const changedFields = isProfileChanged();
-
-    // 변경된 필드가 있을 경우에만 전송
-    if (changedFields) {
-      // 변경된 값만 서버로 전송
-      mutateAsync(changedFields).then(() => {
-        navigate({ from: '/setting/profile', to: '/my-page' });
-      });
-    } else {
-      navigate({ from: '/setting/profile', to: '/my-page' });
-    }
-  };
-
-  // const getChangedFields = () => {
-  //   const changedFields: Partial<typeof profileValue> = {};
-
-  //   if (profileValue.nickname !== originalProfileValue.nickname) {
-  //     changedFields.nickname = profileValue.nickname;
-  //   }
-  //   if (profileValue.gender !== originalProfileValue.gender) {
-  //     changedFields.gender = profileValue.gender;
-  //   }
-  //   if (profileValue.birthDay !== originalProfileValue.birthDay) {
-  //     changedFields.birthDay = profileValue.birthDay;
-  //   }
-  //   if (file) {
-  //     changedFields.profileImageUrl = profileValue.profileImageUrl;
-  //   }
-
-  //   return changedFields;
-  // };
-
-  // const handleClick = () => {
-  //   const changedFields = getChangedFields();
-
-  //   if (Object.keys(changedFields).length > 0) {
-  //     mutateAsync(changedFields).then(() => {
-  //       navigate({ from: '/setting/profile', to: '/my-page' });
-  //     });
-  //   } else {
-  //     navigate({ from: '/setting/profile', to: '/my-page' });
-  //   }
-  // };
-
   useEffect(() => {
     if (data) {
-      setOriginalProfileValue({
-        profileImageUrl: data.profileImageUrl || '',
-        nickname: data.nickname || '',
-        birthDay: data.birthDay || '',
-        gender: data.gender || '',
-      });
-
       setProfileValue({
         profileImageUrl: data?.profileImageUrl || '',
         nickname: data?.nickname || '',
@@ -141,22 +62,51 @@ function Profile() {
   }, [data]);
 
   useEffect(() => {
-    if (profileValue) {
-      setDisabled(false);
+    if (data) {
+      const initialData = {
+        profileImageUrl: data?.profileImageUrl || '',
+        nickname: data?.nickname || '',
+        birthDay: data?.birthDay || '',
+        gender: data?.gender || '',
+      };
+      setProfileValue(initialData);
+      setInitialProfileValue(initialData); // 초기값 저장
     }
-  }, [profileValue]);
-  console.log('profileValue:', profileValue);
+  }, [data]);
+
+  // 수정된 값만 필터링하는 함수
+  const getUpdatedFields = () => {
+    const updatedFields: Partial<typeof profileValue> = {};
+    Object.keys(profileValue).forEach((key) => {
+      const typedKey = key as keyof typeof profileValue;
+      if (profileValue[typedKey] !== initialProfileValue[typedKey]) {
+        updatedFields[typedKey] = profileValue[typedKey];
+      }
+    });
+    return updatedFields;
+  };
+
+  // 저장 버튼 클릭 시 수정된 값만 패치
+  const handleClick = async () => {
+    const updatedFields = getUpdatedFields(); // 수정된 값 필터링
+    // if (Object.keys(updatedFields).length === 0) {
+    //   console.log('No changes to save.');
+    //   return;
+    // }
+    try {
+      await mutateAsync(updatedFields); // 수정된 값만 패치
+      navigate({ from: '/setting/profile', to: '/my-page' });
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
 
   return (
     <DefaultLayout>
       <Header back go={'/setting'} title="회원 정보 수정" />
       <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
-        <ProfileComponents
-          setFile={setFile}
-          handleInputChange={handleInputChange}
-          profileValue={profileValue}
-        />
-        <CustomBtn disabled={disabled} text="저장하기" onClick={handleClick} />
+        <ProfileComponents handleInputChange={handleInputChange} profileValue={profileValue} />
+        <CustomBtn text="저장하기" onClick={handleClick} />
       </FlexBox>
     </DefaultLayout>
   );

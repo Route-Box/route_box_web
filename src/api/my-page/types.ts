@@ -26,7 +26,7 @@ export interface MyInfoRequest {
   gender?: string;
   birthDay?: string;
   introduction?: string;
-  profileImage?: File | null;
+  profileImage?: string;
 }
 
 export interface MyInfoResponse {

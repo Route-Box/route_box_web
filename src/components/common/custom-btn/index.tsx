@@ -2,14 +2,13 @@ import React from 'react';
 import { Btn } from './style';
 
 interface CustomBtnProps {
-  disabled: boolean;
   text: string;
   onClick: () => void;
 }
 
-const CustomBtn: React.FC<CustomBtnProps> = ({ disabled, text, onClick }) => {
+const CustomBtn: React.FC<CustomBtnProps> = ({ text, onClick }) => {
   return (
-    <Btn className="body-b-m" disabled={disabled} onClick={onClick}>
+    <Btn className="body-b-m" onClick={onClick}>
       {text}
     </Btn>
   );

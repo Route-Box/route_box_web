@@ -5,11 +5,14 @@ import { ProfileImgWrapper, UploadBtn } from './style';
 import FlexBox from '@/components/common/flex-box';
 
 interface ProfileImgComponentsProps {
-  setFile: (file: File | null) => void;
   profileImg: string;
+  handleInputChange: (name: string, value: string) => void;
 }
 
-export const ProfileImg: React.FC<ProfileImgComponentsProps> = ({ setFile, profileImg }) => {
+export const ProfileImg: React.FC<ProfileImgComponentsProps> = ({
+  profileImg,
+  handleInputChange,
+}) => {
   const [imgUrl, setImgUrl] = useState(profileImg || profile);
 
   const handleClick = () => {
@@ -22,10 +25,10 @@ export const ProfileImg: React.FC<ProfileImgComponentsProps> = ({ setFile, profi
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      setFile(selectedFile);
-      setImgUrl(URL.createObjectURL(selectedFile));
+      setImgUrl(URL.createObjectURL(selectedFile)); // 미리보기 업데이트
+
+      // 프로필 이미지 파일을 profileValue 상태에 반영
+      handleInputChange('profileImage', URL.createObjectURL(selectedFile)); // 여기서는 실제 파일을 저장
     }
   };
 
