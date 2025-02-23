@@ -9,7 +9,7 @@ export const Route = createLazyFileRoute('/setting/support')({
 function Support() {
   return (
     <DefaultLayout>
-      <Header back={true} current="/setting/support" go="/setting" title="1:1 문의" />
+      <Header back={true} current="/support" go="/setting" title="1:1 문의" />
     </DefaultLayout>
   );
 }
