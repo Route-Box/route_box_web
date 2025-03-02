@@ -7,7 +7,6 @@ import menuBtn from '@/assets/svg/menu.svg';
 
 interface HeaderProps {
   back?: boolean;
-  current?: string;
   go?: string;
   title?: string;
   close?: boolean;
@@ -15,10 +14,10 @@ interface HeaderProps {
   done?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ back, current, go, title, close, menu, done }) => {
+export const Header: React.FC<HeaderProps> = ({ back, go, title, close, menu, done }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate({ from: current, to: go });
+    navigate({ to: go });
   };
 
   return (

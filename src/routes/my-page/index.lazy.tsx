@@ -6,6 +6,7 @@ import Loader from '@/components/common/Loader';
 import Profile from '@/components/my-page/profile/index';
 import RouteBox from '@/components/my-page/route-box/index';
 import Taste from '@/components/my-page/taste/index';
+import { ROUTES } from '@/constants/routes';
 import { useNativeBridge } from '@/hooks/useNativeBridge';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { useQuery } from '@tanstack/react-query';
@@ -34,7 +35,7 @@ function MyPage() {
 
   return (
     <DefaultLayout>
-      <Header menu current="/my-page" go="/setting" title="마이페이지" />
+      <Header menu go={ROUTES.SETTING.ROOT} title="마이페이지" />
       <FlexBox col gap={2.13} px={1.38}>
         <Profile
           profileImageUrl={userProfile?.profileImageUrl}

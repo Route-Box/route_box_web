@@ -8,6 +8,7 @@ import { ConfirmationModal } from '@/components/common/modals/index';
 import FlexBox from '@/components/common/flex-box';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/hooks/useAuth';
+import { ROUTES } from '@/constants/routes';
 
 export const Route = createLazyFileRoute('/setting/')({
   component: Setting,
@@ -35,7 +36,7 @@ function Setting() {
 
   return (
     <DefaultLayout>
-      <Header back current="/setting" go="/my-page" title="설정" />
+      <Header back go={ROUTES.MY_PAGE.ROOT} title="설정" />
       <FlexBox col px={1.37} py={0.75}>
         <SettingList openLogoutModal={openLogoutModal} />
         <button
