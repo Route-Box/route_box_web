@@ -9,6 +9,7 @@ import { queryKey, userInfo } from '@/api/my-page/userInfo';
 import FlexBox from '@/components/common/flex-box';
 import { genderType } from '@/api/my-page/types';
 import { ProfileProvider, useProfile } from '@/contexts/profile';
+import { ROUTES } from '@/constants/routes';
 
 export const Route = createLazyFileRoute('/setting/profile')({
   component: Profile,
@@ -27,7 +28,7 @@ function ProfileContent() {
 
   return (
     <DefaultLayout>
-      <Header back go={'/setting'} title="회원 정보 수정" />
+      <Header back go={ROUTES.SETTING.ROOT} title="회원 정보 수정" />
       <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
         <ProfileComponents />
         <CustomBtn disabled={!hasChanges} text="저장하기" onClick={handleSubmit} />

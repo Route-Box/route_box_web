@@ -10,6 +10,7 @@ import { notificationService } from '@/api/notification/notificationService';
 import { UnreadNotificationResponse } from '@/api/notification/types';
 import { useNativeBridge } from '@/hooks/useNativeBridge';
 import { useCallback } from 'react';
+import { ROUTES } from '@/constants/routes';
 
 const Header = () => {
   const { data, isLoading } = useQuery<UnreadNotificationResponse>({
@@ -29,7 +30,7 @@ const Header = () => {
       <Icons>
         <Icon src={CouponBase} alt="coupon" onClick={handleMoveRoute} />
         {/* <Icon src={WalletBase} alt="wallet" /> */}
-        <Link to="/notification">
+        <Link to={ROUTES.NOTIFICATION}>
           <AlarmContainer>
             <img src={AlarmBase} alt="alarm" />
             {!isLoading && data?.hasUnreadNotification && <RedDot />}

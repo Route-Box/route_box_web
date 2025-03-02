@@ -1,5 +1,6 @@
 import { Header } from '@/components/common/header';
 import { Tab } from '@/components/common/tab';
+import { ROUTES } from '@/constants/routes';
 import { MarginDiv } from '@/styles';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -10,7 +11,7 @@ export const Route = createFileRoute('/support/inquiry/')({
 function SupportPage() {
   return (
     <>
-      <Header title="1:1 문의" back current="/support/inquiry" go="/setting" />
+      <Header title="1:1 문의" back go={ROUTES.SETTING.ROOT} />
       <MarginDiv mt={4} />
       <Tab
         tabs={[
