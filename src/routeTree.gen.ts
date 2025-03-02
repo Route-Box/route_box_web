@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SupportInquiryIndexImport } from './routes/support/inquiry/index'
 
 // Create Virtual Routes
 
@@ -95,6 +96,11 @@ const MyPageIntroEditLazyRoute = MyPageIntroEditLazyImport.update({
 } as any).lazy(() =>
   import('./routes/my-page/intro-edit.lazy').then((d) => d.Route),
 )
+
+const SupportInquiryIndexRoute = SupportInquiryIndexImport.update({
+  path: '/support/inquiry/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const SupportInquiryListLazyRoute = SupportInquiryListLazyImport.update({
   path: '/support/inquiry/list',
@@ -207,6 +213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportInquiryListLazyImport
       parentRoute: typeof rootRoute
     }
+    '/support/inquiry/': {
+      id: '/support/inquiry/'
+      path: '/support/inquiry'
+      fullPath: '/support/inquiry'
+      preLoaderRoute: typeof SupportInquiryIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/support/inquiry/new/': {
       id: '/support/inquiry/new/'
       path: '/support/inquiry/new'
@@ -232,6 +245,7 @@ export const routeTree = rootRoute.addChildren({
   SettingIndexLazyRoute,
   SupportInquiryIdLazyRoute,
   SupportInquiryListLazyRoute,
+  SupportInquiryIndexRoute,
   SupportInquiryNewIndexLazyRoute,
 })
 
@@ -255,6 +269,7 @@ export const routeTree = rootRoute.addChildren({
         "/setting/",
         "/support/inquiry/$id",
         "/support/inquiry/list",
+        "/support/inquiry/",
         "/support/inquiry/new/"
       ]
     },
@@ -293,6 +308,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/support/inquiry/list": {
       "filePath": "support/inquiry/list.lazy.tsx"
+    },
+    "/support/inquiry/": {
+      "filePath": "support/inquiry/index.tsx"
     },
     "/support/inquiry/new/": {
       "filePath": "support/inquiry/new/index.lazy.tsx"
