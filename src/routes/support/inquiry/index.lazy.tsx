@@ -13,7 +13,6 @@ function SupportPage() {
   return (
     <DefaultLayout>
       <Header title="1:1 문의" back go={ROUTES.SETTING.ROOT} />
-      <MarginDiv mt={4} />
       <Tab
         tabs={[
           {
