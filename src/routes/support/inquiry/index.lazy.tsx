@@ -2,9 +2,9 @@ import { Header } from '@/components/common/header';
 import { Tab } from '@/components/common/tab';
 import { ROUTES } from '@/constants/routes';
 import { MarginDiv } from '@/styles';
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/support/inquiry/')({
+export const Route = createLazyFileRoute('/support/inquiry/')({
   component: SupportPage,
 });
 
