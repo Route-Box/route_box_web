@@ -1,6 +1,7 @@
 import { Header } from '@/components/common/header';
 import { Tab } from '@/components/common/tab';
 import { ROUTES } from '@/constants/routes';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import { MarginDiv } from '@/styles';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
@@ -10,7 +11,7 @@ export const Route = createLazyFileRoute('/support/inquiry/')({
 
 function SupportPage() {
   return (
-    <>
+    <DefaultLayout>
       <Header title="1:1 문의" back go={ROUTES.SETTING.ROOT} />
       <MarginDiv mt={4} />
       <Tab
@@ -28,6 +29,6 @@ function SupportPage() {
         ]}
         defaultTabId="tab1"
       />
-    </>
+    </DefaultLayout>
   );
 }
