@@ -1,11 +1,12 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
 <a name="readme-top"></a>
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Route-Box/route_box_web?labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit%20Reviews)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://www.alycehealth.com/">
+  <a href="">
     <img src="public/character.png" alt="Logo" width="100" height="170">
   </a>
 
