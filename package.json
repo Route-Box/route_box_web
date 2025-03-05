@@ -21,6 +21,8 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@locator/babel-jsx": "^0.4.4",
+    "@locator/runtime": "^0.4.4",
     "@tanstack/router-devtools": "^1.44.4",
     "@tanstack/router-plugin": "^1.44.3",
     "@types/node": "^20.14.10",
