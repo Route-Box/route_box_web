@@ -9,6 +9,12 @@ export const Route = createLazyFileRoute('/support/inquiry/')({
   component: SupportPage,
 });
 
+const NewInquiry = lazy(() =>
+  import('./new/index.lazy').then((module) => ({
+    default: module.NewInquiry,
+  }))
+);
+
 const InquiryList = lazy(() =>
   import('./list.lazy').then((module) => ({
     default: module.InquiryList,
@@ -24,7 +30,7 @@ function SupportPage() {
           {
             id: 'tab1',
             label: '문의하기',
-            content: <div>첫 번째 탭 내용</div>,
+            content: <NewInquiry />,
           },
           {
             id: 'tab2',
