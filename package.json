@@ -13,6 +13,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
+    "@tanstack/react-form": "^1.1.2",
     "@tanstack/react-query": "^5.52.0",
     "ky": "^1.7.0",
     "react": "^19.0.0",
