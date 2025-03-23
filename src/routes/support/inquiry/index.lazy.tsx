@@ -2,12 +2,18 @@ import { Header } from '@/components/common/header';
 import { Tab } from '@/components/common/tab';
 import { ROUTES } from '@/constants/routes';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import { MarginDiv } from '@/styles';
 import { createLazyFileRoute } from '@tanstack/react-router';
+import { lazy } from 'react';
 
 export const Route = createLazyFileRoute('/support/inquiry/')({
   component: SupportPage,
 });
+
+const InquiryList = lazy(() =>
+  import('./list.lazy').then((module) => ({
+    default: module.InquiryList,
+  }))
+);
 
 function SupportPage() {
   return (
@@ -23,7 +29,7 @@ function SupportPage() {
           {
             id: 'tab2',
             label: '나의 문의 내역',
-            content: <div>두 번째 탭 내용</div>,
+            content: <InquiryList />,
           },
         ]}
         defaultTabId="tab1"
