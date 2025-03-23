@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, defaultClientConditions } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import * as path from 'path';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
@@ -10,5 +10,6 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    conditions: [...defaultClientConditions],
   },
 });
