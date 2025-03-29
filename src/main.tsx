@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 import QueryClientWrapper from './QueryClientWrapper';
+import setupLocatorUI from '@locator/runtime';
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -22,6 +23,9 @@ declare module '@tanstack/react-router' {
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
+  if (import.meta.env.VITE_APP_BUILD_ENV === 'development') {
+    setupLocatorUI();
+  }
   root.render(
     <StrictMode>
       <QueryClientWrapper>
