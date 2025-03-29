@@ -1,7 +1,11 @@
+export type InquiryStatus = 'ANSWERED' | 'PENDING';
+export type InquiryType = 'ERROR' | 'USER_INFO' | 'ETC';
+
 export interface Inquiry {
   inquiryId: number;
   content: string;
-  status: string;
+  status: InquiryStatus;
+  createdAt: string;
 }
 
 export interface GetInquiryResponse {
@@ -11,16 +15,16 @@ export interface GetInquiryResponse {
 export interface GetInquiryDetailResponse {
   inquiryId: number;
   userId: number;
-  type: string;
+  type: InquiryType;
   content: string;
-  status: string;
+  status: InquiryStatus;
   reply?: string;
   imageUrls?: string[];
 }
 
 export interface CreateInquiryRequest {
   content: string;
-  inquiryType: string;
+  inquiryType: InquiryType;
   images?: File[];
 }
 
