@@ -29,11 +29,9 @@ const SettingNotificationsLazyImport = createFileRoute(
 )()
 const MyPageIntroEditLazyImport = createFileRoute('/my-page/intro-edit')()
 const SupportInquiryIndexLazyImport = createFileRoute('/support/inquiry/')()
+const SupportInquiryNewLazyImport = createFileRoute('/support/inquiry/new')()
 const SupportInquiryListLazyImport = createFileRoute('/support/inquiry/list')()
 const SupportInquiryIdLazyImport = createFileRoute('/support/inquiry/$id')()
-const SupportInquiryNewIndexLazyImport = createFileRoute(
-  '/support/inquiry/new/',
-)()
 
 // Create/Update Routes
 
@@ -104,6 +102,13 @@ const SupportInquiryIndexLazyRoute = SupportInquiryIndexLazyImport.update({
   import('./routes/support/inquiry/index.lazy').then((d) => d.Route),
 )
 
+const SupportInquiryNewLazyRoute = SupportInquiryNewLazyImport.update({
+  path: '/support/inquiry/new',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/support/inquiry/new.lazy').then((d) => d.Route),
+)
+
 const SupportInquiryListLazyRoute = SupportInquiryListLazyImport.update({
   path: '/support/inquiry/list',
   getParentRoute: () => rootRoute,
@@ -116,15 +121,6 @@ const SupportInquiryIdLazyRoute = SupportInquiryIdLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
   import('./routes/support/inquiry/$id.lazy').then((d) => d.Route),
-)
-
-const SupportInquiryNewIndexLazyRoute = SupportInquiryNewIndexLazyImport.update(
-  {
-    path: '/support/inquiry/new/',
-    getParentRoute: () => rootRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/support/inquiry/new/index.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -215,18 +211,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportInquiryListLazyImport
       parentRoute: typeof rootRoute
     }
+    '/support/inquiry/new': {
+      id: '/support/inquiry/new'
+      path: '/support/inquiry/new'
+      fullPath: '/support/inquiry/new'
+      preLoaderRoute: typeof SupportInquiryNewLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/support/inquiry/': {
       id: '/support/inquiry/'
       path: '/support/inquiry'
       fullPath: '/support/inquiry'
       preLoaderRoute: typeof SupportInquiryIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/support/inquiry/new/': {
-      id: '/support/inquiry/new/'
-      path: '/support/inquiry/new'
-      fullPath: '/support/inquiry/new'
-      preLoaderRoute: typeof SupportInquiryNewIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -247,8 +243,8 @@ export const routeTree = rootRoute.addChildren({
   SettingIndexLazyRoute,
   SupportInquiryIdLazyRoute,
   SupportInquiryListLazyRoute,
+  SupportInquiryNewLazyRoute,
   SupportInquiryIndexLazyRoute,
-  SupportInquiryNewIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -271,8 +267,8 @@ export const routeTree = rootRoute.addChildren({
         "/setting/",
         "/support/inquiry/$id",
         "/support/inquiry/list",
-        "/support/inquiry/",
-        "/support/inquiry/new/"
+        "/support/inquiry/new",
+        "/support/inquiry/"
       ]
     },
     "/": {
@@ -311,11 +307,11 @@ export const routeTree = rootRoute.addChildren({
     "/support/inquiry/list": {
       "filePath": "support/inquiry/list.lazy.tsx"
     },
+    "/support/inquiry/new": {
+      "filePath": "support/inquiry/new.lazy.tsx"
+    },
     "/support/inquiry/": {
       "filePath": "support/inquiry/index.lazy.tsx"
-    },
-    "/support/inquiry/new/": {
-      "filePath": "support/inquiry/new/index.lazy.tsx"
     }
   }
 }

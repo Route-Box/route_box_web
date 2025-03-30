@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { TextareaHTMLAttributes, useState } from 'react';
 import styled from 'styled-components';
 
-interface TextAreaWithCounterProps {
+interface TextAreaWithCounterProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder?: string;
   maxLength?: number;
   height?: number;
@@ -9,10 +9,13 @@ interface TextAreaWithCounterProps {
 }
 
 const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
+  name,
+  value,
   placeholder,
   maxLength = 200,
   height = 15,
   onChange,
+  ...props
 }) => {
   const [text, setText] = useState('');
 
@@ -24,7 +27,9 @@ const TextAreaWithCounter: React.FC<TextAreaWithCounterProps> = ({
   return (
     <Container height={height}>
       <Textarea
-        value={text}
+        name={name}
+        value={value}
+        {...props}
         onChange={handleChange}
         placeholder={placeholder}
         maxLength={maxLength}

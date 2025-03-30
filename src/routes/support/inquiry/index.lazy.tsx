@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/support/inquiry/')({
 });
 
 const NewInquiry = lazy(() =>
-  import('./new/index.lazy').then((module) => ({
+  import('./new.lazy').then((module) => ({
     default: module.NewInquiry,
   }))
 );

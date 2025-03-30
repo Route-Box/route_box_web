@@ -2,11 +2,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  height: 100vh; /* 전체 높이 설정 */
 }
 
 .tab-header {
   display: flex;
-  position: relative;
+  position: sticky;
+  top: 0;
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -42,11 +44,12 @@
 
 .tab-content-container {
   position: relative;
-  overflow: hidden;
+  flex: 1;
+  overflow-y: auto; /* 세로 스크롤만 허용 */
+  height: calc(100vh - 52px); /* header 높이(52px)만큼 빼기 */
 }
 
 .tab-content {
-  padding: 16px;
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
