@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="121" height="120" viewBox="0 0 121 120" fill="none">
+<g clip-path="url(#clip0_6784_14115)">
+<g filter="url(#filter0_f_6784_14115)">
+<ellipse cx="60.9696" cy="78.6925" rx="40.4696" ry="12.9503" fill="#21C8B6" fill-opacity="0.3"/>
+</g>
+<path d="M59.1339 11.6738L35.2229 18.0808C26.5498 20.4047 22.8607 26.8361 25.1923 35.5378L33.0892 65.0093C35.459 73.8536 41.839 77.4647 50.5121 75.1407L74.4231 68.7338C83.236 66.3724 86.813 60.0933 84.4432 51.249L76.5463 21.7775C74.2147 13.0759 67.9468 9.31243 59.1339 11.6738Z" fill="#21C8B6"/>
+<g filter="url(#filter1_f_6784_14115)">
+<rect x="42.7734" y="64.8594" width="38.1447" height="32.3014" transform="rotate(-105 42.7734 64.8594)" fill="#21C8B6"/>
+</g>
+<foreignObject x="18.6641" y="2.92969" width="101.166" height="107.073"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(12px);clip-path:url(#bgblur_1_6784_14115_clip_path);height:100%;width:100%"></div></foreignObject><path data-figma-bg-blur-radius="24" d="M81.6255 26.9297H56.8711C47.892 26.9297 42.6641 32.1872 42.6641 41.1958V71.7069C42.6641 80.8632 47.892 86.0025 56.8711 86.0025H81.6255C90.7493 86.0025 95.8296 80.8632 95.8296 71.7069V41.1958C95.8296 32.1872 90.7493 26.9297 81.6255 26.9297Z" fill="#21C8B6" fill-opacity="0.12"/>
+<circle cx="69.2063" cy="56.3235" r="3.26881" fill="white"/>
+<circle cx="81.4641" cy="56.3235" r="3.26881" fill="white"/>
+<circle cx="56.9485" cy="56.3235" r="3.26881" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_f_6784_14115" x="-9.5" y="35.7422" width="140.939" height="85.9004" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="15" result="effect1_foregroundBlur_6784_14115"/>
+</filter>
+<filter id="filter1_f_6784_14115" x="5.90088" y="-7.3457" width="95.0732" height="99.2051" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="13.5" result="effect1_foregroundBlur_6784_14115"/>
+</filter>
+<clipPath id="bgblur_1_6784_14115_clip_path" transform="translate(-18.6641 -2.92969)"><path d="M81.6255 26.9297H56.8711C47.892 26.9297 42.6641 32.1872 42.6641 41.1958V71.7069C42.6641 80.8632 47.892 86.0025 56.8711 86.0025H81.6255C90.7493 86.0025 95.8296 80.8632 95.8296 71.7069V41.1958C95.8296 32.1872 90.7493 26.9297 81.6255 26.9297Z"/>
+</clipPath><clipPath id="clip0_6784_14115">
+<rect width="120" height="120" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
