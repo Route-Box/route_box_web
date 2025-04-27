@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoaderBase from '@/assets/gif/loader.gif';
+import LoaderBase from '@/assets/png/loading-image.png';
+import Typography from './Typography';
 
 interface LoaderProps {
   size?: number;
@@ -9,8 +10,10 @@ interface LoaderProps {
 
 const LoaderWrapper = styled.div<LoaderProps>`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   ${(props) =>
     props.$fullScreen &&
     `
@@ -25,14 +28,18 @@ const LoaderWrapper = styled.div<LoaderProps>`
 `;
 
 const LoaderImage = styled.img<LoaderProps>`
-  width: ${(props) => props.size || 50}px;
-  height: ${(props) => props.size || 50}px;
+  width: ${(props) => props.size || 7.5}rem;
+  height: ${(props) => props.size || 7.5}rem;
 `;
 
 const Loader: React.FC<LoaderProps> = ({ size, $fullScreen = false }) => {
   return (
     <LoaderWrapper $fullScreen={$fullScreen}>
       <LoaderImage src={LoaderBase} alt="Loading..." size={size} />
+      <Typography variant="Body_B_M" color="#70747E">
+        정보를 불러오는 중입니다. <br />
+        잠시만 기다려 주세요.
+      </Typography>
     </LoaderWrapper>
   );
 };

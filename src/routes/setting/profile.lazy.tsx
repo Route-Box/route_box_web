@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/header/index';
-import CustomBtn from '@/components/common/custom-btn/index';
+import Button from '@/components/common/button/index';
 import { ProfileComponents } from '@/components/setting/profile';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
@@ -31,7 +31,9 @@ function ProfileContent() {
       <Header back go={ROUTES.SETTING.ROOT} title="회원 정보 수정" />
       <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
         <ProfileComponents />
-        <CustomBtn disabled={!hasChanges} text="저장하기" onClick={handleSubmit} />
+        <Button disabled={!hasChanges} onClick={handleSubmit}>
+          저장하기
+        </Button>
       </FlexBox>
     </DefaultLayout>
   );
