@@ -2,6 +2,7 @@ import { setTokenHeader } from '@/api/baseApi';
 import { useState, useCallback, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { storageKey } from '@/constants/storageKey';
+import Loader from '@/components/common/Loader';
 
 type MessageType = 'TOKEN' | 'PAGE_CHANGE' | 'TOKEN_EXPIRED' | 'LOGOUT' | 'WITHDRAW';
 type PageType = 'MY_ROUTE' | 'SEARCH' | 'ROUTE' | 'COUPON';
@@ -53,14 +54,36 @@ export function useNativeBridge() {
     window.localStorage.getItem(storageKey.accessToken)
   );
   const [isMessageVisible, setIsMessageVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingTimeout, setLoadingTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const toggleMessageVisibility = () => {
     setIsMessageVisible((prev) => !prev);
   };
 
+  const startLoading = useCallback(() => {
+    setIsLoading(true);
+    // 통신이 5초 이상 걸릴 경우 자동으로 로딩 상태를 해제합니다
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+    setLoadingTimeout(timeout);
+  }, []);
+
+  const stopLoading = useCallback(() => {
+    setIsLoading(false);
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+      setLoadingTimeout(null);
+    }
+  }, [loadingTimeout]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const sendMessageToNative = (message: NativeMessage) => {
     const messageString = JSON.stringify(message);
+
+    // 브릿지 통신 시작 시 로딩 상태 활성화
+    startLoading();
 
     if (window.Android) {
       window.Android.sendMessageToNative(messageString);
@@ -68,6 +91,8 @@ export function useNativeBridge() {
       window.webkit?.messageHandlers?.sendMessageToNative?.postMessage(messageString);
     } else {
       console.log('Native bridge not found');
+      // 네이티브 브릿지를 찾지 못한 경우 로딩 상태 해제
+      stopLoading();
     }
   };
 
@@ -87,11 +112,16 @@ export function useNativeBridge() {
           default:
             console.log('Unknown message type:', message.type);
         }
+
+        // 응답을 받으면 로딩 상태 해제
+        stopLoading();
       } catch (error) {
         console.error('Error parsing message:', error);
+        // 에러 발생 시 로딩 상태 해제
+        stopLoading();
       }
     },
-    [queryClient]
+    [queryClient, stopLoading]
   );
 
   useEffect(() => {
@@ -123,6 +153,15 @@ export function useNativeBridge() {
       delete window.NativeInterface?.sendMessageToWebView;
     };
   }, [handleReceivedMessage]);
+
+  useEffect(() => {
+    // 컴포넌트 unmount 시 타이머 정리
+    return () => {
+      if (loadingTimeout) {
+        clearTimeout(loadingTimeout);
+      }
+    };
+  }, [loadingTimeout]);
 
   const changePage = useCallback(
     (page: PageType, id?: string) => {
@@ -180,6 +219,12 @@ export function useNativeBridge() {
     );
   }, [isMessageVisible, token]);
 
+  const renderLoader = useCallback(() => {
+    if (!isLoading) return null;
+
+    return <Loader />;
+  }, [isLoading]);
+
   return {
     token,
     setToken,
@@ -189,5 +234,9 @@ export function useNativeBridge() {
     handleWithdraw,
     renderMessage,
     toggleMessageVisibility,
+    isLoading,
+    renderLoader,
+    startLoading,
+    stopLoading,
   };
 }
