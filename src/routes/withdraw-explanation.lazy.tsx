@@ -10,7 +10,7 @@ import useCheckList from '@/hooks/useCheckList';
 import { initialWithdrawValues } from '@/constants/initialValues';
 import GrayBox from '@/components/common/GrayBox';
 import { MarginDiv } from '@/styles';
-import CustomBtn from '@/components/common/custom-btn';
+import Button from '@/components/common/button';
 import CheckRadio from '@/components/common/CheckRadio';
 import TextAreaWithCounter from '@/components/common/TextAreaWithCounter';
 import { useNativeBridge } from '@/hooks/useNativeBridge';
@@ -87,11 +87,9 @@ function WithdrawExplanation() {
       </MarginDiv>
       <MarginDiv style={{ flex: 1 }} /> {/* 화면 하단으로 밀기 위한 공간 추가 */}
       <div style={{ padding: '1.25rem 1.375rem 0.5rem 1.375rem' }}>
-        <CustomBtn
-          disabled={!items.filter((item) => item.checked).length}
-          text="동의 및 탈퇴"
-          onClick={handleWithdraw}
-        />
+        <Button disabled={!items.filter((item) => item.checked).length} onClick={handleWithdraw}>
+          동의 및 탈퇴
+        </Button>
       </div>
     </DefaultLayout>
   );

@@ -1,5 +1,5 @@
 import { queryKey, userInfo } from '@/api/my-page/userInfo';
-import CustomBtn from '@/components/common/custom-btn/index';
+import Button from '@/components/common/button/index';
 import FlexBox from '@/components/common/flex-box';
 import { Header } from '@/components/common/header/index';
 import Write from '@/components/my-page/intro-edit/index';
@@ -30,10 +30,11 @@ function IntroEdit() {
     }
   }, [data]);
 
-  const { mutateAsync } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: userInfo.patchMyInfo,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey.userProfile] });
+      navigate({ from: '/my-page/intro-edit', to: '/my-page' });
     },
   });
 
@@ -41,20 +42,19 @@ function IntroEdit() {
     setInputValue(value);
   };
 
-  const handleClick = () => {
-    mutateAsync({
+  const handleClick = () =>
+    mutate({
       introduction: inputValue,
-    }).then(() => {
-      navigate({ from: '/my-page/intro-edit', to: '/my-page' });
     });
-  };
 
   return (
     <DefaultLayout>
       <Header back={true} go={ROUTES.MY_PAGE.ROOT} title="한 줄 소개" />
       <FlexBox col justify="space-between" px={1.38} py={1.25} h={'calc(100dvh - 4rem)'}>
         <Write value={inputValue} onInputChange={handleInputChange} />
-        <CustomBtn disabled={inputValue.length === 0} text="저장" onClick={handleClick} />
+        <Button disabled={inputValue.length === 0} onClick={handleClick}>
+          저장
+        </Button>
       </FlexBox>
     </DefaultLayout>
   );

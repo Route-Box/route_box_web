@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/header/index';
-import CustomBtn from '@/components/common/custom-btn/index';
+import Button from '@/components/common/button/index';
 import NotificationList from '@/components/setting/notificaiton/index';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
@@ -21,7 +21,9 @@ function Notifications() {
       <Header back={true} go={ROUTES.SETTING.ROOT} title="알림 설정" />
       <FlexBox col justify="space-between" h="calc(100dvh - 4rem)" px={1.37} py={1.25}>
         <NotificationList />
-        <CustomBtn disabled text="저장하기" onClick={handleClick} />
+        <Button disabled onClick={handleClick}>
+          저장하기
+        </Button>
       </FlexBox>
     </DefaultLayout>
   );

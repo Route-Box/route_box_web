@@ -4,6 +4,7 @@ import { AnyFieldApi, useForm } from '@tanstack/react-form';
 import { inquiryService } from '@/api/inquiry/inquiryService';
 import TextAreaWithCounter from '@/components/common/TextAreaWithCounter';
 import { ImageUploader } from '@/components/common/ImageUploader';
+import Button from '@/components/common/button';
 
 export const Route = createLazyFileRoute('/support/inquiry/new')({
   component: NewInquiry,
@@ -117,9 +118,9 @@ export const InquiryForm = () => {
         />
 
         {/* 제출 버튼 */}
-        <button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending} fullWidth>
           {isPending ? '제출 중...' : '문의하기'}
-        </button>
+        </Button>
       </form>
     </div>
   );
