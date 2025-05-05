@@ -1,0 +1,13 @@
+node_modules
+.git
+.DS_Store
+dist
+.cursor
+.anima
+.vscode
+__test__
+*.md
+.gitignore
+!README.md
+.env*
+*.log 
