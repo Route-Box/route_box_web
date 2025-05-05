@@ -9,5 +9,9 @@ __test__
 *.md
 .gitignore
 !README.md
-.env*
+.env
+.env.local
+.env.development
+.env.test
+!.env.prod
 *.log 

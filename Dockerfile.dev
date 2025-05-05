@@ -1,5 +1,5 @@
 # Build stage
-FROM oven/bun:1 AS build
+FROM oven/bun:debian AS build
 
 WORKDIR /app
 
@@ -12,11 +12,11 @@ RUN bun install
 # 소스 코드 복사
 COPY . .
 
-# 환경 변수 설정 - .env.prod 파일을 .env로 복사
-COPY .env.prod .env
+# 환경 변수 설정 - .env.dev 파일을 .env로 복사
+COPY .env.dev .env
 
 # 애플리케이션 빌드
-RUN bun run build --prod
+RUN bun run build
 
 # Production stage
 FROM nginx:alpine
